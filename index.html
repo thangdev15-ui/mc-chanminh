@@ -40,6 +40,16 @@ select option{color:#0A0A0A}
 a[style*="border-radius: 999px"][style*="padding"],button[style*="border-radius: 999px"][style*="padding"]{border-radius:2px !important}
 [style*="border-radius: 12px"],[style*="border-radius: 14px"],[style*="border-radius: 16px"],[style*="border-radius: 18px"],[style*="border-radius: 20px"],[style*="border-radius: 22px"],[style*="border-radius: 24px"],[style*="border-radius: 26px"],[style*="border-radius: 28px"],[style*="border-radius: 32px"]{border-radius:3px !important}
 .playbtn{border-radius:999px !important}
+.playlink{display:none !important}
+#player a[href*="youtu"]{display:none !important}
+.profile-download{background:#0A0A0A !important;color:#FFFFFF !important;box-shadow:none !important}
+.profile-download *{color:#FFFFFF !important}
+.profile-download-side{display:none !important}
+.vision-card,.mission-card{background:#0A0A0A !important;color:#FFFFFF !important}
+.stk > a[href*="drive.google"]{display:none !important}
+.g2 > a[href*="drive.google"]{background:#0A0A0A !important;color:#FFFFFF !important;box-shadow:none !important}
+.g2 > a[href*="drive.google"] *{color:#FFFFFF !important}
+#ve-chan-minh .padcard{background:#0A0A0A !important;color:#FFFFFF !important}
 
 .pgfade{animation:pgin .45s ease both}
 @keyframes pgin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -348,7 +358,6 @@ em,i{font-style:normal}
 
 <section style="background: #FFFFFF; color: #0A0A0A;"><div class="wrap g2" style="max-width: 1320px; margin: 0 auto; padding: 72px 40px; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: center;">
 <div style="display: flex; flex-direction: column; gap: 14px;"><span style="font-size: 12px; letter-spacing: 4px; font-weight: 800; color: #0A0A0A;">HỒ SƠ NĂNG LỰC · 2026</span><span class="h2" style="font-family: 'MHead', 'Montserrat', sans-serif; font-size: 42px; line-height: 1.08;">Profile <span style="font-style: italic; color: #0A0A0A;">Chấn Minh</span></span><span style="font-size: 16px; color: #5E5E5E; line-height: 1.6;">Show tiêu biểu, thương hiệu đồng hành, phong cách dẫn. Gửi kèm đề xuất cho khách hàng của bạn.</span></div>
-<a href="https://drive.google.com/file/d/1bsRcm-__OXMWuf11useDPPJOE8026oU6/view?usp=drive_link" target="_blank" rel="noopener" class="lift pdfglow" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 45%, #FFFFFF 100%); color: #0A0A0A; padding: 30px 32px; border-radius: 0; box-shadow: 0 18px 40px rgba(255,255,255,0.35);"><span style="display: flex; align-items: center; gap: 18px;"><span style="width: 58px; height: 72px; border: 1.5px solid #0A0A0A; background: #FFFFFF; color: #0A0A0A; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; letter-spacing: 1px;">PDF</span><span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 18px; font-weight: 800; letter-spacing: 2px;">TẢI PROFILE</span><span style="font-size: 13px; color: #0A0A0A;">Google Drive · mở ngay, không cần đăng nhập</span></span></span><span style="width: 52px; height: 52px; border-radius: 999px; background: #0A0A0A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><polyline points="7 10 12 15 17 10"></polyline><path d="M5 21h14"></path></svg></span></a>
 </div></section>
 <!-- ===== STATS ===== -->
 <section class="wrap" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 64px 40px 72px; box-sizing: border-box;">
@@ -1751,7 +1760,7 @@ class Component extends DCLogic {
       showMore: function () { set({ exLim: s.exLim + 9 }); },
 
       vChips: vChips, shelves: shelves, scrollLeft: scroller(-1), scrollRight: scroller(1),
-      vNoMatch: (activeChips.length > 0 || qWords.length > 0) && vMatchN === 0, fResult: vMatchN + ' video · ' + filtered.length + ' bộ ảnh', vHead: vCurRaw.theme === 'reel' ? 'BEST MOMENTS' : 'ĐANG XEM', vLocal: vCurRaw.local || '', vYtNoLocal: !!vCurRaw.yt && !vCurRaw.local, vYt: !!vCurRaw.yt, vYtSrc: vCurRaw.yt ? 'https://www.youtube.com/embed/' + vCurRaw.yt + '?rel=0&modestbranding=1&playsinline=1&vq=hd1080&enablejsapi=1' + (s.vAuto ? '&autoplay=1' : '') : '', vNoYt: !vCurRaw.yt, vYtUrl: vCurRaw.yt ? 'https://youtu.be/' + vCurRaw.yt : '', vYtWatch: vCurRaw.yt ? 'https://www.youtube.com/watch?v=' + vCurRaw.yt + '&autoplay=1' : '#video',
+      vNoMatch: (activeChips.length > 0 || qWords.length > 0) && vMatchN === 0, fResult: vMatchN + ' video · ' + filtered.length + ' bộ ảnh', vHead: vCurRaw.theme === 'reel' ? 'BEST MOMENTS' : 'ĐANG XEM', vLocal: vCurRaw.local || '', vYtNoLocal: !!vCurRaw.yt && !vCurRaw.local, vYt: !!vCurRaw.yt, vYtSrc: vCurRaw.yt ? 'https://www.youtube.com/embed/' + vCurRaw.yt + '?rel=0&modestbranding=1&playsinline=1&controls=1&vq=hd1080&enablejsapi=1' : '', vNoYt: !vCurRaw.yt, vYtUrl: vCurRaw.yt ? 'https://youtu.be/' + vCurRaw.yt : '', vYtWatch: vCurRaw.yt ? 'https://www.youtube.com/watch?v=' + vCurRaw.yt : '#video',
       vpReady: function (e) { ytWatch(); var f = e.currentTarget; if (f && f.contentWindow) f.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 'vplayer', channel: 'widget' }), '*'); },
       vCur: { title: vCurRaw.title, desc: vCurRaw.desc || '', catLabel: (vCurRaw.theme === 'reel' ? 'BEST MOMENTS' : vCatLabel(vCurRaw.cat).toUpperCase()) + (vLang[vCurRaw.lang] ? ' · ' + vLang[vCurRaw.lang].toUpperCase() : ''), meta: vCurRaw.yt ? 'MC Chấn Minh · YouTube' : 'MC Chấn Minh · [video sắp cập nhật]' },
       vHeart: this.heart('vid:' + s.vSel, 'Video', vCurRaw.title),
