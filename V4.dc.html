@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>MC Chấn Minh – V4 hoàn chỉnh</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0B0C;font-family:"Be Vietnam Pro",system-ui,sans-serif;color:#F4F0E8}
+a{color:#F4F0E8}a:hover{color:#FFFFFF}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+html{scroll-behavior:smooth}
+section,footer{scroll-margin-top:118px}
+input[type=range]{accent-color:#7A5A14}
+select option{color:#0B0B0C}
+.zoom{overflow:hidden}
+.zoom img{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.zoom:hover img{transform:scale(1.05)}
+.lift{transition:transform .25s ease,box-shadow .25s ease}
+.lift:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.ul{background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .3s}
+.ul:hover{background-size:100% 1px}
+.cmd-item:hover{background:#F4F0E8}
+.noscroll::-webkit-scrollbar{display:none}
+.noscroll{scrollbar-width:none}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marq{animation:marq 80s linear infinite}
+.marq:hover{animation-play-state:paused}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.rise{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.15s}.d2{animation-delay:.3s}.d3{animation-delay:.45s}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,184,95,.6)}100%{box-shadow:0 0 0 10px rgba(217,184,95,0)}}
+.pulse{animation:pulse 1.6s ease-out infinite}
+.show-sm{display:none !important}
+@media (prefers-reduced-motion: reduce){.marq,.rise,.pulse{animation:none}}
+@media (max-width: 1100px){
+.g4{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g3{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g5{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+.h2{font-size:40px !important}
+.hw{font-size:96px !important}
+}
+@media (max-width: 900px){
+.wrap{padding-left:20px !important;padding-right:20px !important}
+.sec{padding-top:72px !important;padding-bottom:72px !important}
+.g2,.hero{grid-template-columns:minmax(0,1fr) !important}
+.stk{position:static !important}
+.bento{grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-auto-rows:auto !important}
+.bento>*{min-height:220px}
+.h2{font-size:34px !important}
+.hw{font-size:72px !important}
+.tallimg{height:420px !important}
+.srch{max-width:none !important}
+}
+@media (max-width: 560px){
+.g3,.g5{grid-template-columns:minmax(0,1fr) !important}
+.g4s{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.bento{grid-template-columns:minmax(0,1fr) !important}
+.bento>*{grid-column:auto !important;grid-row:auto !important}
+.h2{font-size:29px !important}
+.hw{font-size:52px !important;letter-spacing:2px !important}
+.tallimg{height:340px !important}
+.hide-sm{display:none !important}
+.show-sm{display:flex !important}
+.padcard{padding:22px !important}
+.logobtn{min-width:110px !important;padding:0 12px !important;font-size:11px !important}
+}
+</style>
+</helmet>
+<div style="width: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #0B0B0C; position: relative;">
+
+<!-- ===== CTA NỔI: ZALO · FANPAGE · GỌI ===== -->
+<div style="position: fixed; right: 20px; bottom: 22px; z-index: 40; display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+<a href="https://zalo.me/0937700121" aria-label="Nhắn Zalo 0937 700 121" style="text-decoration: none; display: flex; align-items: center; gap: 10px; background: #0068FF; color: #FFFFFF; border-radius: 999px; padding: 6px 6px 6px 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); font-size: 14px; font-weight: 700;"><span class="hide-sm">Nhắn Zalo</span><span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; color: #0068FF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">Zalo</span></a>
+<a href="https://www.facebook.com/profile.php?id=100075965346162&amp;locale=vi_VN" aria-label="Nhắn Fanpage Chấn Minh" style="text-decoration: none; display: flex; align-items: center; gap: 10px; background: #1877F2; color: #FFFFFF; border-radius: 999px; padding: 6px 6px 6px 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); font-size: 14px; font-weight: 700;"><span class="hide-sm">Fanpage</span><span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; color: #1877F2; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.4 5.5 3.7 7.2V22l3.4-1.9c.9.3 1.9.4 2.9.4 5.5 0 10-4.1 10-9.2S17.5 2 12 2zm1 12.4-2.5-2.7-4.9 2.7 5.4-5.8 2.6 2.7 4.8-2.7-5.4 5.8z"></path></svg></span></a>
+<a href="tel:0937700121" aria-label="Gọi 0937 700 121" style="width: 52px; height: 52px; border-radius: 999px; background: #D9B85F; color: #0B0B0C; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 8px 20px rgba(0,0,0,0.4);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></a>
+</div>
+
+<!-- ===== BỘ SƯU TẬP (hiện khi đã thả tim) ===== -->
+<sc-if value="{{hasSaved}}" hint-placeholder-val="{{ false }}">
+<a href="#dat-lich" style="position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 40; text-decoration: none; display: flex; align-items: center; gap: 12px; background: #F4F0E8; color: #0B0B0C; border-radius: 999px; padding: 8px 8px 8px 20px; box-shadow: 0 14px 34px rgba(0,0,0,0.5); font-size: 15px; font-weight: 600; white-space: nowrap;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#7A5A14" stroke="#7A5A14" stroke-width="2" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>{{savedCount}} mục đã lưu<span style="background: #0B0B0C; color: #D9B85F; border-radius: 999px; padding: 9px 16px; font-weight: 800;">GỬI KÈM YÊU CẦU →</span></a>
+</sc-if>
+
+<!-- ===== TẤT CẢ LOGO ===== -->
+<sc-if value="{{logosOpen}}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 70; display: flex; justify-content: center; align-items: flex-start; padding: 6vh 16px; box-sizing: border-box;">
+<button type="button" onClick="{{closeLogos}}" aria-label="Đóng" style="position: absolute; inset: 0; border: none; background: rgba(0,0,0,0.78); cursor: default;"></button>
+<div role="dialog" aria-label="Thương hiệu đã đồng hành" style="position: relative; width: 1120px; max-width: 100%; max-height: 88vh; background: #F4F0E8; color: #0B0B0C; border-radius: 22px; display: flex; flex-direction: column; overflow: hidden;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 26px; border-bottom: 1px solid #E2DACB;">
+<span style="font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-weight: 500;">Thương hiệu <span style="font-style: italic; color: #7A5A14;">đã đồng hành</span></span>
+<button type="button" onClick="{{closeLogos}}" aria-label="Đóng" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #E2DACB; background: #FFFFFF; font-size: 20px; color: #0B0B0C;">×</button>
+</div>
+<div style="overflow-y: auto; padding: 22px 26px 28px;">
+<div class="g4s" style="display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{allLogos}}" as="l" hint-placeholder-count="24"><div role="img" aria-label="{{l.name}}" style="aspect-ratio: 77 / 62; border-radius: 12px; border: 1px solid #E2DACB; background-color: #FFFFFF; background-image: url('./assets/367aa4d2e5ee1693e9fe0e222a94e4c4.png'); background-size: 1000% 1200%; background-position: {{l.pos}}; background-repeat: no-repeat;"></div></sc-for>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<!-- ===== NAV + Ô TÌM KIẾM CÓ VÍ DỤ ===== -->
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(11,11,12,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #2A2A30;">
+<nav class="wrap" style="max-width: 1360px; margin: 0 auto; padding: 10px 32px 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 18px;">
+<a href="#top" aria-label="MC Chấn Minh – về đầu trang" style="text-decoration: none; display: flex; align-items: center; gap: 12px; flex-shrink: 0;"><img src="./assets/d49f929b000e9d4fcf9d419954969f3c.png" alt="" style="height: 44px; width: auto; display: block;"><span class="hide-sm" style="display: flex; flex-direction: column; gap: 3px;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; letter-spacing: 1.5px; color: #D9B85F; white-space: nowrap;">Chấn Minh</span><span style="font-size: 9px; letter-spacing: 2.2px; font-weight: 600; color: #C7C0B8;">CONNECTING MOMENTS · CREATING IMPACT</span></span></a>
+
+<div class="srch" style="position: relative; flex-grow: 1; max-width: 460px; min-width: 0;">
+<sc-if value="{{cmd}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{closeCmd}}" aria-label="Đóng tìm kiếm" style="position: fixed; inset: 0; border: none; background: rgba(0,0,0,0.55); cursor: default; z-index: 1;"></button></sc-if>
+<label style="position: relative; z-index: 2; display: flex; align-items: center; gap: 10px; background: #141416; border: 1px solid {{cmdBd}}; border-radius: 999px; padding: 0 6px 0 16px; min-height: 46px;">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#98928A" stroke-width="2" stroke-linecap="round" style="flex-shrink: 0;"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">Tìm show, video, trang phục</span>
+<input type="search" value="{{cmdQ}}" onInput="{{onCmdQ}}" onFocus="{{openCmd}}" onKeyDown="{{cmdKey}}" placeholder="Tìm show, video, trang phục…" style="flex-grow: 1; min-width: 0; min-height: 44px; border: none; outline: none; background: transparent; font-size: 15px; color: #F4F0E8;">
+<span class="hide-sm" style="flex-shrink: 0; font-size: 12px; color: #D9B85F; background: #221E14; border: 1px solid #3A3320; border-radius: 999px; padding: 6px 12px; white-space: nowrap;">VD: year end song ngữ</span>
+</label>
+<sc-if value="{{cmd}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 3; min-width: 320px; background: #FFFFFF; color: #0B0B0C; border-radius: 18px; box-shadow: 0 30px 80px rgba(0,0,0,0.55); overflow: hidden;">
+<div style="max-height: 460px; overflow-y: auto; padding: 10px 10px 14px;">
+<sc-if value="{{cmdEmpty}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 10px;">
+<span style="font-size: 11px; letter-spacing: 2px; font-weight: 700; color: #5E5850;">THỬ TÌM, VÍ DỤ</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{cmdExamples}}" as="x" hint-placeholder-count="6"><button type="button" onClick="{{x.pick}}" style="min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid #E2DACB; background: #F4F0E8; color: #0B0B0C; font-size: 14px; font-weight: 600;">{{x.label}}</button></sc-for></div>
+<span style="font-size: 13px; color: #5E5850; line-height: 1.5;">Gõ tên thương hiệu, loại chương trình, ngôn ngữ hoặc trang phục. Không cần gõ dấu.</span>
+</div>
+</sc-if>
+<sc-for list="{{cmdGroups}}" as="g" hint-placeholder-count="0">
+<div style="padding: 12px 12px 6px; font-size: 11px; letter-spacing: 2px; font-weight: 700; color: #5E5850;">{{g.label}}</div>
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+<a href="{{it.href}}" onClick="{{it.go}}" class="cmd-item" style="text-decoration: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; font-size: 15px; font-weight: 600; min-height: 44px; box-sizing: border-box; color: #0B0B0C;"><span>{{it.label}}</span><span style="font-size: 12px; color: #5E5850; font-weight: 500; flex-shrink: 0;">{{it.hint}}</span></a>
+</sc-for>
+</sc-for>
+<sc-if value="{{cmdNone}}" hint-placeholder-val="{{ false }}"><div style="padding: 24px 12px; text-align: center; font-size: 15px; color: #5E5850;">Chưa có kết quả. Thử “company trip”, “song ngữ” hoặc “vest”.</div></sc-if>
+</div>
+</div>
+</sc-if>
+</div>
+
+<div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+<a href="#dat-lich" aria-label="Mục đã lưu" class="hide-sm" style="text-decoration: none; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 0 12px; border: 1px solid #2A2A30; border-radius: 999px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#D9B85F" stroke="#D9B85F" stroke-width="2" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>{{savedCount}}</a>
+<a href="#dat-lich" style="text-decoration: none; background: #D9B85F; color: #0B0B0C; font-weight: 800; font-size: 13px; letter-spacing: 1px; padding: 14px 20px; border-radius: 999px; white-space: nowrap;">ĐẶT LỊCH</a>
+</div>
+</div>
+<div class="noscroll" style="display: flex; gap: 24px; justify-content: center; overflow-x: auto; padding: 9px 0 11px; font-size: 12px; font-weight: 700; letter-spacing: 1.2px;">
+<sc-for list="{{navLinks}}" as="n" hint-placeholder-count="8"><a href="{{n.href}}" class="ul" style="text-decoration: none; color: #C7C0B8; white-space: nowrap; flex-shrink: 0;">{{n.label}}</a></sc-for>
+</div>
+</nav>
+</header>
+
+<!-- ===== 01 HERO: CONNECTING — showreel — MOMENTS ===== -->
+<section id="top" class="wrap" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 28px 40px 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px 20px; flex-wrap: wrap;">
+<sc-if value="{{showAvail}}" hint-placeholder-val="{{ true }}"><a href="#dat-lich" style="text-decoration: none; display: flex; align-items: center; gap: 10px; background: #141416; border: 1px solid #3A3320; border-radius: 999px; padding: 9px 18px 9px 14px; font-size: 14px; font-weight: 600;"><span class="pulse" style="width: 9px; height: 9px; border-radius: 999px; background: #D9B85F; display: block; flex-shrink: 0;"></span>{{availText}}</a></sc-if>
+<span style="font-size: 12px; letter-spacing: 2.5px; font-weight: 700; color: #98928A;">MC SONG NGỮ · SỰ KIỆN DOANH NGHIỆP · <span style="color: #D9B85F;">TOÀN QUỐC</span></span>
+</div>
+<h1 aria-label="Connecting moments" style="margin: 0; display: contents;">
+<span class="hw rise" aria-hidden="true" style="display: block; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 128px; line-height: 0.95; letter-spacing: 6px; text-transform: uppercase; color: #F4F0E8;">Connecting</span>
+</h1>
+<div class="rise d1" style="position: relative; width: 100%; aspect-ratio: 16 / 7; border-radius: 26px; overflow: hidden; background: #000000; border: 1px solid #2A2A30;">
+<video id="reel" src="./assets/89a348bd748aaf7193b454213e230058.mp4" poster="./assets/2146260ae48a3c3bf4b53c5b7672a2fb.jpg" autoplay="" muted="" loop="" playsinline="" preload="auto" onLoadedData="{{heroReady}}" aria-label="Showreel MC Chấn Minh" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 36%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%); pointer-events: none;"></div>
+<span style="position: absolute; left: 26px; bottom: 24px; font-size: 12px; letter-spacing: 2.5px; font-weight: 700; color: #D9B85F;">SHOWREEL 2026</span>
+<button type="button" onClick="{{toggleSound}}" aria-label="{{soundLabel}}" style="position: absolute; right: 22px; bottom: 18px; min-height: 46px; background: rgba(11,11,12,0.85); border: 1px solid #D9B85F; color: #F4F0E8; border-radius: 999px; padding: 0 18px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="{{soundPath}}"></path></svg>{{soundLabel}}</button>
+</div>
+<div class="hero" style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 40px; align-items: end;">
+<div class="rise d2" style="display: flex; flex-direction: column; gap: 16px; padding-bottom: 12px;">
+<span style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 26px; line-height: 1.3; color: #D9B85F;">Xin chào, mình là Chấn Minh.</span>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C7C0B8; max-width: 540px;">Bùng nổ khi cần cháy, sang trọng khi cần lắng.</p>
+<div style="display: flex; gap: 12px; flex-wrap: wrap;">
+<a href="#dat-lich" style="text-decoration: none; background: #D9B85F; color: #0B0B0C; font-weight: 800; font-size: 14px; letter-spacing: 0.5px; padding: 16px 24px; border-radius: 999px;">KIỂM TRA LỊCH TRỐNG</a>
+<button type="button" onClick="{{playWithSound}}" style="display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; border: 1px solid #C7C0B8; background: transparent; color: #F4F0E8; font-size: 14px; font-weight: 700;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>Xem showreel có tiếng</button>
+</div>
+</div>
+<span class="hw rise d1" aria-hidden="true" style="display: block; text-align: right; font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 400; font-size: 128px; line-height: 0.95; letter-spacing: 2px; color: #D9B85F;">Moments.</span>
+</div>
+<div class="g4" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; border-top: 1px solid #2A2A30; margin-top: 18px; padding: 26px 0 40px;">
+<sc-for list="{{stats}}" as="st" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 50px; font-weight: 500; line-height: 1;">{{st.n}}</span><span style="font-size: 14px; color: #D9B85F; font-weight: 700;">{{st.l}}</span><span style="font-size: 13px; color: #98928A;">{{st.s}}</span></div>
+</sc-for>
+</div>
+</section>
+
+<!-- ===== LOGO CHẠY NGANG (không chú thích tên) ===== -->
+<section aria-label="Thương hiệu đã đồng hành" style="border-top: 1px solid #2A2A30; border-bottom: 1px solid #2A2A30; background: #0F0F11;">
+<div style="display: flex; align-items: stretch;">
+<div style="flex-grow: 1; min-width: 0; overflow: hidden; padding: 18px 0;">
+<div class="marq" style="display: flex; width: max-content; gap: 14px;">
+<sc-for list="{{marquee}}" as="m" hint-placeholder-count="20"><span role="img" aria-label="{{m.name}}" style="width: 96px; height: 72px; border-radius: 12px; display: block; flex-shrink: 0; background-color: #FFFFFF; background-image: url('./assets/367aa4d2e5ee1693e9fe0e222a94e4c4.png'); background-size: 1000% 1200%; background-position: {{m.pos}}; background-repeat: no-repeat;"></span></sc-for>
+</div>
+</div>
+<button class="logobtn" type="button" onClick="{{openLogos}}" style="flex-shrink: 0; min-width: 190px; border: none; border-left: 1px solid #2A2A30; background: #D9B85F; color: #0B0B0C; font-size: 13px; font-weight: 800; letter-spacing: 1px; padding: 0 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;"><span>200+ THƯƠNG HIỆU</span><span style="font-size: 12px; font-weight: 600; letter-spacing: 0;">Xem tất cả →</span></button>
+</div>
+</section>
+
+<!-- ===== 02 SHOW ĐÃ DẪN: ảnh thật, lọc theo loại ===== -->
+<section class="wrap sec" id="show" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 96px 40px 88px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 40px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">01 — SHOW ĐÃ DẪN</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 52px; line-height: 1.08;">Tìm sân khấu <span style="font-style: italic; color: #D9B85F;">giống sự kiện của bạn.</span></h2></div>
+<label style="position: relative; display: flex; align-items: center; gap: 10px; background: #141416; border: 1px solid #2A2A30; border-radius: 14px; padding: 0 8px 0 16px; width: 380px; max-width: 100%; box-sizing: border-box;">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#98928A" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">Lọc show</span>
+<input type="search" value="{{q}}" onInput="{{onQ}}" placeholder="VD: GS25, tai chinh, bai bien…" style="flex-grow: 1; min-width: 0; min-height: 50px; border: none; outline: none; background: transparent; font-size: 15px; color: #F4F0E8;">
+<span style="font-size: 13px; color: #98928A; white-space: nowrap; padding-right: 6px;">{{exCount}}</span>
+</label>
+</div>
+<div class="noscroll" style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px;">
+<sc-for list="{{evChips}}" as="c" hint-placeholder-count="8"><button type="button" onClick="{{c.pick}}" aria-pressed="{{c.on}}" style="flex-shrink: 0; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid {{c.bd}}; background: {{c.bg}}; color: {{c.fg}}; font-size: 14px; font-weight: 600; white-space: nowrap;">{{c.label}} <span style="opacity: 0.6;">{{c.n}}</span></button></sc-for>
+<button type="button" onClick="{{toggleBi}}" aria-pressed="{{biOnly}}" style="flex-shrink: 0; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1px dashed {{biBd}}; background: transparent; color: {{biFg}}; font-size: 14px; font-weight: 700; white-space: nowrap;">{{biLabel}}</button>
+</div>
+
+<sc-if value="{{hasCur}}" hint-placeholder-val="{{ true }}">
+<div class="g2" style="display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; align-items: start;">
+<div class="stk" style="position: sticky; top: 130px; display: flex; flex-direction: column; gap: 12px;">
+<div class="tallimg zoom" style="position: relative; height: 580px; border-radius: 24px; background: #141416;">
+<img src="{{cur.img}}" alt="{{cur.title}}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.85) 100%); pointer-events: none;"></div>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; padding: 28px 24px; pointer-events: none;">
+<span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 46px; line-height: 1; letter-spacing: 6px; color: #FFFFFF; text-shadow: 0 3px 18px rgba(0,0,0,0.45);">{{cur.tagA}}</span>
+<span style="display: flex; flex-direction: column; gap: 10px; align-items: center;"><span style="font-size: 12px; font-weight: 700; letter-spacing: 2.5px; color: #D9B85F; text-transform: uppercase;">{{cur.tagVi}}</span><span style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 500; font-size: 46px; line-height: 1; letter-spacing: 3px; color: #FFFFFF;">{{cur.tagB}}</span></span>
+</div>
+<button type="button" onClick="{{prevShow}}" aria-label="Show trước" style="position: absolute; left: 14px; top: 50%; margin-top: -23px; width: 46px; height: 46px; border-radius: 999px; border: none; background: rgba(244,240,232,0.92); color: #0B0B0C; font-size: 20px;">‹</button>
+<button type="button" onClick="{{nextShow}}" aria-label="Show sau" style="position: absolute; right: 14px; top: 50%; margin-top: -23px; width: 46px; height: 46px; border-radius: 999px; border: none; background: rgba(244,240,232,0.92); color: #0B0B0C; font-size: 20px;">›</button>
+<button type="button" onClick="{{curHeart.toggle}}" aria-label="{{curHeart.aria}}" style="position: absolute; right: 14px; top: 14px; width: 46px; height: 46px; border-radius: 999px; border: 1px solid {{curHeart.dbd}}; background: rgba(11,11,12,0.8); color: {{curHeart.dfg}}; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="{{curHeart.fill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg></button>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; align-items: flex-start;">
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 700; color: #D9B85F;">{{cur.meta}}</span><span style="font-size: 19px; font-weight: 700; line-height: 1.35;">{{cur.title}}</span><span style="font-size: 14px; color: #98928A;">{{cur.sub}}</span></div>
+<span style="font-size: 13px; color: #98928A; flex-shrink: 0;">{{curPos}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+<sc-for list="{{exShown}}" as="s" hint-placeholder-count="9">
+<button type="button" onClick="{{s.pick}}" aria-label="{{s.title}}" class="lift" style="text-align: left; padding: 6px; border-radius: 14px; border: 1.5px solid {{s.bd}}; background: #141416; color: #F4F0E8; display: flex; flex-direction: column; gap: 8px;">
+<span class="zoom" style="position: relative; display: block; border-radius: 10px; aspect-ratio: 4 / 3; background: #1C1C20;"><img src="{{s.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;"><sc-if value="{{s.saved}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: 6px; top: 6px; width: 24px; height: 24px; border-radius: 999px; background: rgba(11,11,12,0.85); color: #D9B85F; font-size: 13px; display: flex; align-items: center; justify-content: center;">♥</span></sc-if></span>
+<span style="padding: 0 4px 4px; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 10px; letter-spacing: 1.2px; font-weight: 700; color: #D9B85F;">{{s.eyebrow}}</span><span style="font-size: 13px; font-weight: 600; line-height: 1.35;">{{s.title}}</span></span>
+</button>
+</sc-for>
+<div style="border: 1.5px dashed #3A3A40; border-radius: 14px; min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 10px; color: #98928A; font-size: 12px; line-height: 1.4;"><span style="font-size: 22px; color: #D9B85F;">+</span>[Ảnh show mới]</div>
+</div>
+<sc-if value="{{exMore}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{showMore}}" style="align-self: center; min-height: 48px; padding: 0 26px; border-radius: 999px; border: 1px solid #C7C0B8; background: transparent; color: #F4F0E8; font-size: 14px; font-weight: 700;">Xem thêm {{exRest}} show</button></sc-if>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{noCur}}" hint-placeholder-val="{{ false }}"><div class="padcard" style="border: 1.5px dashed #3A3A40; border-radius: 18px; padding: 36px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 26px;">Chưa có show khớp tiêu chí này.</span><span style="font-size: 15px; color: #98928A;">Có thể sự kiện của anh chị sẽ là show đầu tiên như vậy.</span><div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;"><button type="button" onClick="{{clearQ}}" style="min-height: 46px; padding: 0 20px; border-radius: 999px; border: 1px solid #C7C0B8; background: transparent; color: #F4F0E8; font-size: 15px; font-weight: 700;">Xem tất cả show</button><a href="#dat-lich" style="text-decoration: none; background: #D9B85F; color: #0B0B0C; font-size: 15px; font-weight: 800; padding: 13px 22px; border-radius: 999px;">Gửi yêu cầu</a></div></div></sc-if>
+</section>
+
+<!-- ===== 03 VIDEO ===== -->
+<section class="sec" id="video" style="background: #000000; border-top: 1px solid #1C1C20; padding: 96px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 26px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">02 — VIDEO SỰ KIỆN</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 52px; line-height: 1.08;">Nghe giọng, <span style="font-style: italic; color: #D9B85F;">xem nhịp dẫn.</span></h2></div>
+<a href="https://www.youtube.com/@chanminh6499" style="text-decoration: none; display: flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid #2A2A30; font-size: 14px; font-weight: 700;"><svg width="22" height="16" viewBox="0 0 24 17" fill="#FF0033"><path d="M23.5 2.7A3 3 0 0 0 21.4.6C19.5 0 12 0 12 0S4.5 0 2.6.6A3 3 0 0 0 .5 2.7 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.8 31 31 0 0 0-.5-5.8z"></path><path d="M9.6 12.1 15.8 8.5 9.6 4.9z" fill="#FFFFFF"></path></svg>Kênh YouTube ↗</a>
+</div>
+<div class="g2" id="player" style="display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: start; scroll-margin-top: 130px;">
+<div style="position: relative; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; background-color: #141416; background-image: {{vBg}}; background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;">
+<span style="width: 84px; height: 84px; border-radius: 999px; background: #D9B85F; color: #0B0B0C; display: flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 20 12 7 20 7 4"></polygon></svg></span>
+<span style="font-size: 13px; background: rgba(0,0,0,0.7); padding: 6px 12px; border-radius: 999px;">[Video nhúng từ YouTube]</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<span style="font-size: 12px; letter-spacing: 1.5px; font-weight: 700; color: #D9B85F;">ĐANG XEM · {{vCur.catLabel}}</span>
+<span style="font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.25;">{{vCur.title}}</span>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+<button type="button" onClick="{{vHeart.toggle}}" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid {{vHeart.dbd}}; background: {{vHeart.dbg}}; color: {{vHeart.dfg}}; font-size: 14px; font-weight: 700;"><svg width="15" height="15" viewBox="0 0 24 24" fill="{{vHeart.fill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>{{vHeart.text}} video</button>
+<a href="#dat-lich" style="text-decoration: none; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; padding: 0 16px; border-radius: 999px; background: #D9B85F; color: #0B0B0C; font-size: 14px; font-weight: 800;">Muốn show như thế này →</a>
+</div>
+<div style="background: #141416; border: 1px solid #2A2A30; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 13px; font-weight: 800; letter-spacing: 1px;">CẢM NHẬN ({{vr.count}})</span><sc-if value="{{vr.has}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; font-weight: 700; color: #D9B85F;">{{vr.summary}}</span></sc-if></div>
+<sc-for list="{{vr.list}}" as="r" hint-placeholder-count="0"><div style="border-top: 1px solid #2A2A30; padding-top: 10px; display: flex; flex-direction: column; gap: 4px;"><span style="color: #D9B85F; font-size: 14px; letter-spacing: 1px;">{{r.stars}}</span><span style="font-size: 14px; line-height: 1.5;">{{r.text}}</span><span style="font-size: 12px; color: #98928A;">{{r.who}} · chờ xác minh</span></div></sc-for>
+<div style="display: flex; gap: 2px;"><sc-for list="{{vr.starBtns}}" as="b" hint-placeholder-count="5"><button type="button" onClick="{{b.pick}}" aria-label="{{b.aria}}" style="width: 36px; height: 36px; border: none; background: none; font-size: 24px; line-height: 1; color: {{b.color}}; padding: 0;">★</button></sc-for></div>
+<div style="display: flex; gap: 8px;"><input type="text" aria-label="Cảm nhận" placeholder="Cảm nhận của anh chị…" value="{{vr.text}}" onInput="{{vr.onText}}" style="flex-grow: 1; min-width: 0; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #2A2A30; background: #0B0B0C; color: #F4F0E8; font-size: 14px;"><button type="button" onClick="{{vr.submit}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: none; background: #F4F0E8; color: #0B0B0C; font-size: 14px; font-weight: 800;">Gửi</button></div>
+<sc-if value="{{vr.hasErr}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #F2A07A; font-weight: 600;">{{vr.err}}</span></sc-if>
+</div>
+</div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+<div class="noscroll" style="display: flex; gap: 8px; overflow-x: auto;">
+<sc-for list="{{vChips}}" as="t" hint-placeholder-count="6"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="flex-shrink: 0; min-height: 40px; padding: 0 16px; border-radius: 10px; border: none; background: {{t.bg}}; color: {{t.fg}}; font-size: 14px; font-weight: 700; white-space: nowrap;">{{t.label}}</button></sc-for>
+</div>
+<div class="hide-sm" style="display: flex; gap: 8px; flex-shrink: 0;">
+<button type="button" onClick="{{scrollLeft}}" aria-label="Cuộn trái" style="width: 42px; height: 42px; border-radius: 999px; border: 1px solid #2A2A30; background: #141416; color: #F4F0E8; font-size: 16px;">‹</button>
+<button type="button" onClick="{{scrollRight}}" aria-label="Cuộn phải" style="width: 42px; height: 42px; border-radius: 999px; border: 1px solid #2A2A30; background: #141416; color: #F4F0E8; font-size: 16px;">›</button>
+</div>
+</div>
+<div id="vrow" class="noscroll" style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px;">
+<sc-for list="{{vRow}}" as="v" hint-placeholder-count="4">
+<button type="button" onClick="{{v.pick}}" style="flex: 0 0 290px; scroll-snap-align: start; text-align: left; padding: 0; border: none; background: none; color: #F4F0E8; display: flex; flex-direction: column; gap: 10px;">
+<span style="position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #1C1C20; outline: {{v.outline}};">
+<sc-if value="{{v.hasThumb}}" hint-placeholder-val="{{ true }}"><img src="{{v.thumb}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;"></sc-if>
+<sc-if value="{{v.noThumb}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; color: #98928A; font-size: 12px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="#D9B85F"><polygon points="7 4 20 12 7 20 7 4"></polygon></svg>[Ảnh thumbnail]</span></sc-if>
+</span>
+<span style="display: flex; flex-direction: column; gap: 3px;"><span style="font-size: 15px; font-weight: 700; line-height: 1.35;">{{v.title}}</span><span style="font-size: 13px; color: #98928A;">{{v.tag}}</span></span>
+</button>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- ===== 04 VÌ SAO (bento) ===== -->
+<section class="sec" id="vi-sao" style="padding: 96px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 36px;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">03 — VÌ SAO LÀ CHẤN MINH</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 52px; line-height: 1.08;">Được mời lại, <span style="font-style: italic; color: #D9B85F;">là lời khen thật nhất.</span></h2></div>
+<div class="bento" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 210px; gap: 16px;">
+<div class="zoom" style="grid-column: span 2; grid-row: span 2; position: relative; border-radius: 24px; background: #141416;">
+<img src="./assets/d254df6e15cb8b7d321266c3ed3e53b1.jpg" alt="Chấn Minh dẫn chương trình trước hàng trăm người trên bãi biển" style="width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block;">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.88) 100%); pointer-events: none;"></div>
+<div style="position: absolute; left: 28px; right: 28px; bottom: 26px; display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; letter-spacing: 2.5px; font-weight: 700; color: #D9B85F;">TRIẾT LÝ</span><span style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 32px; line-height: 1.25; color: #FFFFFF;">“Sân khấu không phải của MC. MC giữ nhịp cho khoảnh khắc của người khác.”</span></div>
+</div>
+<div style="background: #D9B85F; color: #0B0B0C; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800;">PHỐI HỢP AGENCY</span><div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 25px; line-height: 1.15; font-weight: 500;">Khớp kịch bản của anh chị.</span><span style="font-size: 14px; line-height: 1.5;">Góp ý lời dẫn, khớp cue với đạo diễn.</span></div></div>
+<div style="background: #141416; border: 1px solid #2A2A30; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">NGÔN NGỮ DẪN</span><div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 25px; line-height: 1.2;">Việt · Anh · <span style="font-style: italic; color: #D9B85F;">Song ngữ</span></span><span style="font-size: 14px; color: #C7C0B8; line-height: 1.5;">Khách quốc tế vẫn giữ trọn nhịp.</span></div></div>
+<div style="background: #F4F0E8; color: #0B0B0C; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B0B0C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10v1a7 7 0 0 0 14 0v-1"></path><line x1="12" y1="18" x2="12" y2="22"></line></svg><div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 18px; font-weight: 800; line-height: 1.3;">Giọng nam trung miền Nam chuẩn</span><span style="font-size: 14px; color: #5E5850;">Biên độ: bùng nổ ↔ sang trọng.</span></div></div>
+<div style="background: #141416; border: 1px solid #2A2A30; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#D9B85F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg><div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 18px; font-weight: 800; line-height: 1.3;">Có mặt tổng duyệt</span><span style="font-size: 14px; color: #98928A;">Khớp nhịp âm thanh, ánh sáng trước giờ G.</span></div></div>
+<sc-for list="{{cases}}" as="c" hint-placeholder-count="3">
+<article class="zoom" style="grid-row: span 2; background: #141416; border: 1px solid #2A2A30; border-radius: 24px; display: flex; flex-direction: column;">
+<img src="{{c.img}}" alt="{{c.brand}}" style="width: 100%; height: 190px; object-fit: cover; display: block;">
+<div style="padding: 20px 22px; display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 11px; letter-spacing: 2px; font-weight: 700; color: #D9B85F;">{{c.tag}}</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 38px; font-weight: 500; line-height: 1;">{{c.big}}</span><span style="font-size: 16px; font-weight: 700;">{{c.brand}}</span><span style="font-size: 14px; line-height: 1.55; color: #C7C0B8;">{{c.desc}}</span></div>
+</article>
+</sc-for>
+<div style="grid-row: span 2; background: #F4F0E8; color: #0B0B0C; border-radius: 24px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 72px; line-height: 0.6; color: #7A5A14;">“</span><span style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.4;">[Một câu nhận xét thật từ agency hoặc khách hàng về cách Chấn Minh giữ nhịp chương trình.]</span><span style="display: flex; flex-direction: column; gap: 2px; border-top: 1px solid #E2DACB; padding-top: 12px;"><span style="font-size: 15px; font-weight: 800;">[Họ tên]</span><span style="font-size: 13px; color: #5E5850;">[Chức danh · Agency]</span></span></div>
+</div>
+</div>
+</section>
+
+<!-- ===== 05 VỀ CHẤN MINH (ivory) ===== -->
+<section id="ve-chan-minh" style="background: #F4F0E8; color: #0B0B0C;">
+<div class="wrap sec" style="max-width: 1320px; margin: 0 auto; padding: 96px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px;">
+<div class="g2" style="display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 48px; align-items: start;">
+<div class="stk" style="position: sticky; top: 130px; display: flex; flex-direction: column; gap: 12px;">
+<img class="tallimg" src="./assets/9db65a2e89d162910adcd1c789400a7f.jpg" alt="Chân dung MC Chấn Minh" style="width: 100%; height: 560px; object-fit: cover; object-position: center top; border-radius: 26px; display: block;">
+<a href="https://drive.google.com/file/d/1bsRcm-__OXMWuf11useDPPJOE8026oU6/view?usp=drive_link" style="text-decoration: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #0B0B0C; color: #F4F0E8; border-radius: 18px; padding: 16px 20px;"><span style="display: flex; align-items: center; gap: 12px;"><span style="width: 42px; height: 42px; border-radius: 10px; background: #D9B85F; color: #0B0B0C; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">PDF</span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 14px; font-weight: 800; letter-spacing: 1px;">TẢI PROFILE CHẤN MINH</span><span style="font-size: 13px; color: #C7C0B8;">Hồ sơ năng lực · Google Drive</span></span></span><span style="color: #D9B85F; font-size: 20px;">↗</span></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 24px;">
+<span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #7A5A14;">04 — VỀ CHẤN MINH</span>
+<h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 48px; line-height: 1.12;">Người giữ nhịp cho những <span style="font-style: italic; color: #7A5A14;">khoảnh khắc có sức ảnh hưởng.</span></h2>
+<p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 23px; line-height: 1.55; color: #2A2620;">Người dẫn không chỉ đọc kịch bản. Người dẫn kể câu chuyện của thương hiệu bằng đúng giọng nói, đúng tinh thần.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #4A453C;">Dù anh chị là agency hay doanh nghiệp tự tổ chức, mình đọc kỹ kịch bản, tìm hiểu văn hoá công ty và những con người đặc biệt phía sau, để lời dẫn mang đúng tiếng nói của anh chị. Đến cả trang phục và mùi hương cũng được chọn cùng anh chị.</p>
+<span style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 30px; color: #7A5A14;">— Chấn Minh</span>
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<div class="padcard" style="background: #0B0B0C; color: #F4F0E8; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 11px; letter-spacing: 2.5px; font-weight: 800; color: #D9B85F;">TẦM NHÌN</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 19px; line-height: 1.5;">MC được doanh nghiệp tin chọn cho những khoảnh khắc quan trọng nhất, và truyền cảm hứng cho thế hệ MC tiếp theo.</span></div>
+<div class="padcard" style="background: #D9B85F; color: #0B0B0C; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 11px; letter-spacing: 2.5px; font-weight: 800;">SỨ MỆNH</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 19px; line-height: 1.5;">Kết nối con người qua từng khoảnh khắc sân khấu, để mỗi sự kiện để lại dấu ấn văn hoá của thương hiệu.</span></div>
+</div>
+<div class="g5" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px;">
+<sc-for list="{{coreValues}}" as="v" hint-placeholder-count="5"><div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1; color: #7A5A14;">{{v.n}}</span><span style="font-size: 13px; font-weight: 800; letter-spacing: 1px;">{{v.t}}</span><span style="font-size: 12px; color: #4A453C; line-height: 1.5;">{{v.s}}</span></div></sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #E2DACB; padding-top: 18px;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">HIỂU NGÀNH CỦA KHÁCH HÀNG</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{industries}}" as="i" hint-placeholder-count="6"><span style="font-size: 13px; font-weight: 600; padding: 8px 13px; border-radius: 999px; background: #FFFFFF; border: 1px solid #E2DACB;">{{i}}</span></sc-for></div>
+</div>
+<div style="display: flex; flex-direction: column; border-top: 1px solid #E2DACB;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850; padding: 18px 0 4px;">BÁO CHÍ VIẾT VỀ CHẤN MINH</span>
+<sc-for list="{{press}}" as="p" hint-placeholder-count="3"><a href="{{p.url}}" style="text-decoration: none; color: #0B0B0C; padding: 14px 0; border-bottom: 1px solid #E2DACB; display: flex; justify-content: space-between; gap: 16px; font-size: 16px; font-weight: 600; line-height: 1.45;"><span style="display: flex; flex-direction: column; gap: 3px;"><span class="ul" style="align-self: flex-start;">{{p.title}}</span><span style="font-size: 13px; color: #5E5850; font-weight: 500;">{{p.site}}</span></span><span style="color: #7A5A14; flex-shrink: 0;">↗</span></a></sc-for>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== 06 HỒ SƠ SHOW ===== -->
+<section class="sec" id="ho-so" style="padding: 96px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 40px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 40px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">05 — HỒ SƠ SHOW</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 52px; line-height: 1.08;">Ba lựa chọn, <span style="font-style: italic; color: #D9B85F;">một chiến lược dẫn.</span></h2></div>
+<p style="margin: 0; font-size: 15px; color: #98928A; line-height: 1.6; max-width: 360px;">Chọn chương trình, không khí, ngôn ngữ. Nhận ngay phong cách dẫn và trang phục gợi ý.</p>
+</div>
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px; align-items: start;">
+<div style="display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #98928A;">1 · LOẠI CHƯƠNG TRÌNH</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;"><sc-for list="{{mEvBtns}}" as="b" hint-placeholder-count="7"><button type="button" onClick="{{b.pick}}" aria-pressed="{{b.on}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid {{b.bd}}; background: {{b.bg}}; color: {{b.fg}}; font-size: 14px; font-weight: 600;">{{b.label}}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><label for="m-vibe" style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #98928A;">2 · KHÔNG KHÍ MONG MUỐN</label><span style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 20px; color: #D9B85F;">{{vibeLabel}}</span></div>
+<input id="m-vibe" type="range" min="0" max="100" step="1" value="{{mVibe}}" onInput="{{onVibe}}" style="width: 100%; height: 32px; accent-color: #D9B85F;">
+<div style="display: flex; justify-content: space-between; font-size: 13px; color: #98928A;"><span>Sang trọng, tiết chế</span><span>Bùng nổ, hài hước</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #98928A;">3 · NGÔN NGỮ DẪN</span>
+<div style="display: flex; background: #141416; border: 1px solid #2A2A30; border-radius: 999px; padding: 4px;"><sc-for list="{{mLangBtns}}" as="b" hint-placeholder-count="3"><button type="button" onClick="{{b.pick}}" aria-pressed="{{b.on}}" style="flex-grow: 1; min-height: 42px; border-radius: 999px; border: none; background: {{b.bg}}; color: {{b.fg}}; font-size: 14px; font-weight: 700;">{{b.label}}</button></sc-for></div></div>
+<div class="g4 g4s" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; border-top: 1px solid #2A2A30; padding-top: 22px;">
+<sc-for list="{{rings}}" as="r" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; background: #141416; border: 1px solid #2A2A30; border-radius: 18px; padding: 16px 8px 14px;">
+<div style="position: relative; width: 78px; height: 78px;"><svg width="78" height="78" viewBox="0 0 84 84" style="display: block; transform: rotate(-90deg);"><circle cx="42" cy="42" r="34" fill="none" stroke="#2A2A30" stroke-width="6"></circle><circle cx="42" cy="42" r="34" fill="none" stroke="#D9B85F" stroke-width="6" stroke-linecap="round" stroke-dasharray="{{r.dash}}"></circle></svg><span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', Georgia, serif; font-size: 22px;">{{r.val}}</span></div>
+<span style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">{{r.label}}</span>
+</div>
+</sc-for>
+</div>
+<span style="font-size: 12px; color: #98928A; margin-top: -16px;">Thang minh hoạ theo lựa chọn của anh chị, không phải điểm đánh giá.</span>
+</div>
+<div class="padcard" style="background: #F4F0E8; color: #0B0B0C; border-radius: 26px; padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span style="font-size: 12px; letter-spacing: 2.5px; font-weight: 800; color: #7A5A14;">GỢI Ý CHO {{mEvLabelUpper}}</span>
+<button type="button" onClick="{{mHeart.toggle}}" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid {{mHeart.lbd}}; background: {{mHeart.lbg}}; color: {{mHeart.lfg}}; font-size: 14px; font-weight: 700;"><svg width="15" height="15" viewBox="0 0 24 24" fill="{{mHeart.fill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>{{mHeart.text}} hồ sơ</button></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 32px; line-height: 1.15;">{{mStyle.title}}</h3><p style="margin: 0; font-size: 15px; line-height: 1.65; color: #4A453C;">{{mStyle.desc}}</p></div>
+<div style="display: grid; grid-template-columns: 128px minmax(0, 1fr); gap: 18px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 18px; padding: 12px;">
+<div style="border-radius: 12px; overflow: hidden; height: 164px; background: #EAE3D6;"><img src="{{mOutfit.img}}" alt="{{mOutfit.label}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block;"></div>
+<div style="display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+<div style="display: flex; flex-direction: column; gap: 3px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: #5E5850;">TRANG PHỤC</span><span style="font-size: 16px; font-weight: 700; line-height: 1.3;">{{mOutfit.label}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 3px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: #5E5850;">MÙI HƯƠNG</span><span style="font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px;"><span style="width: 13px; height: 13px; border-radius: 999px; background: {{mScent.tone}}; display: block;"></span>{{mScent.label}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 3px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: #5E5850;">NGÔN NGỮ</span><span style="font-size: 15px; font-weight: 600;">{{mLangLabel}}</span></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: #5E5850;">CHẤN MINH SẼ CHUẨN BỊ</span>
+<sc-for list="{{mPrep}}" as="i" hint-placeholder-count="3"><div style="display: flex; gap: 12px; font-size: 15px; line-height: 1.5;"><span style="color: #7A5A14; font-weight: 800;">✓</span><span>{{i}}</span></div></sc-for></div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+<a href="#trang-phuc" onClick="{{applyMatch}}" style="text-decoration: none; background: #0B0B0C; color: #D9B85F; font-weight: 800; font-size: 13px; letter-spacing: 0.5px; padding: 15px 22px; border-radius: 999px;">ÁP DỤNG VÀO TRANG PHỤC →</a>
+<a href="#dat-lich" onClick="{{applyMatch}}" style="text-decoration: none; border: 1px solid #0B0B0C; color: #0B0B0C; font-weight: 700; font-size: 13px; padding: 14px 20px; border-radius: 999px;">Gửi hồ sơ, nhận báo giá</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== 07 TRANG PHỤC: lưới 4 ô ===== -->
+<section class="sec" id="trang-phuc" style="background: #F4F0E8; color: #0B0B0C; padding: 96px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 26px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 40px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #7A5A14;">06 — TRANG PHỤC</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 52px; line-height: 1.08;">Mặc cho câu chuyện <span style="font-style: italic; color: #7A5A14;">của đêm anh chị tổ chức.</span></h2></div>
+<div class="noscroll" style="display: flex; gap: 8px; overflow-x: auto;"><sc-for list="{{catTabs}}" as="t" hint-placeholder-count="3"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="flex-shrink: 0; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid {{t.bd}}; background: {{t.bg}}; color: {{t.fg}}; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap;">{{t.label}} <span style="opacity: 0.65; font-weight: 600;">· {{t.count}}</span></button></sc-for></div>
+</div>
+<div class="g4 g4s" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{outfitSlots}}" as="o" hint-placeholder-count="8">
+<sc-if value="{{o.real}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{o.pick}}" aria-label="{{o.label}}" class="lift" style="position: relative; text-align: left; padding: 6px; border-radius: 18px; border: 2px solid {{o.bd}}; background: #FFFFFF; color: #0B0B0C; display: flex; flex-direction: column; gap: 8px; width: 100%;">
+<span class="zoom" style="display: block; border-radius: 13px; height: 230px; background: {{o.swatch}};"><sc-if value="{{o.hasImg}}" hint-placeholder-val="{{ true }}"><img src="{{o.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block;"></sc-if></span>
+<sc-if value="{{o.saved}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: 14px; top: 14px; width: 28px; height: 28px; border-radius: 999px; background: #0B0B0C; color: #D9B85F; font-size: 14px; display: flex; align-items: center; justify-content: center;">♥</span></sc-if>
+<span style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: {{o.codeColor}};">{{o.code}}</span><span style="font-size: 14px; font-weight: 600; line-height: 1.35;">{{o.label}}</span></span>
+</button>
+</sc-if>
+<sc-if value="{{o.empty}}" hint-placeholder-val="{{ false }}">
+<div style="border: 1.5px dashed #CFC5B3; border-radius: 18px; min-height: 290px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 12px; color: #5E5850; font-size: 13px;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 34px; color: #7A5A14; line-height: 1;">+</span>[Bộ trang phục mới]</div>
+</sc-if>
+</sc-for>
+</div>
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 28px; padding: 26px;">
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+<div style="grid-column: span 2; border-radius: 18px; overflow: hidden; height: 380px; background: {{oc.swatch}}; display: flex; align-items: center; justify-content: center;">
+<sc-if value="{{oc.hasImg}}" hint-placeholder-val="{{ true }}"><img src="{{oc.img}}" alt="{{oc.label}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block;"></sc-if>
+<sc-if value="{{oc.noImg}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; font-weight: 600; color: #F4F0E8; background: rgba(0,0,0,0.6); padding: 8px 14px; border-radius: 999px;">[Ảnh toàn thân]</span></sc-if>
+</div>
+<div style="height: 110px; border-radius: 14px; background: #F4F0E8; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #5E5850; font-weight: 600;">[Ảnh cận chi tiết]</div>
+<div style="height: 110px; border-radius: 14px; background: #F4F0E8; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #5E5850; font-weight: 600;">[Ảnh trên sân khấu]</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px; padding: 4px;">
+<span style="font-size: 12px; color: #5E5850; font-weight: 700; letter-spacing: 1px;">{{oc.catLabelUpper}} · {{oc.code}}</span>
+<h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 32px; line-height: 1.15;">{{oc.label}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.65; color: #4A453C;">{{oc.inspo}}</p>
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+<div style="background: #F4F0E8; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; color: #5E5850;">Độ trang trọng</span><span style="font-size: 14px; font-weight: 800; color: #7A5A14; letter-spacing: 2px;">{{oc.dots}}</span></div>
+<div style="background: #F4F0E8; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; color: #5E5850;">Năng lượng</span><span style="font-size: 14px; font-weight: 700;">{{oc.energy}}</span></div>
+<div style="background: #F4F0E8; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; color: #5E5850;">Thiết kế cho</span><span style="font-size: 14px; font-weight: 700;">{{oc.forEv}}</span></div>
+</div>
+<div style="display: flex; gap: 16px; font-size: 14px; line-height: 1.6; border-top: 1px solid #EAE3D6; padding-top: 12px;"><span style="flex-shrink: 0; width: 120px; color: #5E5850;">Khi nào nên chọn</span><span>{{oc.when}}</span></div>
+<div style="display: flex; gap: 10px;">
+<button type="button" onClick="{{choose}}" style="flex-grow: 1; min-height: 54px; border: none; border-radius: 999px; background: {{chooseBg}}; color: {{chooseFg}}; font-size: 14px; font-weight: 800; letter-spacing: 0.5px;">{{chooseLabel}}</button>
+<button type="button" onClick="{{oc.h.toggle}}" aria-label="{{oc.h.aria}}" style="width: 54px; height: 54px; border-radius: 999px; border: 1px solid {{oc.h.lbd}}; background: {{oc.h.lbg}}; color: {{oc.h.lfg}}; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="{{oc.h.fill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg></button>
+<button type="button" onClick="{{nextOutfit}}" aria-label="Bộ tiếp theo" style="width: 54px; height: 54px; border-radius: 999px; border: 1px solid #E2DACB; background: #FFFFFF; color: #0B0B0C; font-size: 20px;">→</button>
+</div>
+<div style="background: #F4F0E8; border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;"><span style="font-size: 14px; font-weight: 700;">Dùng nước hoa hợp tone chương trình?</span>
+<div role="radiogroup" aria-label="Chọn dùng nước hoa" style="display: flex; background: #FFFFFF; border-radius: 999px; padding: 3px;"><sc-for list="{{scentAsk}}" as="b" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{b.on}}" onClick="{{b.pick}}" style="min-height: 38px; padding: 0 14px; border-radius: 999px; border: none; background: {{b.bg}}; color: {{b.fg}}; font-size: 13px; font-weight: 700;">{{b.label}}</button></sc-for></div></div>
+<sc-if value="{{scentYes}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 8px;"><div style="display: flex; gap: 6px; flex-wrap: wrap;"><sc-for list="{{scents}}" as="sc" hint-placeholder-count="4"><button type="button" onClick="{{sc.pick}}" aria-pressed="{{sc.on}}" style="min-height: 38px; padding: 0 12px 0 8px; border-radius: 999px; border: 1.5px solid {{sc.bd}}; background: {{sc.bg}}; color: #0B0B0C; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px;"><span style="width: 14px; height: 14px; border-radius: 999px; background: {{sc.tone}}; display: block;"></span>{{sc.label}}</button></sc-for></div><span style="font-size: 13px; color: #4A453C; line-height: 1.5;">{{scentCur.notes}}</span></div></sc-if>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== 08 BÁO GIÁ & ĐẶT LỊCH ===== -->
+<section class="sec" id="dat-lich" style="padding: 96px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">07 — BÁO GIÁ &amp; ĐẶT LỊCH</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 52px; line-height: 1.08;">Tháng 10 đang kín dần. <span style="font-style: italic; color: #D9B85F;">Giữ ngày của anh chị.</span></h2></div>
+<div class="g4 g4s" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;">
+<sc-for list="{{assurances}}" as="a" hint-placeholder-count="4"><div style="display: flex; gap: 12px; align-items: center; background: #141416; border: 1px solid #2A2A30; border-radius: 16px; padding: 14px;"><span style="width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px; background: #221E14; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D9B85F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{a.icon}}"></path></svg></span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 14px; font-weight: 800;">{{a.t}}</span><span style="font-size: 12px; color: #98928A; line-height: 1.4;">{{a.s}}</span></span></div></sc-for>
+</div>
+<div class="g2" style="display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 28px; align-items: start;">
+<div class="stk" style="display: flex; flex-direction: column; gap: 14px; position: sticky; top: 130px;">
+<div style="background: #F4F0E8; color: #0B0B0C; border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 500;">Tháng 10 · 2026</span><span style="font-size: 13px; color: #4A453C;">Còn <strong style="color: #0B0B0C;">{{freeWeekend}} ngày cuối tuần</strong></span></div>
+<div style="display: flex; gap: 12px; font-size: 12px; color: #4A453C; flex-wrap: wrap;"><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 11px; height: 11px; border-radius: 3px; background: #E2DACB; display: block;"></span>Đã kín</span><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 11px; height: 11px; border-radius: 3px; border: 2px solid #7A5A14; box-sizing: border-box; display: block;"></span>Cuối tuần trống</span><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 11px; height: 11px; border-radius: 3px; background: #0B0B0C; display: block;"></span>Anh chị chọn</span></div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; font-size: 11px; font-weight: 700; color: #5E5850; text-align: center;"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px;">
+<sc-for list="{{cells}}" as="d" hint-placeholder-count="35"><button type="button" onClick="{{d.pick}}" disabled="{{d.disabled}}" aria-label="{{d.aria}}" aria-hidden="{{d.hidden}}" style="height: 42px; border-radius: 9px; font-size: 14px; font-weight: 700; background: {{d.bg}}; color: {{d.fg}}; border: {{d.bd}}; box-sizing: border-box; text-decoration: {{d.deco}}; visibility: {{d.vis}};">{{d.n}}</button></sc-for>
+</div>
+<span style="font-size: 12px; color: #5E5850;">Chạm ngày trống để điền vào phiếu. [Lịch minh hoạ]</span>
+</div>
+<div style="background: #141416; border: 1px solid #2A2A30; border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-size: 13px; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#D9B85F" stroke="#D9B85F" stroke-width="2" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"></path></svg>BỘ SƯU TẬP SHOW</span><span style="font-size: 13px; color: #98928A;">{{savedCount}} mục</span></div>
+<sc-if value="{{noSaved}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #98928A; line-height: 1.55;">Thả ♡ trên show, video, trang phục hoặc hồ sơ show. Bộ sưu tập gửi kèm yêu cầu, agency có thể chuyển thẳng cho khách.</span></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{savedList}}" as="it" hint-placeholder-count="2"><span style="display: flex; align-items: center; gap: 8px; background: #1C1C20; border-radius: 999px; padding: 4px 4px 4px 12px; font-size: 13px;"><span style="color: #D9B85F; font-size: 10px; font-weight: 800; letter-spacing: 1px;">{{it.kind}}</span><span>{{it.label}}</span><button type="button" onClick="{{it.remove}}" aria-label="Bỏ lưu {{it.label}}" style="width: 30px; height: 30px; border-radius: 999px; border: none; background: #2A2A30; color: #F4F0E8; font-size: 14px;">×</button></span></sc-for></div>
+<span style="font-size: 12px; color: #98928A; border-top: 1px solid #2A2A30; padding-top: 10px;">Trang phục: <strong style="color: #F4F0E8;">{{pickedLabel}}</strong> · Hương: <strong style="color: #F4F0E8;">{{scentCur.label}}</strong></span>
+</div>
+</div>
+
+<div class="padcard" style="background: #F4F0E8; color: #0B0B0C; border-radius: 24px; padding: 30px; display: flex; flex-direction: column; gap: 18px;">
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">ANH CHỊ LIÊN HỆ VỚI TƯ CÁCH *</span>
+<div class="g2" role="radiogroup" aria-label="Tư cách liên hệ" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+<sc-for list="{{roleCards}}" as="r" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{r.on}}" onClick="{{r.pick}}" style="text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 14px; border: 2px solid {{r.bd}}; background: {{r.bg}}; color: #0B0B0C;"><span style="display: flex; justify-content: space-between; align-items: center; gap: 10px;"><span style="font-size: 13px; font-weight: 800; letter-spacing: 0.5px;">{{r.title}}</span><span style="width: 18px; height: 18px; border-radius: 999px; border: 2px solid #0B0B0C; display: flex; align-items: center; justify-content: center; box-sizing: border-box; flex-shrink: 0;"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{r.dot}}; display: block;"></span></span></span><span style="font-size: 12px; color: #5E5850; line-height: 1.45;">{{r.desc}}</span></button></sc-for>
+</div></div>
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{orgFields}}" as="fl" hint-placeholder-count="2"><div style="display: flex; flex-direction: column; gap: 6px;"><label for="{{fl.id}}" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">{{fl.label}}</label><input id="{{fl.id}}" type="text" value="{{fl.value}}" onInput="{{fl.onInput}}" placeholder="{{fl.ph}}" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{fl.bd}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"></div></sc-for>
+</div>
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-name" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">NGƯỜI LIÊN HỆ *</label><input id="f-name" type="text" autocomplete="name" value="{{f.name}}" onInput="{{f.onName}}" placeholder="Họ và tên" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{f.bdName}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-phone" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">ĐIỆN THOẠI / ZALO *</label><input id="f-phone" type="tel" autocomplete="tel" value="{{f.phone}}" onInput="{{f.onPhone}}" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{f.bdPhone}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-email" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">EMAIL</label><input id="f-email" type="email" autocomplete="email" value="{{f.email}}" onInput="{{f.onEmail}}" placeholder="Không bắt buộc" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{f.bdEmail}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"></div>
+</div>
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-date" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">NGÀY DIỄN RA *</label><input id="f-date" type="date" value="{{f.date}}" onInput="{{f.onDate}}" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{f.bdDate}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-type" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">LOẠI CHƯƠNG TRÌNH *</label><select id="f-type" value="{{f.type}}" onChange="{{f.onType}}" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1px solid {{f.bdType}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"><option value="">Chọn chương trình</option><option value="yep">Year End Party</option><option value="gala">Gala Dinner</option><option value="trip">Company Trip</option><option value="tb">Team Building</option><option value="sport">Sport Day</option><option value="conf">Hội nghị &amp; Hội thảo</option><option value="cere">Khai trương &amp; Kỷ niệm</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-guests" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">SỐ KHÁCH *</label><input id="f-guests" type="number" min="1" inputmode="numeric" value="{{f.guests}}" onInput="{{f.onGuests}}" placeholder="VD: 350" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{f.bdGuests}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"></div>
+</div>
+<div class="g2" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-prov" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">TỈNH / THÀNH *</label><select id="f-prov" value="{{f.prov}}" onChange="{{f.onProv}}" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1px solid {{f.bdProv}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"><option value="">Chọn tỉnh / thành</option><option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option><option value="Hà Nội">Hà Nội</option><option value="Đà Nẵng">Đà Nẵng</option><option value="Hải Phòng">Hải Phòng</option><option value="Cần Thơ">Cần Thơ</option><option value="Huế">Huế</option><option value="An Giang">An Giang</option><option value="Bắc Ninh">Bắc Ninh</option><option value="Cà Mau">Cà Mau</option><option value="Cao Bằng">Cao Bằng</option><option value="Đắk Lắk">Đắk Lắk</option><option value="Điện Biên">Điện Biên</option><option value="Đồng Nai">Đồng Nai</option><option value="Đồng Tháp">Đồng Tháp</option><option value="Gia Lai">Gia Lai</option><option value="Hà Tĩnh">Hà Tĩnh</option><option value="Hưng Yên">Hưng Yên</option><option value="Khánh Hòa">Khánh Hòa</option><option value="Lai Châu">Lai Châu</option><option value="Lâm Đồng">Lâm Đồng</option><option value="Lạng Sơn">Lạng Sơn</option><option value="Lào Cai">Lào Cai</option><option value="Nghệ An">Nghệ An</option><option value="Ninh Bình">Ninh Bình</option><option value="Phú Thọ">Phú Thọ</option><option value="Quảng Ngãi">Quảng Ngãi</option><option value="Quảng Ninh">Quảng Ninh</option><option value="Quảng Trị">Quảng Trị</option><option value="Sơn La">Sơn La</option><option value="Tây Ninh">Tây Ninh</option><option value="Thái Nguyên">Thái Nguyên</option><option value="Thanh Hóa">Thanh Hóa</option><option value="Tuyên Quang">Tuyên Quang</option><option value="Vĩnh Long">Vĩnh Long</option><option value="Nước ngoài">Nước ngoài</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-venue" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">ĐỊA ĐIỂM CỤ THỂ *</label><input id="f-venue" type="text" value="{{f.venue}}" onInput="{{f.onVenue}}" placeholder="Khách sạn, resort, trung tâm hội nghị…" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{f.bdVenue}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">NGÔN NGỮ DẪN *</span><div role="radiogroup" aria-label="Ngôn ngữ dẫn" style="display: flex; background: #FFFFFF; border: 1px solid {{f.bdLang}}; border-radius: 999px; padding: 4px;"><sc-for list="{{fLangBtns}}" as="b" hint-placeholder-count="3"><button type="button" role="radio" aria-checked="{{b.on}}" onClick="{{b.pick}}" style="flex-grow: 1; min-height: 40px; border-radius: 999px; border: none; background: {{b.bg}}; color: {{b.fg}}; font-size: 14px; font-weight: 700;">{{b.label}}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 16px; padding: 14px;">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">NGÂN SÁCH CHO HẠNG MỤC MC *</span>
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;"><sc-for list="{{budgetBtns}}" as="b" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{b.on}}" onClick="{{b.pick}}" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1.5px solid {{b.bd}}; background: {{b.bg}}; color: #0B0B0C; font-size: 14px; font-weight: 700; text-align: left;">{{b.label}}</button></sc-for></div>
+<sc-if value="{{f.fixed}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-budget" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">MỨC NGÂN SÁCH (VNĐ) *</label><input id="f-budget" type="text" inputmode="numeric" value="{{f.budget}}" onInput="{{f.onBudget}}" placeholder="VD: 15.000.000" style="min-height: 46px; padding: 0 14px; border-radius: 12px; border: 1px solid {{f.bdBudget}}; font-size: 15px; background: #FFFFFF; color: #0B0B0C;"><span style="font-size: 12px; color: #5E5850;">Chấn Minh xác nhận hoặc đề xuất phương án phù hợp nhất trong mức này.</span></div></sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><label for="f-note" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">GHI CHÚ / LINK KỊCH BẢN</label><textarea id="f-note" value="{{f.note}}" onInput="{{f.onNote}}" placeholder="Khung giờ, khách quốc tế, link run-down agency…" style="min-height: 76px; padding: 12px 14px; border-radius: 12px; border: 1px solid #D6CDBD; font-size: 15px; resize: vertical; background: #FFFFFF; color: #0B0B0C;"></textarea></div>
+<sc-if value="{{f.hasErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 14px; color: #A3361A; font-weight: 700;">{{f.err}}</span></sc-if>
+<button type="button" onClick="{{f.submit}}" style="min-height: 56px; border: none; border-radius: 999px; background: #0B0B0C; color: #D9B85F; font-size: 15px; font-weight: 800; letter-spacing: 1px;">GỬI YÊU CẦU · PHẢN HỒI TRONG 3 GIỜ</button>
+<span style="font-size: 12px; color: #5E5850; text-align: center;">Hoặc nhắn Zalo 0937 700 121 · Thông tin chỉ dùng để tư vấn sự kiện.</span>
+</div>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px; padding: 16px 4px;">
+<span style="width: 64px; height: 64px; border-radius: 999px; background: #0B0B0C; color: #D9B85F; display: flex; align-items: center; justify-content: center; font-size: 28px;">✓</span>
+<h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 34px; line-height: 1.15;">Cảm ơn <span style="font-style: italic; color: #7A5A14;">{{f.name}}</span></h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.65; color: #4A453C;">Chấn Minh đã nhận yêu cầu cho ngày <strong>{{f.dateText}}</strong> tại <strong>{{f.prov}}</strong> và sẽ phản hồi trong 3 giờ. Đây là bản demo: trên website thật, yêu cầu gửi về Zalo và email của Chấn Minh.</p>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;"><a href="https://zalo.me/0937700121" style="text-decoration: none; background: #0B0B0C; color: #D9B85F; font-weight: 800; font-size: 14px; padding: 14px 22px; border-radius: 999px;">NHẮN ZALO NGAY</a><button type="button" onClick="{{f.reset}}" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: 1px solid #0B0B0C; background: transparent; color: #0B0B0C; font-size: 14px; font-weight: 700;">Gửi yêu cầu khác</button></div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== 09 HUB ===== -->
+<section class="sec" id="hub" style="border-top: 1px solid #1C1C20; padding: 88px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 26px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">08 — CHẤN MINH HUB</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 48px; line-height: 1.08;">Hậu trường, kiến thức <span style="font-style: italic; color: #D9B85F;">và lớp học.</span></h2></div>
+<a href="Hub.dc.html" style="text-decoration: none; background: #D9B85F; color: #0B0B0C; font-weight: 800; font-size: 13px; letter-spacing: 0.5px; padding: 15px 22px; border-radius: 999px;">VÀO HUB →</a>
+</div>
+<div class="g3" style="display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr)); gap: 16px;">
+<a href="https://www.tiktok.com/@chanminh.tik" style="text-decoration: none; background: #F4F0E8; color: #0B0B0C; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 11px; letter-spacing: 2px; font-weight: 800; color: #7A5A14;">LIVESTREAM · TIKTOK &amp; FACEBOOK</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 26px; line-height: 1.25; font-weight: 500;">Hỏi đáp: nghề MC sự kiện có thật sự “sống được”?</span><span style="font-size: 13px; font-weight: 600; color: #4A453C;">[Thứ Năm, 15/10] · [20:00]</span><span style="margin-top: auto; align-self: flex-start; background: #0B0B0C; color: #D9B85F; font-size: 12px; font-weight: 800; padding: 11px 18px; border-radius: 999px;">THEO DÕI TIKTOK →</span></a>
+<a href="Hub.dc.html" class="zoom" style="text-decoration: none; color: #F4F0E8; background: #141416; border: 1px solid #2A2A30; border-radius: 22px; display: flex; flex-direction: column;"><img src="./assets/b4939c6acf9947829faed6fde3cd0780.jpg" alt="" style="width: 100%; height: 160px; object-fit: cover; display: block;"><span style="padding: 16px 18px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: #D9B85F;">KỸ NĂNG DẪN</span><span style="font-size: 16px; font-weight: 700; line-height: 1.4;">5 câu mở màn giúp khán phòng 500 khách tập trung ngay</span></span></a>
+<a href="Hub.dc.html" class="zoom" style="text-decoration: none; color: #F4F0E8; background: #141416; border: 1px solid #2A2A30; border-radius: 22px; display: flex; flex-direction: column;"><img src="./assets/e76d3ce16db895ebe80812414b6ff109.jpg" alt="" style="width: 100%; height: 160px; object-fit: cover; display: block;"><span style="padding: 16px 18px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: #D9B85F;">HẬU TRƯỜNG</span><span style="font-size: 16px; font-weight: 700; line-height: 1.4;">12 tiếng trước giờ G của một đêm Year End Party</span></span></a>
+</div>
+</div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" style="border-top: 1px solid #2A2A30;">
+<div class="wrap g2 sec" style="max-width: 1320px; margin: 0 auto; padding: 88px 40px; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 40px;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">HỎI ĐÁP</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 46px; line-height: 1.1;">Những điều khách <span style="font-style: italic; color: #D9B85F;">hay hỏi trước.</span></h2></div>
+<div style="display: flex; flex-direction: column; border-top: 1px solid #2A2A30;">
+<sc-for list="{{faqs}}" as="fq" hint-placeholder-count="6">
+<div style="border-bottom: 1px solid #2A2A30;">
+<button type="button" onClick="{{fq.toggle}}" aria-expanded="{{fq.open}}" style="width: 100%; min-height: 66px; background: none; border: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 4px; color: #F4F0E8; font-size: 17px; font-weight: 700; text-align: left;"><span>{{fq.q}}</span><span style="flex-shrink: 0; width: 34px; height: 34px; border-radius: 999px; border: 1px solid #3A3320; color: #D9B85F; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 400;">{{fq.sign}}</span></button>
+<sc-if value="{{fq.open}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 0 56px 20px 4px; font-size: 15px; line-height: 1.7; color: #C7C0B8;">{{fq.a}}</p></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="sec" id="lien-he" style="background: #000000; border-top: 1px solid #1C1C20; padding: 88px 0 36px;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 52px;">
+<div class="g2" style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 44px; align-items: center;">
+<img src="./assets/5bd5b5e10311864eaa48e19bcba12628.png" alt="Logo Chấn Minh" style="width: 180px; height: auto; display: block;">
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 500; font-size: 46px; line-height: 1.1;">Ngày, địa điểm, số khách. <span style="font-style: italic; color: #D9B85F;">Phần còn lại để Chấn Minh lo.</span></h2>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+<a href="https://zalo.me/0937700121" style="text-decoration: none; background: #0068FF; color: #FFFFFF; font-weight: 800; font-size: 14px; padding: 15px 22px; border-radius: 999px;">ZALO 0937 700 121</a>
+<a href="https://www.facebook.com/profile.php?id=100075965346162&amp;locale=vi_VN" style="text-decoration: none; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 14px; padding: 15px 22px; border-radius: 999px;">NHẮN FANPAGE</a>
+<a href="mailto:mc.chanminh@gmail.com" style="text-decoration: none; border: 1px solid #C7C0B8; color: #F4F0E8; font-weight: 700; font-size: 14px; padding: 14px 22px; border-radius: 999px;">mc.chanminh@gmail.com</a>
+</div>
+</div>
+</div>
+<div class="g4" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; font-size: 15px; border-top: 1px solid #1C1C20; padding-top: 34px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">KHÁM PHÁ</span><a href="#show" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Show đã dẫn</a><a href="#video" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Video</a><a href="#ve-chan-minh" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Về Chấn Minh</a><a href="#trang-phuc" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Trang phục</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">ĐẶT LỊCH</span><a href="#dat-lich" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Báo giá &amp; lịch trống</a><a href="#ho-so" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Hồ sơ show</a><a href="https://drive.google.com/file/d/1bsRcm-__OXMWuf11useDPPJOE8026oU6/view?usp=drive_link" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Tải Profile PDF</a><a href="#faq" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Hỏi đáp</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">KẾT NỐI</span><a href="https://www.facebook.com/profile.php?id=100075965346162&amp;locale=vi_VN" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Fanpage MC Chấn Minh</a><a href="https://www.facebook.com/englishmc46" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">Facebook Chấn Minh</a><a href="https://www.youtube.com/@chanminh6499" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">YouTube</a><a href="https://www.tiktok.com/@chanminh.tik" class="ul" style="text-decoration: none; color: #C7C0B8; align-self: flex-start;">TikTok</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px; color: #C7C0B8;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">LIÊN HỆ</span><a href="tel:0937700121" style="text-decoration: none; color: #C7C0B8;">Phone / Zalo: 0937 700 121</a><a href="mailto:mc.chanminh@gmail.com" style="text-decoration: none; color: #C7C0B8;">mc.chanminh@gmail.com</a><span>Nhận show toàn quốc</span>
+<div style="display: flex; gap: 8px; margin-top: 4px;">
+<a href="https://www.facebook.com/profile.php?id=100075965346162&amp;locale=vi_VN" aria-label="Fanpage" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #2A2A30; display: flex; align-items: center; justify-content: center; color: #F4F0E8;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"></path></svg></a>
+<a href="https://www.youtube.com/@chanminh6499" aria-label="YouTube" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #2A2A30; display: flex; align-items: center; justify-content: center; color: #F4F0E8;"><svg width="20" height="14" viewBox="0 0 24 17" fill="currentColor"><path d="M23.5 2.7A3 3 0 0 0 21.4.6C19.5 0 12 0 12 0S4.5 0 2.6.6A3 3 0 0 0 .5 2.7 31 31 0 0 0 0 8.5a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.8 31 31 0 0 0-.5-5.8zM9.6 12.1V4.9l6.2 3.6z"></path></svg></a>
+<a href="https://www.tiktok.com/@chanminh.tik" aria-label="TikTok" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #2A2A30; display: flex; align-items: center; justify-content: center; color: #F4F0E8;"><svg width="17" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.4v13.3a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.4 6.4 0 1 0 5.4 6.3V8.6a8 8 0 0 0 4.4 1.4V6.6a4.4 4.4 0 0 1-4.4-4.6z"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="true" style="font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 400; font-size: min(17vw, 240px); line-height: 0.9; text-align: center; color: #141416; margin-top: 56px; white-space: nowrap;">Chấn Minh<span style="color: #D9B85F;">.</span></div>
+<div class="wrap" style="max-width: 1320px; margin: 20px auto 0; padding: 0 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: #98928A;"><span>© 2026 MC Chấn Minh · Connecting Moments, Creating Impact.</span><a href="#top" style="text-decoration: none; color: #C7C0B8;">Lên đầu trang ↑</a></div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showAvailability":{"editor":"boolean","default":true,"section":"Dòng nhận lịch"},"availabilityText":{"editor":"text","default":"Đang nhận lịch Year End Party 2026","section":"Dòng nhận lịch"},"$preview":{"width":1440,"height":12000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      q: '', ev: 'all', biOnly: false, sel: '', exLim: 9,
+      cmd: false, cmdQ: '', logosOpen: false,
+      vChip: 'all', vSel: 0,
+      mEv: 'yep', mVibe: 70, mLang: 'bi',
+      cat: 'vest', oView: 'v1', oPick: '', scent: '', scentWant: '',
+      saved: {}, reviews: {}, sound: false, faq: 0,
+      role: 'agency', fCo: '', fDept: '', fAgency: '', fBrand: '', fName: '', fPhone: '', fEmail: '', fDate: '', fType: '', fGuests: '', fProv: '', fVenue: '', fLang: '', fBudgetMode: '', fBudget: '', fNote: '', tried: false, fErr: '', sent: false
+    };
+  }
+  norm(x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd'); }
+  heart(key, kind, label) {
+    var self = this;
+    var on = !!this.state.saved[key];
+    return {
+      on: on,
+      toggle: function () { var sv = Object.assign({}, self.state.saved); if (sv[key]) { delete sv[key]; } else { sv[key] = { kind: kind, label: label, t: Date.now() }; } self.setState({ saved: sv }); },
+      fill: on ? 'currentColor' : 'none',
+      lbg: on ? '#0B0B0C' : '#FFFFFF', lfg: on ? '#D9B85F' : '#0B0B0C', lbd: on ? '#0B0B0C' : '#E2DACB',
+      dbg: on ? 'rgba(217,184,95,0.16)' : 'transparent', dfg: on ? '#D9B85F' : '#F4F0E8', dbd: on ? '#D9B85F' : '#3A3A40',
+      aria: on ? 'Bỏ lưu ' + label : 'Lưu ' + label, text: on ? 'Đã lưu' : 'Lưu'
+    };
+  }
+  composer(p, target) {
+    var self = this, s = this.state;
+    var set = function (o) { self.setState(o); };
+    var stars = s[p + 'S'] || 0;
+    var list = (s.reviews[target] || []);
+    var sum = 0; list.forEach(function (r) { sum += r.stars; });
+    return {
+      count: list.length, has: list.length > 0,
+      summary: list.length ? (sum / list.length).toFixed(1) + ' / 5 ★' : '',
+      list: list.slice(-2).reverse().map(function (r) { return { stars: '★★★★★'.slice(0, r.stars) + '☆☆☆☆☆'.slice(0, 5 - r.stars), text: r.text, who: 'Khách xem' }; }),
+      starBtns: [1, 2, 3, 4, 5].map(function (n) { var x = {}; x[p + 'S'] = n; x[p + 'E'] = ''; return { aria: n + ' sao', color: n <= stars ? '#D9B85F' : '#3A3A40', pick: function () { set(x); } }; }),
+      text: s[p + 'X'] || '',
+      onText: function (e) { var x = {}; x[p + 'X'] = e.target.value; x[p + 'E'] = ''; set(x); },
+      err: s[p + 'E'] || '', hasErr: !!s[p + 'E'],
+      submit: function () {
+        var txt = (self.state[p + 'X'] || '').trim(), st = self.state[p + 'S'] || 0;
+        if (!st || !txt) { var x = {}; x[p + 'E'] = 'Chọn số sao và viết vài dòng cảm nhận nhé.'; set(x); return; }
+        var rv = Object.assign({}, self.state.reviews); rv[target] = (rv[target] || []).concat([{ stars: st, text: txt }]);
+        var y = { reviews: rv }; y[p + 'S'] = 0; y[p + 'X'] = ''; set(y);
+      }
+    };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var set = function (o) { self.setState(o); };
+    var norm = function (x) { return self.norm(x); };
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var GOLD = '#D9B85F';
+
+    /* ---------- logo (sprite 10 x 12) ---------- */
+    var brandNames = ['Jollibee', 'Zalo', 'CPA Australia', 'Calofic', 'Rex Hotel Saigon', 'LMORE', 'Lotte Hotels & Resorts', 'Honda Phát Tiến', 'FTMS Global', 'VietinBank',
+      'Generali', 'Mida Pharma', 'Talent', 'Park Hyatt', 'GEM Center', 'Yes4All', 'AIA', 'AKYN', 'Anantara', '',
+      'BDC Group', 'Toppion', 'Lazada', 'Nutifood', 'Pi Group', '', 'Manulife', 'Bamepharm', 'Docto', '',
+      'FrieslandCampina', 'Gemalink', 'NUC Basketball', '', 'CGV', 'Hino', 'Hyundai', 'BNI', 'Wyndham Soleil Danang', 'diaB',
+      'Jabil', 'Artisan', 'VBA', 'VUG', 'TNG', '', 'Đất Ngọc', 'Agility', 'Talentnet', 'PNJ',
+      'VPBank', 'GS25', 'DSV', 'VUS', 'Tekcom', 'AgriS', 'SGS', 'Kento', 'Perfetti Van Melle', 'REE M&E',
+      'Intelisys', '', 'Phú Hưng Securities', '', 'embed/it', 'Richcom', '', 'Betrimex', 'Shinryo',
+      'Sioen', 'Cell Fusion C', 'Estal Shipping', 'Thiên Tú', 'Artstuff', 'Attech', '', '', 'Gamuda Land', '',
+      'Gela', 'American Academy', 'REE Corporation', 'MT Eastmark City', 'Heineken', 'Grab', 'MSB', 'Sony', 'The Classia', 'Soleil',
+      'La Vela', 'Maersk', 'Mappacific', 'MB Ageas Life', 'MG', '', 'Mitsubishi', '', '', 'Bridgestone',
+      'The Pan Group', 'Prudential', '', 'Richy', 'RMIT University', 'Sabre', 'Saigon Heat', '', 'TopCV', 'White Palace',
+      'Viettel', 'Vinpearl', 'Kao', 'VinMart', 'Wilmar', 'Wolverine Worldwide', '', 'Yamaha', 'Tân Phát Long', 'Saint-Gobain'];
+    var posOf = function (k) { var r = Math.floor(k / 10), c = k % 10; return (c * 100 / 9).toFixed(4) + '% ' + (r * 100 / 11).toFixed(4) + '%'; };
+    var brands = []; brandNames.forEach(function (n, k) { if (n) brands.push({ name: n, pos: posOf(k) }); });
+    var pickNames = ['Heineken', 'Sony', 'Manulife', 'Prudential', 'VietinBank', 'VPBank', 'MSB', 'Grab', 'Lazada', 'CGV', 'Hyundai', 'Mitsubishi', 'Yamaha', 'Bridgestone', 'Maersk', 'DSV', 'GS25', 'PNJ', 'Vinpearl', 'Park Hyatt', 'Lotte Hotels & Resorts', 'RMIT University', 'AgriS', 'Talentnet', 'Kao', 'Saint-Gobain', 'Generali', 'FrieslandCampina', 'Jollibee', 'Viettel'];
+    var marqueeBase = pickNames.map(function (n) { return brands.filter(function (b) { return b.name === n; })[0]; }).filter(function (b) { return b; });
+
+    /* ---------- loại chương trình: Company Trip và Team Building tách riêng ---------- */
+    var evKeys = ['yep', 'gala', 'trip', 'tb', 'sport', 'conf', 'cere'];
+    var evLabel = { yep: 'Year End Party', gala: 'Gala Dinner', trip: 'Company Trip', tb: 'Team Building', sport: 'Sport Day', conf: 'Hội nghị & Hội thảo', cere: 'Khai trương & Kỷ niệm' };
+    var evTag = {
+      yep: ['YOUR NIGHT.', 'Your moment.', 'Đêm của bạn, khoảnh khắc của bạn'],
+      gala: ['RAISE A GLASS.', 'Raise the bar.', 'Nâng ly, nâng tầm'],
+      trip: ['NEW PLACES.', 'One crew.', 'Đi xa cùng nhau, về gần nhau hơn'],
+      tb: ['ONE TEAM.', 'One voice.', 'Cả đoàn, một nhịp'],
+      sport: ['GAME ON.', 'Voice on.', 'Trận đấu bắt đầu, giọng dẫn bùng lên'],
+      conf: ['ON CUE.', 'On point.', 'Đúng nhịp, đúng trọng tâm'],
+      cere: ['MILESTONES', 'deserve a voice.', 'Mỗi cột mốc xứng đáng được cất lời']
+    };
+    var langLabel = { vi: 'Tiếng Việt', en: 'Tiếng Anh', bi: 'Song ngữ Việt – Anh' };
+    var langKeys = ['vi', 'en', 'bi'];
+    var indLabel = { fin: 'Tài chính', retail: 'Bán lẻ & Tiêu dùng', logi: 'Logistics', agri: 'Nông nghiệp', re: 'Bất động sản', hr: 'Nhân sự', tech: 'Công nghệ', edu: 'Giáo dục', other: 'Doanh nghiệp' };
+
+    /* ẢNH SHOW: thêm show mới vào đầu danh sách này */
+    var shows = [
+      { id: 's1', title: 'Hội thảo Vĩnh Long trong không gian phát triển mới', sub: 'VNREA & REATIMES', img: './assets/4f1f63a92d381b68272dee0c437c1ac8.jpg', ev: 'conf', lang: 'vi', ind: 're', year: '07/2026' },
+      { id: 's2', title: 'Novonesis Academy Vietnam 2026', sub: 'Gala Dinner cùng khách quốc tế', img: './assets/e76d3ce16db895ebe80812414b6ff109.jpg', ev: 'gala', lang: 'bi', ind: 'agri', year: '2026' },
+      { id: 's3', title: 'Our Next Chapter', sub: 'Live Payments Company Trip', img: './assets/f52d31b3faa16b6a40e890d042a338ca.jpg', ev: 'trip', lang: 'vi', ind: 'fin', year: '2026' },
+      { id: 's4', title: 'PHS UNIVERSE', sub: 'Year End Party Chứng khoán Phú Hưng', img: './assets/0c93cc5f1ad62e29edafa65a40ac8dea.jpg', ev: 'yep', lang: 'bi', ind: 'fin', year: '01/2026' },
+      { id: 's17', title: 'Company Trip bãi biển', sub: 'Hàng trăm người, một nhịp', img: './assets/d254df6e15cb8b7d321266c3ed3e53b1.jpg', ev: 'trip', lang: 'vi', ind: 'other', year: 'Biển' },
+      { id: 's18', title: 'Team Building trên biển', sub: 'Thử thách đồng đội', img: './assets/68143ba9415a52f74441398101f0956a.jpg', ev: 'tb', lang: 'vi', ind: 'other', year: 'Outdoor' },
+      { id: 's5', title: 'GS25 – Powered by Core, Driven For More', sub: 'Year End Party GS25', img: './assets/1a1c07055d6b9bd19518768f25d4eae9.jpg', ev: 'yep', lang: 'bi', ind: 'retail', year: 'Year End' },
+      { id: 's8', title: 'Sync To Win', sub: 'Talentnet Company Trip', img: './assets/68f73db116b37bffc559325b472a6794.jpg', ev: 'trip', lang: 'bi', ind: 'hr', year: 'Company Trip' },
+      { id: 's6', title: 'AgriS Olympic 2025', sub: 'Hội thao doanh nghiệp AgriS', img: './assets/5806fad53b6c64bca5997ba0f8c4f750.jpg', ev: 'sport', lang: 'vi', ind: 'agri', year: '2025' },
+      { id: 's19', title: 'Team Building ngoài trời', sub: 'Trò chơi tập thể', img: './assets/137b92b5535255adfee31e090b837efe.jpg', ev: 'tb', lang: 'vi', ind: 'other', year: 'Outdoor' },
+      { id: 's9', title: 'DSV – Side by Side', sub: 'Year End Party 2025', img: './assets/342a0f35259876e444b046e67e37580f.jpg', ev: 'yep', lang: 'bi', ind: 'logi', year: '2025' },
+      { id: 's7', title: '10 năm AlphaTrans Group', sub: 'Years of Effort. Success Built.', img: './assets/98910e547252b80820f08418a725e786.jpg', ev: 'cere', lang: 'vi', ind: 'logi', year: 'Kỷ niệm' },
+      { id: 's14', title: 'Trekking cùng VUS', sub: 'Team Building rừng thông', img: './assets/890bdf211b00be797205a14eb032170a.jpg', ev: 'tb', lang: 'vi', ind: 'edu', year: 'Trekking' },
+      { id: 's16', title: 'Đêm lửa trại', sub: 'Gala cuối chuyến Company Trip', img: './assets/24866815c51a3e82d5e24283de7dfd4a.jpg', ev: 'trip', lang: 'vi', ind: 'other', year: 'Company Trip' },
+      { id: 's10', title: 'Thiên Tú – The New Era', sub: 'Year End Party Thiên Tú', img: './assets/fd0bee641ab46b674eb3f104d4c01755.jpg', ev: 'yep', lang: 'vi', ind: 'other', year: 'Year End' },
+      { id: 's11', title: 'Make Some Noise', sub: 'Filmore & AKYN', img: './assets/db28bf821edfc9afd1074e49f5a73444.jpg', ev: 'gala', lang: 'vi', ind: 'other', year: 'Party' },
+      { id: 's12', title: 'Hội nghị khách hàng SabreVN', sub: 'Customer Conference 2023', img: './assets/b43cfb7e9116f75d669981eedf13f024.jpg', ev: 'conf', lang: 'bi', ind: 'tech', year: '2023' },
+      { id: 's20', title: 'Khởi động trekking rừng thông', sub: 'Team Building khởi động', img: './assets/7f82bb099eda55f98e7a7fa734ff4f44.jpg', ev: 'tb', lang: 'vi', ind: 'other', year: 'Trekking' },
+      { id: 's13', title: 'Lễ ký kết & ra mắt sản phẩm', sub: 'Tập đoàn Thanh An', img: './assets/3d0204f49d1845dbc881fa80c78d08c2.jpg', ev: 'cere', lang: 'vi', ind: 'other', year: 'Ra mắt' },
+      { id: 's15', title: 'Ngày hội văn hoá PNJ', sub: 'Như người một nhà', img: './assets/866421fa9c5b641d75536324076b869f.jpg', ev: 'cere', lang: 'vi', ind: 'retail', year: 'Văn hoá' },
+      { id: 's21', title: 'Hội nghị quy mô lớn', sub: 'Khán phòng hàng trăm khách', img: './assets/b4939c6acf9947829faed6fde3cd0780.jpg', ev: 'conf', lang: 'vi', ind: 'other', year: 'Hội nghị' }
+    ];
+    var hay = function (x) { return norm(x.title + ' ' + x.sub + ' ' + evLabel[x.ev] + ' ' + indLabel[x.ind] + ' ' + langLabel[x.lang] + (x.lang === 'bi' ? ' bilingual' : '')); };
+    var qWords = norm(s.q).trim().split(/\s+/).filter(function (w) { return w; });
+    var filtered = shows.filter(function (x) { return (s.ev === 'all' || x.ev === s.ev) && (!s.biOnly || x.lang === 'bi') && qWords.every(function (w) { return hay(x).indexOf(w) >= 0; }); });
+    var evChips = [['all', 'Tất cả']].concat(evKeys.map(function (k) { return [k, evLabel[k]]; })).map(function (d) {
+      var on = s.ev === d[0];
+      var n = d[0] === 'all' ? shows.length : shows.filter(function (x) { return x.ev === d[0]; }).length;
+      return { label: d[1], n: n, on: on, bg: on ? '#F4F0E8' : 'transparent', fg: on ? '#0B0B0C' : '#F4F0E8', bd: on ? '#F4F0E8' : '#2A2A30', pick: function () { set({ ev: d[0], sel: '', exLim: 9 }); } };
+    });
+    var curRaw = filtered.filter(function (x) { return x.id === s.sel; })[0] || filtered[0] || null;
+    var ci = curRaw ? filtered.indexOf(curRaw) : -1;
+    var metaOf = function (x) { return evLabel[x.ev].toUpperCase() + (x.lang === 'bi' ? ' · SONG NGỮ' : '') + ' · ' + x.year.toUpperCase(); };
+    var cur = curRaw ? { img: curRaw.img, title: curRaw.title, sub: curRaw.sub + ' · ' + indLabel[curRaw.ind], meta: metaOf(curRaw), tagA: evTag[curRaw.ev][0], tagB: evTag[curRaw.ev][1], tagVi: evTag[curRaw.ev][2] } : { img: '', title: '', sub: '', meta: '', tagA: '', tagB: '', tagVi: '' };
+    var exShown = filtered.slice(0, s.exLim).map(function (x) {
+      return { img: x.img, title: x.title, eyebrow: evLabel[x.ev].toUpperCase(), bd: x === curRaw ? GOLD : '#2A2A30', saved: !!s.saved['show:' + x.id], pick: function () { set({ sel: x.id }); } };
+    });
+
+    /* ---------- video ---------- */
+    var videos = [
+      { thumb: './assets/0c93cc5f1ad62e29edafa65a40ac8dea.jpg', title: 'YEP Chứng khoán Phú Hưng – PHS UNIVERSE', cat: 'yep', bi: true },
+      { thumb: './assets/342a0f35259876e444b046e67e37580f.jpg', title: 'YEP DSV – Side by Side', cat: 'yep', bi: true },
+      { thumb: './assets/1a1c07055d6b9bd19518768f25d4eae9.jpg', title: 'YEP GS25 – Powered By Core, Driven For More', cat: 'yep', bi: true },
+      { title: 'YEP Cell Fusion C – Together We Touch The Sky', cat: 'yep', bi: false },
+      { thumb: './assets/fd0bee641ab46b674eb3f104d4c01755.jpg', title: 'YEP Thiên Tú – The New Era', cat: 'yep', bi: false },
+      { thumb: './assets/68f73db116b37bffc559325b472a6794.jpg', title: 'Talentnet Company Trip – Sync To Win', cat: 'trip', bi: true },
+      { thumb: './assets/890bdf211b00be797205a14eb032170a.jpg', title: 'Team Building – Trekking cùng VUS', cat: 'tb', bi: false },
+      { title: 'GS25 – Town Hall', cat: 'conf', bi: true },
+      { thumb: './assets/4f1f63a92d381b68272dee0c437c1ac8.jpg', title: 'VNREA & REATIMES – Hội thảo Vĩnh Long', cat: 'conf', bi: false },
+      { title: 'EMBED/IT – Lễ khai trương Expanding Horizons', cat: 'cere', bi: true }
+    ];
+    var vDefs = [['all', 'Tất cả'], ['yep', 'Year End Party'], ['trip', 'Company Trip'], ['tb', 'Team Building'], ['conf', 'Hội nghị & Hội thảo'], ['cere', 'Khai trương'], ['bi', 'Song ngữ']];
+    var inChip = function (v, c) { return c === 'all' || (c === 'bi' ? v.bi : v.cat === c); };
+    var goPlayer = function () { var el = document.getElementById('player'); if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+    var vChips = vDefs.map(function (d) { var on = s.vChip === d[0]; return { label: d[1], on: on, bg: on ? '#F4F0E8' : '#1C1C20', fg: on ? '#0B0B0C' : '#F4F0E8', pick: function () { set({ vChip: d[0] }); } }; });
+    var vRow = []; videos.forEach(function (v, i) { if (inChip(v, s.vChip)) vRow.push({ title: v.title, thumb: v.thumb || '', hasThumb: !!v.thumb, noThumb: !v.thumb, tag: evLabel[v.cat] + (v.bi ? ' · Song ngữ' : ''), outline: i === s.vSel ? '2px solid #D9B85F' : 'none', pick: function () { set({ vSel: i }); goPlayer(); } }); });
+    var vCurRaw = videos[s.vSel];
+    var scroller = function (dir) { return function () { var sc = document.getElementById('vrow'); if (sc && sc.scrollBy) sc.scrollBy({ left: dir * 620, behavior: 'smooth' }); }; };
+
+    /* ---------- trang phục & hương ---------- */
+    var cats = [{ id: 'vest', label: 'Vest · Hội nghị · Trang trọng', short: 'VEST HỘI NGHỊ' }, { id: 'gala', label: 'Gala Concept', short: 'GALA CONCEPT' }, { id: 'trek', label: 'Trekking · Team Building · Outdoor', short: 'TREKKING · OUTDOOR' }];
+    var outfitData = [
+      { id: 'v1', cat: 'vest', label: 'Vest trắng sọc chỉ, cà vạt lavender', img: './assets/6acf1668f358df1d008e583971f7a5f4.jpg', swatch: '#EDE9E1', inspo: 'Thanh lịch, tươi sáng và nổi bật dưới ánh đèn trắng.', when: 'Hội nghị ban ngày, lễ khai trương, sân khấu tông sáng.', dots: '●●●●○', energy: 'Thanh lịch', forEv: 'Hội nghị · Khai trương', scent: 'citrus' },
+      { id: 'v2', cat: 'vest', label: 'Vest navy hai hàng khuy, quần trắng', img: './assets/10096cf99d6c7a73afb64556b3dfb85e.jpg', swatch: '#1F2A44', inspo: 'Lịch lãm cổ điển: khuy vàng, cravat hoa văn, quần trắng tương phản.', when: 'Gala dinner, lễ kỷ niệm, đêm trao giải.', dots: '●●●●●', energy: 'Lịch lãm', forEv: 'Gala · Kỷ niệm', scent: 'amber' },
+      { id: 'v3', cat: 'vest', label: 'Vest navy ba mảnh, gi-lê xanh', img: './assets/9db65a2e89d162910adcd1c789400a7f.jpg', swatch: '#24324F', inspo: 'Chuẩn mực, đáng tin cậy, đúng tinh thần hội nghị doanh nghiệp.', when: 'Hội nghị, hội thảo, đại hội có lãnh đạo cấp cao.', dots: '●●●●●', energy: 'Điềm tĩnh', forEv: 'Hội nghị · Hội thảo', scent: 'wood' },
+      { id: 'v4', cat: 'vest', label: 'Blazer cam đất, cà vạt vàng', img: './assets/1cd9adf59b441df5d49df9909968789c.jpg', swatch: '#B5561A', inspo: 'Trẻ trung, sáng tạo nhưng vẫn chỉn chu.', when: 'Ra mắt sản phẩm, hội thảo sáng tạo, thương hiệu trẻ.', dots: '●●●○○', energy: 'Trẻ trung', forEv: 'Ra mắt · Hội thảo', scent: 'citrus' },
+      { id: 'v5', cat: 'vest', label: 'Tuxedo đen, nơ và sơ mi xếp ly', img: './assets/58e8744f6d4a9e9a282e2e3ac3f2548e.jpg', swatch: '#0B0B0B', inspo: 'Chuẩn black-tie, lựa chọn sang trọng nhất cho dạ tiệc.', when: 'Gala black-tie, đêm trao giải, khách VIP.', dots: '●●●●●', energy: 'Sang trọng', forEv: 'Gala · Trao giải', scent: 'amber' },
+      { id: 'v6', cat: 'vest', label: 'Vest trắng, sơ mi xanh, cà vạt sọc', img: './assets/0e34d24b9502226a7e1215771f94c4fb.jpg', swatch: '#F2EFE8', inspo: 'Sáng, gần gũi, hợp chương trình ban ngày.', when: 'Hội nghị khách hàng, sự kiện ban ngày.', dots: '●●●●○', energy: 'Gần gũi', forEv: 'Sự kiện ban ngày', scent: 'citrus' },
+      { id: 'g1', cat: 'gala', label: 'Velvet xanh navy, ve satin & ghim rồng', img: './assets/52fd100d82484d3e8dc57509029410d5.jpg', swatch: '#1B2E6B', inspo: 'Quý phái, bắt sáng đẹp dưới đèn sân khấu.', when: 'Gala concept, Year End Party cao cấp, đêm tri ân.', dots: '●●●●●', energy: 'Quý phái', forEv: 'Gala concept', scent: 'amber' },
+      { id: 'g2', cat: 'gala', label: 'Áo dài đỏ thêu rồng', img: './assets/492176fc5e34230652c4fdeaeca5ed95.jpg', swatch: '#C0282D', inspo: 'Đậm bản sắc Việt, hân hoan và may mắn.', when: 'Tất niên, đầu xuân, khai trương, chương trình văn hoá.', dots: '●●●●○', energy: 'Hân hoan', forEv: 'Tết · Văn hoá', scent: 'floral' },
+      { id: 'g3', cat: 'gala', label: 'Welcome Dinner', img: '', swatch: '#6E2F3A', inspo: 'Ấm áp, thanh lịch, không quá nghiêm.', when: 'Tiệc chào mừng Company Trip, tiệc tối trước hội nghị.', dots: '●●●○○', energy: 'Ấm áp', forEv: 'Welcome Dinner', scent: 'floral' },
+      { id: 't1', cat: 'trek', label: 'Áo khoác đỏ & kính thể thao', img: './assets/93800d05b99d219789595e26ebe59d44.jpg', swatch: '#D2232A', inspo: 'Bùng nổ, để cả đoàn luôn nhìn thấy MC.', when: 'Team Building sôi động, party trẻ trung.', dots: '●○○○○', energy: 'Bùng nổ', forEv: 'Team Building · Party', scent: 'citrus' },
+      { id: 't2', cat: 'trek', label: 'Áo khoác nâu sọc tay, áo Teamwork', img: './assets/5448e08343f3953f8f1756c5fbc1ab73.jpg', swatch: '#7A4A2E', inspo: 'Năng động, gần gũi, đậm tinh thần đồng đội.', when: 'Company Trip, chương trình gắn kết nội bộ.', dots: '●●○○○', energy: 'Năng động', forEv: 'Company Trip', scent: 'citrus' },
+      { id: 't3', cat: 'trek', label: 'Outdoor – áo gió trắng', img: './assets/000c0aa60dacdbaadf3ea1e7298d1ede.jpg', swatch: '#E6ECF2', inspo: 'Nhẹ, thoáng, dễ vận động cả ngày ngoài trời.', when: 'Dã ngoại, Sport Day, hoạt động ngoài trời.', dots: '●○○○○', energy: 'Tươi sáng', forEv: 'Outdoor · Sport Day', scent: 'citrus' },
+      { id: 't4', cat: 'trek', label: 'Beach – sơ mi hoạ tiết nhiệt đới', img: './assets/933d33b175520f340192de8a9138754b.jpg', swatch: '#3A8FB7', inspo: 'Vui tươi, phóng khoáng, hợp cát và gió biển.', when: 'Company Trip resort, beach party.', dots: '●○○○○', energy: 'Phóng khoáng', forEv: 'Beach · Resort', scent: 'citrus' },
+      { id: 't5', cat: 'trek', label: 'Trekking – balo & gậy leo núi', img: './assets/3de7eaa44ee54e28edfa63a08202e628.jpg', swatch: '#2E4A6B', inspo: 'Sẵn sàng đồng hành trên mọi cung đường.', when: 'Team Building trekking, hành trình nhiều chặng.', dots: '●○○○○', energy: 'Bền bỉ', forEv: 'Team Building · Trekking', scent: 'none' }
+    ];
+    var outfitById = function (id) { return outfitData.filter(function (o) { return o.id === id; })[0]; };
+    var catOf = function (id) { return cats.filter(function (c) { return c.id === id; })[0]; };
+    var scentData = [
+      { id: 'wood', label: 'Gỗ ấm', tone: '#7A5230', notes: 'Tuyết tùng, đàn hương, vetiver. Trầm và điềm tĩnh.' },
+      { id: 'citrus', label: 'Cam chanh', tone: '#D9A441', notes: 'Bergamot, chanh, gừng. Sáng và nhiều năng lượng.' },
+      { id: 'floral', label: 'Hương hoa', tone: '#C98A9B', notes: 'Diên vĩ, hoa nhài, xạ hương trắng. Mềm mại, tinh tế.' },
+      { id: 'amber', label: 'Hổ phách', tone: '#8C3B1E', notes: 'Hổ phách, vani, gỗ trầm. Ấm và đậm chất dạ tiệc.' },
+      { id: 'none', label: 'Không dùng nước hoa', tone: '#98928A', notes: '' }
+    ];
+    var scentById = function (id) { return scentData.filter(function (x) { return x.id === id; })[0]; };
+
+    /* ---------- hồ sơ show ---------- */
+    var mEvBtns = evKeys.map(function (k) { var on = s.mEv === k; return { label: evLabel[k], on: on, bg: on ? '#F4F0E8' : 'transparent', fg: on ? '#0B0B0C' : '#F4F0E8', bd: on ? '#F4F0E8' : '#2A2A30', pick: function () { set({ mEv: k }); } }; });
+    var mLangBtns = langKeys.map(function (k) { var on = s.mLang === k; return { label: langLabel[k], on: on, bg: on ? '#D9B85F' : 'transparent', fg: on ? '#0B0B0C' : '#F4F0E8', pick: function () { set({ mLang: k }); } }; });
+    var vibe = s.mVibe;
+    var band = vibe < 34 ? 0 : (vibe < 67 ? 1 : 2);
+    var clamp = function (x) { return Math.max(1, Math.min(10, x)); };
+    var formalBase = { conf: 9, cere: 8.5, gala: 8, yep: 6.5, trip: 4, tb: 3, sport: 3 }[s.mEv];
+    var interBase = { tb: 9.5, trip: 8.5, sport: 9, yep: 8.5, gala: 6.5, cere: 5, conf: 4.5 }[s.mEv];
+    var emoBase = { yep: 9, gala: 8.5, cere: 8, trip: 8, tb: 7, conf: 5, sport: 6 }[s.mEv];
+    var C = 2 * Math.PI * 34;
+    var rings = [
+      ['NĂNG LƯỢNG', clamp(vibe / 10)],
+      ['TRANG TRỌNG', clamp(formalBase - (vibe - 50) / 25)],
+      ['TƯƠNG TÁC', clamp(interBase + (vibe - 50) / 25)],
+      ['CẢM XÚC', clamp(emoBase - Math.abs(vibe - 50) / 50)]
+    ].map(function (r) { var v = Math.round(r[1] * 10) / 10; return { label: r[0], val: v.toFixed(1), dash: (C * v / 10).toFixed(1) + ' ' + C.toFixed(1) }; });
+    var styles = [
+      { title: 'Sang trọng, tiết chế', desc: 'Giọng chậm, chuẩn mực, duyên dáng đúng lúc. Chuyển tiếp gọn để thông điệp lãnh đạo và khoảnh khắc vinh danh được trọn vẹn.' },
+      { title: 'Sang mở màn, bùng nổ về cuối', desc: 'Nửa đầu trang trọng cho nghi thức; nửa sau tăng nhịp với minigame và màn kết để khán phòng đứng dậy.' },
+      { title: 'Bùng nổ, hài hước, kéo cả khán phòng', desc: 'Năng lượng cao từ phút đầu, ứng biến nhanh, vẫn gài thông điệp công ty vào đúng khoảnh khắc cao trào.' }
+    ];
+    var outfitMap = { yep: ['v5', 'g1', 'v2'], gala: ['v5', 'g1', 'v2'], trip: ['t2', 't4', 't4'], tb: ['t3', 't5', 't1'], sport: ['t3', 't3', 't1'], conf: ['v3', 'v6', 'v4'], cere: ['v1', 'g2', 'g2'] };
+    var mO = outfitById(outfitMap[s.mEv][band]);
+    var prepMap = {
+      yep: ['Góp ý lời dẫn phần vinh danh và bốc thăm', 'Khớp cue với đạo diễn, âm thanh, ánh sáng', 'Tương tác giữ nhịp phần tiệc'],
+      gala: ['Nghi thức đón khách, phát biểu, nâng ly chuẩn mực', 'Khớp cue với đạo diễn và ban nhạc', 'Chuyển tông mềm mại giữa các phần'],
+      trip: ['Giữ lửa từ chuyến xe đầu tiên đến đêm gala cuối chuyến', 'Dẫn welcome dinner, gala bãi biển, lửa trại', 'Lồng thông điệp công ty vào từng điểm dừng'],
+      tb: ['Thiết kế nhịp trò chơi cùng đội game', 'Chia đội, cổ vũ, giữ năng lượng ngoài trời', 'Tổng kết bằng thông điệp đồng đội'],
+      sport: ['Bình luận, cổ vũ từng nội dung thi', 'Điều phối lịch thi đấu cùng ban tổ chức', 'Khai mạc và trao giải trang trọng'],
+      conf: ['Giữ timeline chính xác từng phiên', 'Giới thiệu diễn giả, điều phối hỏi đáp', 'Đổi tông trang trọng hoặc thân thiện theo phiên'],
+      cere: ['Nghi thức, thứ tự phát biểu chuẩn xác', 'Dàn dựng khoảnh khắc cắt băng, ra mắt', 'Kể hành trình của doanh nghiệp']
+    };
+    var vibeWords = ['Sang trọng', 'Cân bằng', 'Bùng nổ'];
+    var mSummary = evLabel[s.mEv] + ' · ' + vibeWords[band] + ' · ' + langLabel[s.mLang];
+
+    /* ---------- tủ đồ: lưới 4 ô, chừa ô trống để bổ sung ---------- */
+    var catTabs = cats.map(function (c) { var on = c.id === s.cat; var inCat = outfitData.filter(function (o) { return o.cat === c.id; }); return { label: c.short, count: inCat.length, on: on, bg: on ? '#0B0B0C' : '#FFFFFF', fg: on ? '#D9B85F' : '#0B0B0C', bd: on ? '#0B0B0C' : '#E2DACB', pick: function () { set({ cat: c.id, oView: inCat[0].id }); } }; });
+    var inCur = outfitData.filter(function (o) { return o.cat === s.cat; });
+    var outfitSlots = inCur.map(function (o, i) { var viewing = o.id === s.oView, picked = o.id === s.oPick; return { real: true, empty: false, label: o.label, img: o.img, hasImg: !!o.img, swatch: o.swatch, saved: !!s.saved['out:' + o.id], code: picked ? '✓ ĐÃ CHỌN' : 'BỘ 0' + (i + 1), codeColor: picked ? '#1F6B3A' : '#5E5850', bd: viewing ? '#7A5A14' : '#E2DACB', pick: function () { set({ oView: o.id }); } }; });
+    var slotTotal = Math.max(4, Math.ceil((inCur.length + 1) / 4) * 4);
+    while (outfitSlots.length < slotTotal) outfitSlots.push({ real: false, empty: true });
+    var ocRaw = outfitById(s.oView); if (!ocRaw || ocRaw.cat !== s.cat) ocRaw = inCur[0];
+    var idx = inCur.indexOf(ocRaw);
+    var oc = Object.assign({}, ocRaw, { catLabelUpper: catOf(ocRaw.cat).label.toUpperCase(), code: 'BỘ 0' + (idx + 1), hasImg: !!ocRaw.img, noImg: !ocRaw.img, h: this.heart('out:' + ocRaw.id, 'Trang phục', ocRaw.label) });
+    var isPicked = s.oPick === ocRaw.id;
+    var picked = outfitById(s.oPick);
+    var scents = scentData.filter(function (x) { return x.id !== 'none'; }).map(function (x) { var on = x.id === s.scent; return { label: x.label, tone: x.tone, on: on, bg: on ? '#FFFFFF' : 'transparent', bd: on ? '#0B0B0C' : '#D6CDBD', pick: function () { set({ scent: x.id }); } }; });
+    var scentPicked = s.scentWant === 'yes' ? scentById(s.scent) : null;
+    var scentCur = scentPicked ? { label: scentPicked.label, notes: scentPicked.notes } : { label: s.scentWant === 'no' ? 'Không dùng' : 'Chưa chọn', notes: '' };
+    var scentAsk = [['yes', 'Có'], ['no', 'Không cần']].map(function (d) { var on = s.scentWant === d[0]; return { label: d[1], on: on, bg: on ? '#0B0B0C' : 'transparent', fg: on ? '#D9B85F' : '#0B0B0C', pick: function () { var o = { scentWant: d[0] }; if (d[0] === 'yes' && (!self.state.scent || self.state.scent === 'none')) o.scent = ocRaw.scent !== 'none' ? ocRaw.scent : 'wood'; set(o); } }; });
+
+    /* ---------- đã lưu ---------- */
+    var savedKeys = Object.keys(s.saved).sort(function (a, b) { return s.saved[a].t - s.saved[b].t; });
+    var savedList = savedKeys.map(function (k) { var it = s.saved[k]; return { kind: it.kind.toUpperCase(), label: it.label, remove: function () { var sv = Object.assign({}, self.state.saved); delete sv[k]; set({ saved: sv }); } }; });
+
+    /* ---------- lịch tháng 10/2026 (1/10 là thứ Năm) + form ---------- */
+    var booked = { 2: 1, 3: 1, 9: 1, 10: 1, 16: 1, 17: 1, 21: 1, 24: 1, 25: 1, 31: 1 };
+    var wd = ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy', 'Chủ Nhật'];
+    var lead = 3;
+    var blank = function () { return { n: '', disabled: true, hidden: true, aria: '', bg: 'transparent', fg: 'transparent', bd: 'none', deco: 'none', vis: 'hidden' }; };
+    var cells = []; for (var b0 = 0; b0 < lead; b0++) cells.push(blank());
+    var freeWeekend = 0;
+    for (var d = 1; d <= 31; d++) {
+      (function (d) {
+        var col = (d - 1 + lead) % 7;
+        var weekend = col >= 4;
+        var isB = !!booked[d];
+        if (weekend && !isB) freeWeekend++;
+        var iso = '2026-10-' + pad(d);
+        var sel = s.fDate === iso;
+        cells.push({ n: String(d), disabled: isB, hidden: false, aria: wd[col] + ' ' + d + '/10' + (isB ? ', đã kín' : ', còn trống'), bg: isB ? '#E2DACB' : (sel ? '#0B0B0C' : '#FFFFFF'), fg: isB ? '#8F887B' : (sel ? '#D9B85F' : '#0B0B0C'), bd: isB ? '1px solid #E2DACB' : (sel ? '2px solid #0B0B0C' : (weekend ? '2px solid #7A5A14' : '1px solid #E2DACB')), deco: isB ? 'line-through' : 'none', vis: 'visible', pick: isB ? undefined : function () { set({ fDate: iso, fErr: '' }); } });
+      })(d);
+    }
+    while (cells.length % 7 !== 0) cells.push(blank());
+    var provinces = ['TP. Hồ Chí Minh', 'Hà Nội', 'Đà Nẵng', 'Hải Phòng', 'Cần Thơ', 'Huế', 'An Giang', 'Bắc Ninh', 'Cà Mau', 'Cao Bằng', 'Đắk Lắk', 'Điện Biên', 'Đồng Nai', 'Đồng Tháp', 'Gia Lai', 'Hà Tĩnh', 'Hưng Yên', 'Khánh Hòa', 'Lai Châu', 'Lâm Đồng', 'Lạng Sơn', 'Lào Cai', 'Nghệ An', 'Ninh Bình', 'Phú Thọ', 'Quảng Ngãi', 'Quảng Ninh', 'Quảng Trị', 'Sơn La', 'Tây Ninh', 'Thái Nguyên', 'Thanh Hóa', 'Tuyên Quang', 'Vĩnh Long', 'Nước ngoài'];
+    var fset = function (k) { return function (e) { var o = { fErr: '' }; o[k] = e.target.value; set(o); }; };
+    var digits = String(s.fPhone).replace(/\D/g, '').length;
+    var emailBad = !!String(s.fEmail).trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s.fEmail).trim());
+    var need = [
+      ['fName', 'người liên hệ', !String(s.fName).trim()],
+      ['fPhone', 'số điện thoại', digits < 9],
+      ['fDate', 'ngày diễn ra', !s.fDate],
+      ['fType', 'loại chương trình', !s.fType],
+      ['fGuests', 'số khách', !(Number(s.fGuests) > 0)],
+      ['fProv', 'tỉnh/thành', !s.fProv],
+      ['fVenue', 'địa điểm', !String(s.fVenue).trim()],
+      ['fLang', 'ngôn ngữ dẫn', !s.fLang],
+      ['fBudgetMode', 'ngân sách', !s.fBudgetMode]
+    ];
+    if (s.role === 'client') need.unshift(['fCo', 'tên doanh nghiệp', !String(s.fCo).trim()]);
+    else { need.unshift(['fBrand', 'tên khách hàng', !String(s.fBrand).trim()]); need.unshift(['fAgency', 'tên agency', !String(s.fAgency).trim()]); }
+    if (s.fBudgetMode === 'fixed') need.push(['fBudget', 'mức ngân sách', !String(s.fBudget).trim()]);
+    var bad = {}; need.forEach(function (n) { if (n[2]) bad[n[0]] = 1; });
+    var bd = function (k) { return s.tried && bad[k] ? '#A3361A' : '#D6CDBD'; };
+    var roleCards = [
+      { id: 'agency', title: 'AGENCY SỰ KIỆN', desc: 'Thay mặt khách hàng tìm MC, đã có hoặc đang viết kịch bản.' },
+      { id: 'client', title: 'DOANH NGHIỆP', desc: 'Trực tiếp tổ chức cho nội bộ, khách hàng hoặc đối tác.' }
+    ].map(function (r) { var on = s.role === r.id; return { title: r.title, desc: r.desc, on: on, bd: on ? '#0B0B0C' : '#E2DACB', bg: on ? '#FFFFFF' : 'transparent', dot: on ? '#0B0B0C' : 'transparent', pick: function () { set({ role: r.id, fErr: '' }); } }; });
+    var orgFields = s.role === 'client'
+      ? [{ id: 'f-co', label: 'TÊN DOANH NGHIỆP *', value: s.fCo, onInput: fset('fCo'), ph: 'Công ty tổ chức sự kiện', bd: bd('fCo') }, { id: 'f-dept', label: 'BỘ PHẬN PHỤ TRÁCH', value: s.fDept, onInput: fset('fDept'), ph: 'VD: Nhân sự, Marketing', bd: '#D6CDBD' }]
+      : [{ id: 'f-agency', label: 'TÊN AGENCY *', value: s.fAgency, onInput: fset('fAgency'), ph: 'Đơn vị tổ chức sự kiện', bd: bd('fAgency') }, { id: 'f-brand', label: 'KHÁCH HÀNG CỦA AGENCY *', value: s.fBrand, onInput: fset('fBrand'), ph: 'Thương hiệu tổ chức', bd: bd('fBrand') }];
+    var dateText = ''; if (s.fDate) { var pp = s.fDate.split('-'); dateText = pp[2] + '/' + pp[1] + '/' + pp[0]; }
+    var f = {
+      name: s.fName, phone: s.fPhone, email: s.fEmail, date: s.fDate, type: s.fType, guests: s.fGuests, prov: s.fProv, venue: s.fVenue, budget: s.fBudget, note: s.fNote, dateText: dateText, fixed: s.fBudgetMode === 'fixed',
+      onName: fset('fName'), onPhone: fset('fPhone'), onEmail: fset('fEmail'), onDate: fset('fDate'), onType: fset('fType'), onGuests: fset('fGuests'), onProv: fset('fProv'), onVenue: fset('fVenue'), onBudget: fset('fBudget'), onNote: fset('fNote'),
+      bdName: bd('fName'), bdPhone: bd('fPhone'), bdEmail: s.tried && emailBad ? '#A3361A' : '#D6CDBD', bdDate: bd('fDate'), bdType: bd('fType'), bdGuests: bd('fGuests'), bdProv: bd('fProv'), bdVenue: bd('fVenue'), bdLang: bd('fLang'), bdBudget: bd('fBudget'),
+      err: s.fErr, hasErr: !!s.fErr,
+      submit: function () {
+        var miss = need.filter(function (n) { return n[2]; }).map(function (n) { return n[1]; });
+        if (miss.length) { set({ tried: true, fErr: 'Vui lòng bổ sung: ' + miss.join(', ') + '.' }); return; }
+        if (emailBad) { set({ tried: true, fErr: 'Email chưa đúng định dạng (có thể để trống).' }); return; }
+        set({ sent: true, fErr: '' });
+      },
+      reset: function () { set({ sent: false, tried: false, fName: '', fPhone: '', fEmail: '', fDate: '', fGuests: '', fVenue: '', fBudget: '', fNote: '' }); }
+    };
+    var fLangBtns = langKeys.map(function (k) { var on = s.fLang === k; return { label: langLabel[k], on: on, bg: on ? '#0B0B0C' : 'transparent', fg: on ? '#D9B85F' : '#0B0B0C', pick: function () { set({ fLang: k, fErr: '' }); } }; });
+    var budgetBtns = [['quote', 'Chưa có, nhờ báo giá'], ['fixed', 'Đã có ngân sách ấn định']].map(function (d) { var on = s.fBudgetMode === d[0]; return { label: (on ? '● ' : '○ ') + d[1], on: on, bd: on ? '#0B0B0C' : (s.tried && bad.fBudgetMode ? '#A3361A' : '#D6CDBD'), bg: on ? '#F4F0E8' : 'transparent', pick: function () { set({ fBudgetMode: d[0], fErr: '' }); } }; });
+
+    /* ---------- FAQ ---------- */
+    var faqData = [
+      { q: 'Chấn Minh báo giá như thế nào?', a: 'Gửi thông tin sự kiện để nhận báo giá chi tiết, hoặc gửi mức ngân sách đã ấn định để Chấn Minh xác nhận hay đề xuất phương án phù hợp. Phản hồi trong 3 giờ.' },
+      { q: 'Chi phí phụ thuộc vào gì?', a: 'Loại và thời lượng chương trình, ngôn ngữ dẫn, địa điểm (ngoài TP.HCM có thêm di chuyển, lưu trú), ngày diễn (mùa Year End, cuối tuần) và số buổi họp, tổng duyệt.' },
+      { q: 'Cần đặt lịch trước bao lâu?', a: '[Ví dụ: mùa Year End nên đặt trước 1–2 tháng; ngày thường trước 2–3 tuần.]' },
+      { q: 'Ai viết kịch bản chương trình?', a: 'Kịch bản do agency hoặc ban tổ chức chuẩn bị. Chấn Minh đọc kỹ, góp ý phần lời dẫn và khớp cue với đạo diễn trước buổi tổng duyệt.' },
+      { q: 'Chính sách đổi lịch thế nào?', a: 'Đổi lịch 1 lần miễn phí nếu ngày mới Chấn Minh chưa có lịch show khác. [Bổ sung thời hạn báo trước và tỉ lệ cọc.]' },
+      { q: 'Có nhận sự kiện ngoài TP.HCM không?', a: 'Có, Chấn Minh nhận show toàn quốc. Chi phí di chuyển và lưu trú được báo rõ trong báo giá.' }
+    ];
+    var faqs = faqData.map(function (x, i) { var open = s.faq === i; return { q: x.q, a: x.a, open: open, sign: open ? '−' : '+', toggle: function () { set({ faq: open ? -1 : i }); } }; });
+
+    /* ---------- ô tìm kiếm đầu trang ---------- */
+    var close = function () { set({ cmd: false, cmdQ: '' }); };
+    var cq = norm(s.cmdQ).trim();
+    var cqWords = cq.split(/\s+/).filter(function (w) { return w; });
+    var hit = function (t) { var h = norm(t); return cqWords.length > 0 && cqWords.every(function (w) { return h.indexOf(w) >= 0; }); };
+    var navDefs = [['SHOW ĐÃ DẪN', '#show'], ['VIDEO', '#video'], ['VÌ SAO', '#vi-sao'], ['VỀ CHẤN MINH', '#ve-chan-minh'], ['HỒ SƠ SHOW', '#ho-so'], ['TRANG PHỤC', '#trang-phuc'], ['BÁO GIÁ & ĐẶT LỊCH', '#dat-lich'], ['HUB', '#hub']];
+    var showItems = shows.filter(function (x) { return hit(hay(x)); }).slice(0, 5).map(function (x) { return { label: x.title, hint: evLabel[x.ev], href: '#show', go: function () { set({ cmd: false, cmdQ: '', q: '', ev: 'all', biOnly: false, sel: x.id }); } }; });
+    var videoItems = []; videos.forEach(function (v, i) { if (hit(v.title + ' ' + evLabel[v.cat] + (v.bi ? ' song ngu bilingual' : ''))) videoItems.push({ label: v.title, hint: 'Video', href: '#video', go: function () { set({ cmd: false, cmdQ: '', vSel: i, vChip: 'all' }); } }); });
+    var outfitItems = outfitData.filter(function (o) { return hit(o.label + ' ' + o.forEv + ' ' + catOf(o.cat).label); }).slice(0, 4).map(function (o) { return { label: o.label, hint: 'Trang phục', href: '#trang-phuc', go: function () { set({ cmd: false, cmdQ: '', cat: o.cat, oView: o.id }); } }; });
+    var secItems = navDefs.filter(function (x) { return hit(x[0]); }).map(function (x) { return { label: x[0], hint: 'Đi đến mục', href: x[1], go: close }; });
+    var cmdGroups = [];
+    if (showItems.length) cmdGroups.push({ label: 'SHOW', items: showItems });
+    if (videoItems.length) cmdGroups.push({ label: 'VIDEO', items: videoItems.slice(0, 4) });
+    if (outfitItems.length) cmdGroups.push({ label: 'TRANG PHỤC', items: outfitItems });
+    if (secItems.length) cmdGroups.push({ label: 'ĐI ĐẾN MỤC', items: secItems });
+    var cmdExamples = ['year end song ngữ', 'company trip', 'team building', 'GS25', 'hội nghị', 'vest'].map(function (t) { return { label: t, pick: function () { set({ cmd: true, cmdQ: t }); } }; });
+
+    var avail = this.props.showAvailability;
+    return {
+      showAvail: avail === undefined ? true : !!avail,
+      availText: this.props.availabilityText ?? 'Đang nhận lịch Year End Party 2026',
+      navLinks: navDefs.map(function (n) { return { label: n[0], href: n[1] }; }),
+      stats: [{ n: '11+', l: 'Năm cầm micro', s: 'Sân khấu doanh nghiệp' }, { n: '1.800+', l: 'Sự kiện đã dẫn', s: 'Từ 50 đến hàng nghìn khách' }, { n: '150+', l: 'Show quốc tế & song ngữ', s: 'Việt, Anh, song ngữ' }, { n: '200+', l: 'Thương hiệu đồng hành', s: 'Agency và khách trực tiếp' }],
+      marquee: marqueeBase.concat(marqueeBase),
+      allLogos: brands,
+      logosOpen: s.logosOpen,
+      openLogos: function () { set({ logosOpen: true }); }, closeLogos: function () { set({ logosOpen: false }); },
+
+      q: s.q, onQ: function (e) { set({ q: e.target.value, sel: '', exLim: 9 }); },
+      clearQ: function () { set({ q: '', ev: 'all', biOnly: false, sel: '', exLim: 9 }); },
+      evChips: evChips,
+      biOnly: s.biOnly, biLabel: s.biOnly ? '✓ Chỉ show song ngữ' : '+ Chỉ show song ngữ', biBd: s.biOnly ? GOLD : '#3A3A40', biFg: s.biOnly ? GOLD : '#C7C0B8',
+      toggleBi: function () { set({ biOnly: !s.biOnly, sel: '', exLim: 9 }); },
+      hasCur: !!curRaw, noCur: !curRaw, cur: cur,
+      curPos: curRaw ? (ci + 1) + ' / ' + filtered.length : '',
+      curHeart: this.heart('show:' + (curRaw ? curRaw.id : 'none'), 'Show', curRaw ? curRaw.title : ''),
+      prevShow: function () { if (filtered.length) set({ sel: filtered[(ci - 1 + filtered.length) % filtered.length].id }); },
+      nextShow: function () { if (filtered.length) set({ sel: filtered[(ci + 1) % filtered.length].id }); },
+      exShown: exShown, exCount: filtered.length + ' show',
+      exMore: filtered.length > s.exLim, exRest: Math.max(0, filtered.length - s.exLim),
+      showMore: function () { set({ exLim: s.exLim + 9 }); },
+
+      vChips: vChips, vRow: vRow, scrollLeft: scroller(-1), scrollRight: scroller(1),
+      vCur: { title: vCurRaw.title, catLabel: evLabel[vCurRaw.cat].toUpperCase() + (vCurRaw.bi ? ' · SONG NGỮ' : '') },
+      vHeart: this.heart('vid:' + s.vSel, 'Video', vCurRaw.title),
+      vr: this.composer('vr', 'v' + s.vSel),
+      vBg: vCurRaw.thumb ? "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('" + vCurRaw.thumb + "')" : 'none',
+
+      cases: [
+        { img: './assets/1a1c07055d6b9bd19518768f25d4eae9.jpg', tag: 'CALLED BACK. AGAIN.', big: '3 lần', brand: 'GS25 · Song ngữ', desc: 'Từ Year End Party đến Town Hall, dẫn song ngữ Việt – Anh.' },
+        { img: './assets/5806fad53b6c64bca5997ba0f8c4f750.jpg', tag: 'SIX TIMES. SAME FIRE.', big: '6 + 2', brand: 'AgriS → Betrimex', desc: 'Sáu lần cùng AgriS, tiếp nối hai lần với Betrimex cùng hệ sinh thái.' },
+        { img: './assets/866421fa9c5b641d75536324076b869f.jpg', tag: 'LIKE FAMILY.', big: 'Người nhà', brand: 'PNJ', desc: 'Hiểu văn hoá PNJ như người một nhà trong Ngày hội văn hoá.' }
+      ],
+      coreValues: [
+        { n: '01', t: 'CHỈN CHU', s: 'Đọc kỹ kịch bản, luôn có phương án dự phòng.' },
+        { n: '02', t: 'THẤU HIỂU', s: 'Hiểu ngành, hiểu khán giả trước khi cầm micro.' },
+        { n: '03', t: 'KẾT NỐI', s: 'Cầu nối lãnh đạo, nhân viên và đối tác.' },
+        { n: '04', t: 'LINH HOẠT', s: 'Ứng biến trong vài giây.' },
+        { n: '05', t: 'TẬN TÂM', s: 'Làm việc như người trong ê-kíp.' }
+      ],
+      industries: ['Tài chính, Ngân hàng & HR', 'Nông nghiệp, Thực phẩm & F&B', 'Y tế', 'Logistics & Vận tải', 'Bất động sản & Công nghiệp', 'Giáo dục & Đào tạo'],
+      press: [
+        { title: 'MC Chấn Minh: Định vị thương hiệu cá nhân bởi sự khác biệt', site: 'Thế Giới Người Nổi Tiếng', url: 'https://thegioinguoinoitieng.vn/thoi-trang/mc-chan-minh-dinh-vi-thuong-hieu-ca-nhan-boi-su-khac-biet.html/' },
+        { title: 'MC song ngữ Chấn Minh: 10 năm đồng hành cùng văn hoá doanh nghiệp', site: 'Kênh Người Nổi Tiếng', url: 'https://kenhnguoinoitieng.com/mc-song-ngu-chan-minh-10-nam-dong-hanh-phat-trien-hieu-biet-ve-quan-tri-van-hoa-doanh-nghiep/' },
+        { title: 'MC Chấn Minh – Hành trình khẳng định tên tuổi bản thân', site: 'Văn Hoá Việt', url: 'https://vanhoaviet.net/mc-chan-minh-hanh-trinh-khang-dinh-ten-tuoi-ban-than/' }
+      ],
+
+      mEvBtns: mEvBtns, mLangBtns: mLangBtns, mVibe: s.mVibe,
+      onVibe: function (e) { set({ mVibe: Number(e.target.value) }); },
+      vibeLabel: vibeWords[band] + ' · ' + vibe + '%',
+      rings: rings, mStyle: styles[band], mOutfit: { label: mO.label, img: mO.img }, mScent: scentById(mO.scent), mLangLabel: langLabel[s.mLang],
+      mPrep: prepMap[s.mEv], mEvLabelUpper: evLabel[s.mEv].toUpperCase(),
+      mHeart: this.heart('match', 'Hồ sơ show', mSummary),
+      applyMatch: function () { set({ cat: mO.cat, oView: mO.id, oPick: mO.id, scent: mO.scent, scentWant: mO.scent === 'none' ? 'no' : 'yes', fType: s.mEv, fLang: s.mLang }); },
+
+      catTabs: catTabs, outfitSlots: outfitSlots, oc: oc,
+      choose: function () { set({ oPick: isPicked ? '' : ocRaw.id }); },
+      chooseLabel: isPicked ? '✓ ĐÃ CHỌN CHO SHOW' : 'CHỌN BỘ NÀY CHO SHOW',
+      chooseBg: isPicked ? '#1F6B3A' : '#0B0B0C', chooseFg: isPicked ? '#FFFFFF' : '#D9B85F',
+      nextOutfit: function () { var n = inCur[(idx + 1) % inCur.length]; set({ oView: n.id }); },
+      scents: scents, scentCur: scentCur, scentAsk: scentAsk, scentYes: s.scentWant === 'yes',
+      pickedLabel: picked ? picked.label : 'Chưa chọn',
+
+      assurances: [
+        { t: 'Phản hồi trong 3 giờ', s: 'Kể cả mùa cao điểm.', icon: 'M12 6v6l4 2M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0' },
+        { t: 'Giữ lịch 48 giờ', s: 'Chưa cần cọc khi chốt nội bộ.', icon: 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z' },
+        { t: 'Báo giá theo ngân sách', s: 'Không mặc cả nhiều vòng.', icon: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' },
+        { t: 'Hoá đơn & hợp đồng', s: '[Xác nhận VAT, tỉ lệ cọc]', icon: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h5' }
+      ],
+      cells: cells, freeWeekend: freeWeekend,
+      roleCards: roleCards, orgFields: orgFields, f: f, fLangBtns: fLangBtns, budgetBtns: budgetBtns, provinces: provinces,
+      sent: s.sent, notSent: !s.sent,
+      savedList: savedList, savedCount: savedList.length, noSaved: savedList.length === 0, hasSaved: savedList.length > 0,
+      faqs: faqs,
+
+      cmd: s.cmd, cmdQ: s.cmdQ, cmdGroups: cmdGroups, cmdExamples: cmdExamples,
+      cmdEmpty: !cq, cmdNone: !!cq && cmdGroups.length === 0,
+      cmdBd: s.cmd ? GOLD : '#2A2A30',
+      openCmd: function () { set({ cmd: true }); }, closeCmd: close,
+      onCmdQ: function (e) { set({ cmdQ: e.target.value, cmd: true }); },
+      cmdKey: function (e) { if (e.key === 'Escape') close(); },
+
+      soundLabel: s.sound ? 'Tắt tiếng' : 'Bật tiếng',
+      soundPath: s.sound ? 'M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14' : 'M23 9l-6 6M17 9l6 6',
+      heroReady: function (e) { var v = e.currentTarget; v.muted = !self.state.sound; var p = v.play(); if (p && p.catch) p.catch(function () {}); },
+      toggleSound: function () { var v = document.getElementById('reel'); var on = !self.state.sound; if (v) { v.muted = !on; var p = v.play(); if (p && p.catch) p.catch(function () {}); } set({ sound: on }); },
+      playWithSound: function () { var v = document.getElementById('reel'); if (v) { v.currentTime = 0; v.muted = false; var p = v.play(); if (p && p.catch) p.catch(function () {}); if (v.scrollIntoView) v.scrollIntoView({ behavior: 'smooth', block: 'center' }); } set({ sound: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

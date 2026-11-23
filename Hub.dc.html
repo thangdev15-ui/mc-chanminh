@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Chấn Minh Hub – Kiến thức & sự kiện</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F0E8;font-family:"Be Vietnam Pro",system-ui,sans-serif;color:#0B0B0C}
+a{color:#0B0B0C}a:hover{color:#7A5A14}
+html{scroll-behavior:smooth}
+button,input{font-family:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid #D9B85F;outline-offset:3px}
+.zoom{overflow:hidden}
+.zoom img{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.zoom:hover img{transform:scale(1.05)}
+.lift{transition:transform .25s ease,box-shadow .25s ease}
+.lift:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(11,11,12,.12)}
+.ul{background-image:linear-gradient(currentColor,currentColor);background-size:0 1.5px;background-position:0 100%;background-repeat:no-repeat;transition:background-size .3s}
+.ul:hover{background-size:100% 1.5px}
+@keyframes live{0%{box-shadow:0 0 0 0 rgba(226,59,46,.55)}100%{box-shadow:0 0 0 10px rgba(226,59,46,0)}}
+.live{animation:live 1.5s ease-out infinite}
+@media (prefers-reduced-motion: reduce){.live{animation:none}.lift:hover{transform:none}}
+
+@media (max-width: 1100px){
+.g3{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g4{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g5,.g6{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+.g8{grid-template-columns:repeat(5,minmax(0,1fr)) !important}
+.h1{font-size:92px !important}
+.h2{font-size:42px !important}
+}
+@media (max-width: 900px){
+.wrap{padding-left:20px !important;padding-right:20px !important}
+.sec{padding-top:72px !important;padding-bottom:72px !important}
+.g2,.g12,.hero{grid-template-columns:minmax(0,1fr) !important}
+.g12>*{grid-column:auto !important}
+.stk{position:static !important}
+.bento{grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-auto-rows:auto !important}
+.bento>*{min-height:220px}
+.h1{font-size:76px !important}
+.h2{font-size:34px !important}
+.bignum{font-size:56px !important}
+.tallimg{height:440px !important}
+.heroimg{max-height:620px}
+.navrow{justify-content:flex-start !important}
+}
+@media (max-width: 560px){
+.g3,.g5{grid-template-columns:minmax(0,1fr) !important}
+.g6{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g8{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+.bento{grid-template-columns:minmax(0,1fr) !important}
+.bento>*{grid-column:auto !important;grid-row:auto !important}
+.h1{font-size:58px !important}
+.h2{font-size:28px !important}
+.bignum{font-size:44px !important}
+.tallimg{height:360px !important}
+.tagline,.hide-sm{display:none !important}
+.vcardw{flex-basis:250px !important}
+.logobtn{min-width:118px !important;padding:0 12px !important;font-size:11px !important}
+.toprow{flex-direction:column !important;align-items:flex-start !important}
+.toprow>span{align-items:flex-start !important;text-align:left !important}
+.padcard{padding:22px !important}
+}
+@media (max-width: 760px){.evrow{grid-template-columns:84px minmax(0,1fr) !important;gap:16px !important}.evrow>*:last-child{grid-column:1/-1}}
+</style>
+</helmet>
+<div style="width: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F0E8;">
+<!-- ARTICLE READER -->
+<sc-if value="{{rOpen}}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 70; display: flex; justify-content: center; align-items: flex-start; padding: 4vh 16px; box-sizing: border-box; overflow-y: auto;">
+<button type="button" onClick="{{rClose}}" aria-label="Đóng bài viết" style="position: fixed; inset: 0; border: none; background: rgba(0,0,0,0.75); cursor: default;"></button>
+<article role="dialog" aria-label="{{r.title}}" style="position: relative; width: 780px; max-width: 100%; background: #F4F0E8; color: #0B0B0C; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="position: relative; height: 320px; background: #0B0B0C;"><img src="{{r.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85;"><button type="button" onClick="{{rClose}}" aria-label="Đóng" style="position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 999px; border: none; background: rgba(11,11,12,0.8); color: #F4F0E8; font-size: 20px;">×</button></div>
+<div style="padding: 36px 48px 44px; display: flex; flex-direction: column; gap: 18px;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #7A5A14;">{{r.topicUpper}} · {{r.typeUpper}} · {{r.len}}</span>
+<h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 38px; line-height: 1.15; text-transform: uppercase;">{{r.title}}</h2>
+<div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #E2DACB; padding-bottom: 18px;"><span style="width: 44px; height: 44px; border-radius: 999px; background: #0B0B0C; display: flex; align-items: center; justify-content: center;"><img src="./assets/d49f929b000e9d4fcf9d419954969f3c.png" alt="" style="height: 30px; width: auto; display: block;"></span><span style="display: flex; flex-direction: column;"><span style="font-size: 15px; font-weight: 800;">Chấn Minh</span><span style="font-size: 13px; color: #5E5850;">MC sự kiện · [ngày đăng]</span></span></div>
+<sc-for list="{{r.blocks}}" as="b" hint-placeholder-count="6">
+<sc-if value="{{b.isH}}" hint-placeholder-val="{{ false }}"><h3 style="margin: 10px 0 0; font-size: 20px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">{{b.text}}</h3></sc-if>
+<sc-if value="{{b.isP}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 17px; line-height: 1.8; color: #2A2620;">{{b.text}}</p></sc-if>
+<sc-if value="{{b.isLi}}" hint-placeholder-val="{{ false }}"><div style="display: flex; gap: 12px; font-size: 17px; line-height: 1.7; color: #2A2620;"><span style="color: #7A5A14; font-weight: 800; flex-shrink: 0;">{{b.mark}}</span><span>{{b.text}}</span></div></sc-if>
+<sc-if value="{{b.isQ}}" hint-placeholder-val="{{ false }}"><p style="margin: 4px 0; padding: 4px 0 4px 20px; border-left: 3px solid #D9B85F; font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 22px; line-height: 1.5;">{{b.text}}</p></sc-if>
+</sc-for>
+<div style="margin-top: 14px; background: #0B0B0C; color: #F4F0E8; border-radius: 18px; padding: 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;"><span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 15px; font-weight: 800; letter-spacing: 1px; color: #D9B85F;">CẦN MC CHO SỰ KIỆN SẮP TỚI?</span><span style="font-size: 14px; color: #C7C0B8;">Phản hồi trong 3 giờ · nhận show toàn quốc</span></span><span style="display: flex; gap: 10px;"><a href="V2.dc.html" style="text-decoration: none; background: #D9B85F; color: #0B0B0C; font-weight: 800; font-size: 14px; padding: 13px 20px; border-radius: 999px;">ĐẶT LỊCH CHẤN MINH</a><button type="button" onClick="{{rNext}}" style="min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid #C7C0B8; background: transparent; color: #F4F0E8; font-size: 14px; font-weight: 700;">Bài tiếp theo →</button></span></div>
+</div>
+</article>
+</div>
+</sc-if>
+
+
+<!-- NAV -->
+<header style="position: sticky; top: 0; z-index: 30; background: rgba(243,238,229,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid #E2DACB;">
+<nav class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 12px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+<a href="#top" style="text-decoration: none; display: flex; align-items: center; gap: 10px;"><img src="./assets/d49f929b000e9d4fcf9d419954969f3c.png" alt="" style="height: 40px; width: auto; display: block; background: #0B0B0C; border-radius: 10px; padding: 4px;"><span style="font-size: 18px; font-weight: 800; letter-spacing: 2px;">CHẤN MINH</span><span style="font-size: 11px; letter-spacing: 2px; font-weight: 800; color: #D9B85F; background: #0B0B0C; border-radius: 6px; padding: 3px 7px;">HUB</span></a>
+<div style="display: flex; gap: 26px; font-size: 15px; font-weight: 500;">
+<a href="#sap-dien-ra" class="ul" style="text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 1px;">SẮP DIỄN RA</a>
+<a href="#noi-dung" class="ul" style="text-decoration: none;">Kiến thức &amp; video</a>
+<a href="#chuoi" class="ul" style="text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 1px;">CHUỖI BÀI</a>
+<a href="#hop-tac" class="ul" style="text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 1px;">HỢP TÁC</a>
+</div>
+<div style="display: flex; align-items: center; gap: 10px;">
+<a href="V2.dc.html" style="text-decoration: none; min-height: 44px; box-sizing: border-box; display: flex; align-items: center; padding: 0 16px; border: 1px solid #E2DACB; border-radius: 999px; background: #FFFFFF; font-size: 14px; font-weight: 700;">Thuê MC cho sự kiện</a>
+<a href="#nhan-tin" style="text-decoration: none; background: #0B0B0C; color: #F4F0E8; font-weight: 700; font-size: 15px; padding: 12px 22px; border-radius: 999px;">Nhận tin mới</a>
+</div>
+</nav>
+</header>
+
+<!-- HERO: creator profile + next event -->
+<section class="wrap g2" id="top" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 56px 40px 64px; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: stretch;">
+<div style="display: flex; flex-direction: column; gap: 24px; justify-content: space-between;">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; align-items: center; gap: 14px;"><img src="./assets/9db65a2e89d162910adcd1c789400a7f.jpg" alt="Chấn Minh" style="width: 64px; height: 64px; border-radius: 999px; object-fit: cover; object-position: center top; display: block; border: 2px solid #FFFFFF; box-shadow: 0 4px 14px rgba(0,0,0,0.12);"><div style="display: flex; flex-direction: column;"><span style="font-size: 17px; font-weight: 800;">Chấn Minh</span><span style="font-size: 14px; color: #5E5850;">MC sự kiện · 11+ năm · 1.800+ sân khấu</span></div></div>
+<h1 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.08; text-transform: uppercase;">Sân khấu, micro <span style="font-style: italic; color: #7A5A14;">và những điều Chấn Minh học được</span></h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.65; color: #4A453C; max-width: 620px;">Hậu trường sự kiện, kỹ năng nói trước đám đông, dẫn song ngữ và phong cách sân khấu. Mỗi tuần một điều hữu ích, cùng lịch livestream và lớp học sắp mở.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">THEO DÕI CHẤN MINH</span>
+<div class="g5" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px;">
+<sc-for list="{{socials}}" as="sc" hint-placeholder-count="5">
+<a href="{{sc.href}}" class="lift" style="text-decoration: none; display: flex; flex-direction: column; gap: 6px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 16px; padding: 14px;"><span style="width: 34px; height: 34px; border-radius: 10px; background: {{sc.bg}}; color: #FFFFFF; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;">{{sc.short}}</span><span style="font-size: 14px; font-weight: 800;">{{sc.name}}</span><span style="font-size: 12px; color: #5E5850;">{{sc.count}}</span></a>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="background: #0B0B0C; color: #F4F0E8; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
+<div class="zoom" style="position: relative; height: 260px;"><img src="{{next.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;"><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,12,0) 40%, rgba(11,11,12,0.9) 100%);"></div><span style="position: absolute; left: 20px; top: 20px; display: flex; align-items: center; gap: 8px; background: #E23B2E; color: #FFFFFF; font-size: 12px; font-weight: 800; letter-spacing: 1px; border-radius: 999px; padding: 6px 12px;"><span class="live" style="width: 8px; height: 8px; border-radius: 999px; background: #FFFFFF; display: block;"></span>SẮP DIỄN RA</span></div>
+<div style="padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">{{next.kindUpper}}</span>
+<span style="font-family: 'Playfair Display', Georgia, serif; font-size: 30px; line-height: 1.15;">{{next.title}}</span>
+<span style="font-size: 15px; color: #CFC7B9;">{{next.when}} · {{next.where}}</span>
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;">
+<sc-for list="{{countdown}}" as="c" hint-placeholder-count="3"><div style="background: #221F19; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; align-items: center;"><span style="font-family: Anton, Oswald, Impact, sans-serif; font-size: 34px; line-height: 1;">{{c.n}}</span><span style="font-size: 12px; color: #B9B1A3;">{{c.l}}</span></div></sc-for>
+</div>
+<button type="button" onClick="{{next.remind}}" style="margin-top: auto; min-height: 54px; border-radius: 999px; border: none; background: {{next.btnBg}}; color: #0B0B0C; font-size: 16px; font-weight: 800;">{{next.btnLabel}}</button>
+</div>
+</div>
+</section>
+
+<!-- UPCOMING -->
+<section class="sec" id="sap-dien-ra" style="background: #FFFFFF; border-top: 1px solid #E2DACB; border-bottom: 1px solid #E2DACB; padding: 96px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 13px; letter-spacing: 3px; font-weight: 700; color: #7A5A14;">SẮP DIỄN RA</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 48px; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px;">Livestream, lớp học <span style="font-style: italic; color: #7A5A14;">và workshop.</span></h2></div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;"><sc-for list="{{evTabs}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.on}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid {{t.bd}}; background: {{t.bg}}; color: {{t.fg}}; font-size: 14px; font-weight: 600;">{{t.label}} <span style="opacity: 0.6; font-size: 12px;">{{t.count}}</span></button></sc-for></div>
+</div>
+<div style="display: flex; flex-direction: column; border-top: 1px solid #EAE3D6;">
+<sc-for list="{{events}}" as="e" hint-placeholder-count="4">
+<article class="evrow" style="display: grid; grid-template-columns: 120px minmax(0, 1fr) 220px; gap: 28px; align-items: center; padding: 22px 0; border-bottom: 1px solid #EAE3D6;">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: {{e.dateBg}}; color: {{e.dateFg}}; border-radius: 18px; height: 110px;"><span style="font-size: 12px; font-weight: 800; letter-spacing: 1.5px;">{{e.dow}}</span><span style="font-family: Anton, Oswald, Impact, sans-serif; font-size: 44px; line-height: 1;">{{e.day}}</span><span style="font-size: 13px; font-weight: 700;">{{e.month}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+<div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;"><span style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; border-radius: 999px; padding: 4px 10px; background: {{e.tagBg}}; color: {{e.tagFg}};">{{e.kindUpper}}</span><span style="font-size: 13px; color: #5E5850;">{{e.meta}}</span></div>
+<span style="font-size: 22px; font-weight: 800; line-height: 1.3;">{{e.title}}</span>
+<span style="font-size: 15px; color: #4A453C; line-height: 1.55;">{{e.desc}}</span>
+<div style="display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; color: #4A453C;"><span style="display: flex; align-items: center; gap: 6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 14"></polyline></svg>{{e.time}}</span><span style="display: flex; align-items: center; gap: 6px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>{{e.where}}</span><sc-if value="{{e.hasSeats}}" hint-placeholder-val="{{ false }}"><span style="font-weight: 700; color: #7A5A14;">{{e.seats}}</span></sc-if></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; align-items: stretch;">
+<sc-if value="{{e.hasPrice}}" hint-placeholder-val="{{ false }}"><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; text-align: right;">{{e.price}}</span></sc-if>
+<button type="button" onClick="{{e.act}}" style="min-height: 50px; border-radius: 999px; border: {{e.btnBd}}; background: {{e.btnBg}}; color: {{e.btnFg}}; font-size: 15px; font-weight: 800;">{{e.btnLabel}}</button>
+<button type="button" onClick="{{e.cal}}" style="min-height: 40px; border: none; background: none; font-size: 13px; font-weight: 700; color: #4A453C; text-decoration: underline;">{{e.calLabel}}</button>
+</div>
+</article>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- CONTENT FEED -->
+<section class="wrap sec" id="noi-dung" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 96px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 13px; letter-spacing: 3px; font-weight: 700; color: #7A5A14;">KIẾN THỨC &amp; VIDEO</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 48px; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px;">Học từ <span style="font-style: italic; color: #7A5A14;">1.800 sân khấu.</span></h2></div>
+<label style="position: relative; display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 999px; padding: 0 18px; width: 360px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5E5850" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">Tìm nội dung</span><input type="search" value="{{q}}" onInput="{{onQ}}" placeholder="Tìm: mo man, song ngu, vest…" style="flex-grow: 1; min-height: 50px; border: none; outline: none; background: transparent; font-size: 16px;"></label>
+</div>
+
+<!-- featured -->
+<a href="#noi-dung" onClick="{{feat.open}}" class="zoom g2" style="text-decoration: none; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); background: #0B0B0C; color: #F4F0E8; border-radius: 28px;">
+<div class="tallimg" style="position: relative; height: 420px;"><img src="{{feat.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;"><span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;"><span style="width: 84px; height: 84px; border-radius: 999px; background: #D9B85F; color: #0B0B0C; display: flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 20 12 7 20 7 4"></polygon></svg></span></span></div>
+<div class="padcard" style="padding: 36px; display: flex; flex-direction: column; gap: 14px; justify-content: center;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">NỔI BẬT · {{feat.typeUpper}} · {{feat.len}}</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 36px; line-height: 1.12;">{{feat.title}}</span><span style="font-size: 16px; line-height: 1.6; color: #CFC7B9;">{{feat.ex}}</span><span style="font-size: 13px; color: #8F887B;">{{feat.topic}} · [ngày đăng]</span></div>
+</a>
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;"><span style="width: 90px; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; color: #5E5850;">ĐỊNH DẠNG</span><sc-for list="{{typeOpts}}" as="o" hint-placeholder-count="5"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid {{o.bd}}; background: {{o.bg}}; color: {{o.fg}}; font-size: 14px; font-weight: 600;">{{o.label}} <span style="opacity: 0.6; font-size: 12px;">{{o.count}}</span></button></sc-for></div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;"><span style="width: 90px; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; color: #5E5850;">CHỦ ĐỀ</span><sc-for list="{{topicOpts}}" as="o" hint-placeholder-count="6"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid {{o.bd}}; background: {{o.bg}}; color: {{o.fg}}; font-size: 14px; font-weight: 600;">{{o.label}} <span style="opacity: 0.6; font-size: 12px;">{{o.count}}</span></button></sc-for></div>
+<div style="display: flex; justify-content: space-between; font-size: 14px; color: #5E5850;"><span>{{feedCount}}</span><sc-if value="{{filtered}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{clearF}}" style="min-height: 32px; border: none; background: none; padding: 0; font-size: 14px; font-weight: 700; color: #7A5A14; text-decoration: underline;">Xoá bộ lọc</button></sc-if></div>
+</div>
+
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px;">
+<sc-for list="{{feed}}" as="p" hint-placeholder-count="6">
+<article class="lift" style="display: flex; flex-direction: column; gap: 12px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 20px; padding: 10px;">
+<a href="{{p.href}}" onClick="{{p.open}}" style="text-decoration: none; color: #0B0B0C; display: flex; flex-direction: column; gap: 12px;">
+<div class="zoom" style="position: relative; border-radius: 14px; aspect-ratio: {{p.ratio}}; background: #E6DFD2;"><img src="{{p.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block;"><span style="position: absolute; left: 10px; top: 10px; background: rgba(11,11,12,0.85); color: #F4F0E8; font-size: 11px; font-weight: 800; letter-spacing: 1px; border-radius: 999px; padding: 5px 10px;">{{p.typeUpper}} · {{p.len}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 0 6px;"><span style="font-size: 11px; letter-spacing: 1.5px; font-weight: 800; color: #7A5A14;">{{p.topicUpper}}</span><span style="font-size: 18px; font-weight: 800; line-height: 1.35;">{{p.title}}</span><span style="font-size: 14px; color: #4A453C; line-height: 1.5;">{{p.ex}}</span></div>
+</a>
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 6px 6px; margin-top: auto;"><a href="{{p.href}}" onClick="{{p.open}}" style="text-decoration: none; font-size: 13px; font-weight: 800; letter-spacing: 1px; color: #7A5A14;">{{p.cta}}</a><button type="button" onClick="{{p.save}}" aria-label="{{p.saveAria}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid {{p.sBd}}; background: {{p.sBg}}; color: {{p.sFg}}; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{p.sFill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></button></div>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{feedNone}}" hint-placeholder-val="{{ false }}"><div class="padcard" style="border: 1.5px dashed #CFC6B6; border-radius: 18px; padding: 32px; text-align: center; font-size: 16px; color: #4A453C;">Chưa có nội dung khớp. Gợi ý chủ đề bạn muốn Chấn Minh làm tiếp ở ô “Nhận tin mới” bên dưới nhé.</div></sc-if>
+<sc-if value="{{hasSaved}}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 12px; background: #0B0B0C; color: #F4F0E8; border-radius: 16px; padding: 14px 18px; font-size: 15px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#D9B85F" stroke="#D9B85F" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>Bạn đã lưu {{savedCount}} nội dung để xem sau. Để lại email bên dưới để nhận lại danh sách này.</div></sc-if>
+</section>
+
+<!-- SERIES -->
+<section class="sec" id="chuoi" style="background: #EAE3D6; padding: 96px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 13px; letter-spacing: 3px; font-weight: 700; color: #7A5A14;">CHUỖI BÀI</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 48px; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px;">Theo dõi trọn một hành trình, <span style="font-style: italic; color: #7A5A14;">không bỏ lỡ tập nào.</span></h2></div>
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;">
+<sc-for list="{{series}}" as="r" hint-placeholder-count="3">
+<article style="background: {{r.bg}}; color: {{r.fg}}; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 16px; min-height: 280px; box-sizing: border-box;">
+<span style="font-family: Anton, Oswald, Impact, sans-serif; font-size: 56px; line-height: 1;">{{r.n}}</span>
+<span style="font-family: 'Playfair Display', Georgia, serif; font-size: 28px; line-height: 1.15;">{{r.title}}</span>
+<span style="font-size: 15px; line-height: 1.55; opacity: 0.85;">{{r.desc}}</span>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px;"><div style="height: 6px; border-radius: 999px; background: {{r.track}}; overflow: hidden;"><div style="height: 6px; width: {{r.pct}}; background: #D9B85F; border-radius: 999px;"></div></div><span style="font-size: 13px; font-weight: 700;">{{r.progress}}</span></div>
+</article>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- NEWSLETTER / LEAD MAGNET (own the audience) -->
+<section class="sec" id="nhan-tin" style="background: #0B0B0C; color: #F4F0E8; padding: 96px 0;">
+<div class="wrap g2" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<span style="font-size: 13px; letter-spacing: 3px; font-weight: 700; color: #D9B85F;">NHẬN TIN MỚI · QUÀ TẶNG</span>
+<h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 46px; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px;">Tải miễn phí: <span style="font-style: italic; color: #D9B85F;">[20 câu mở màn cho MC sự kiện]</span></h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #CFC7B9;">Kèm một email mỗi tuần: mẹo dẫn chương trình, lịch livestream và ưu tiên đăng ký lớp học trước khi mở công khai.</p>
+</div>
+<div class="padcard" style="background: #F4F0E8; color: #0B0B0C; border-radius: 26px; padding: 30px; display: flex; flex-direction: column; gap: 16px;">
+<sc-if value="{{notSub}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><label for="hub-email" style="font-size: 13px; font-weight: 700; letter-spacing: 1px;">EMAIL CỦA BẠN</label><input id="hub-email" type="email" autocomplete="email" value="{{email}}" onInput="{{onEmail}}" placeholder="ban@email.com" style="min-height: 54px; padding: 0 16px; border-radius: 14px; border: 1px solid #D6CDBD; font-size: 16px; background: #FFFFFF;"></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 13px; font-weight: 700; letter-spacing: 1px;">BẠN QUAN TÂM</span><div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{interests}}" as="i" hint-placeholder-count="4"><button type="button" role="checkbox" aria-checked="{{i.on}}" onClick="{{i.pick}}" style="min-height: 42px; padding: 0 14px; border-radius: 999px; border: 1px solid {{i.bd}}; background: {{i.bg}}; color: {{i.fg}}; font-size: 14px; font-weight: 600;">{{i.tick}}{{i.label}}</button></sc-for></div></div>
+<sc-if value="{{hasErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 14px; color: #A3361A; font-weight: 700;">{{err}}</span></sc-if>
+<button type="button" onClick="{{subscribe}}" style="min-height: 56px; border-radius: 999px; border: none; background: #D9B85F; color: #0B0B0C; font-size: 16px; font-weight: 800;">Gửi quà cho tôi</button>
+<span style="font-size: 13px; color: #5E5850;">Hoặc tham gia <strong style="color: #0B0B0C;">Zalo OA [tên OA]</strong> để nhận thông báo livestream. Huỷ nhận tin bất cứ lúc nào.</span>
+</div>
+</sc-if>
+<sc-if value="{{sub}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; gap: 12px; padding: 10px 0;"><span style="width: 56px; height: 56px; border-radius: 999px; background: #2F9E5A; color: #FFFFFF; font-size: 26px; display: flex; align-items: center; justify-content: center;">✓</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 30px; line-height: 1.15;">Quà đang trên đường tới hộp thư của bạn.</span><span style="font-size: 15px; color: #4A453C;">Bạn sẽ nhận: {{subTopics}}.</span></div></sc-if>
+</div>
+</div>
+</section>
+
+<!-- MEDIA KIT / COLLAB (KOL/KOC) -->
+<section class="wrap sec" id="hop-tac" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 96px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
+<div style="display: flex; flex-direction: column; gap: 12px;"><span style="font-size: 13px; letter-spacing: 3px; font-weight: 700; color: #7A5A14;">HỢP TÁC THƯƠNG HIỆU</span><h2 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 48px; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.5px; max-width: 760px;">Một giọng nói khán giả <span style="font-style: italic; color: #7A5A14;">đã tin trên sân khấu.</span></h2></div>
+<div style="display: flex; gap: 10px;"><a href="#hop-tac" style="text-decoration: none; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; padding: 0 22px; border-radius: 999px; border: 1.5px solid #0B0B0C; font-size: 15px; font-weight: 700;">Tải media kit [PDF]</a><a href="mailto:mc.chanminh@gmail.com?subject=H%E1%BB%A3p%20t%C3%A1c%20th%C6%B0%C6%A1ng%20hi%E1%BB%87u" style="text-decoration: none; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; padding: 0 22px; border-radius: 999px; background: #0B0B0C; color: #F4F0E8; font-size: 15px; font-weight: 700;">Đề xuất hợp tác</a></div>
+</div>
+<div class="g4" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{kitStats}}" as="k" hint-placeholder-count="4"><div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 6px;"><span style="font-family: Anton, Oswald, Impact, sans-serif; font-size: 44px; line-height: 1;">{{k.n}}</span><span style="font-size: 14px; font-weight: 700;">{{k.l}}</span><span style="font-size: 13px; color: #5E5850;">{{k.s}}</span></div></sc-for>
+</div>
+<div class="g4" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{formats}}" as="f" hint-placeholder-count="4"><div style="background: {{f.bg}}; color: {{f.fg}}; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 190px; box-sizing: border-box;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: {{f.eye}};">{{f.eyebrow}}</span><span style="font-size: 20px; font-weight: 800; line-height: 1.3;">{{f.t}}</span><span style="font-size: 14px; line-height: 1.55; opacity: 0.85;">{{f.s}}</span></div></sc-for>
+</div>
+</section>
+
+<footer style="background: #0B0B0C; color: #CFC7B9; padding: 40px 0;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; gap: 20px; font-size: 14px;"><span>© 2026 Chấn Minh Hub · Connecting Moments, Creating Impact.</span><span style="display: flex; gap: 20px;"><a href="V2.dc.html" style="text-decoration: none; color: #F4F0E8;">Thuê MC cho sự kiện →</a><a href="#top" style="text-decoration: none; color: #CFC7B9;">Lên đầu trang ↑</a></span></div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { reader: '', evF: 'all', remind: {}, cal: {}, q: '', fType: [], fTopic: [], saved: {}, email: '', ints: { tips: 1, live: 1 }, sub: false, err: '' };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var set = function (o) { self.setState(o); };
+    var norm = function (x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd'); };
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var dows = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+
+    /* ----- upcoming (sample dates in brackets = replace) ----- */
+    var kinds = { live: ['Livestream', '#E23B2E', '#FFFFFF'], class: ['Lớp học', '#0B0B0C', '#F4F0E8'], work: ['Workshop', '#D9B85F', '#0B0B0C'] };
+    var evData = [
+      { id: 'e1', kind: 'live', y: 2026, m: 10, d: 15, time: '[20:00 – 21:00]', where: 'TikTok & Facebook Live', title: 'Hỏi đáp: Nghề MC sự kiện có thật sự “sống được”?', desc: 'Trả lời trực tiếp các câu hỏi về thu nhập, cách bắt đầu và cách giữ lửa sau 1.800 sân khấu.', meta: 'Miễn phí · nhận link qua email', img: './assets/db28bf821edfc9afd1074e49f5a73444.jpg' },
+      { id: 'e2', kind: 'class', y: 2026, m: 10, d: 24, time: '[19:00 – 21:30] · 4 buổi', where: '[Địa điểm, TP.HCM]', title: 'Lớp “Tự tin cầm micro” – khoá [01]', desc: 'Giọng nói, mở màn, xử lý sự cố sân khấu và thực hành dẫn trước lớp. Nhóm nhỏ để được sửa từng người.', meta: 'Ưu tiên người nhận tin', seats: 'Còn [8] / [20] chỗ', price: '[HỌC PHÍ]', img: './assets/b4939c6acf9947829faed6fde3cd0780.jpg' },
+      { id: 'e3', kind: 'live', y: 2026, m: 11, d: 3, time: '[20:00 – 21:00]', where: 'YouTube Live', title: 'Chọn MC cho Year End thế nào để không “hụt nhịp”?', desc: 'Dành cho phòng HR và agency: brief ra sao, hỏi MC những gì, những lỗi hay gặp mùa cao điểm.', meta: 'Miễn phí', img: './assets/e76d3ce16db895ebe80812414b6ff109.jpg' },
+      { id: 'e4', kind: 'work', y: 2026, m: 11, d: 14, time: '[09:00 – 12:00]', where: 'Tại doanh nghiệp của bạn', title: 'Workshop nội bộ: Nói trước đám đông cho quản lý', desc: 'Chương trình may đo cho đội ngũ quản lý: thuyết trình, dẫn họp, truyền cảm hứng cho nhân viên.', meta: 'Đặt theo lịch doanh nghiệp', price: '[BÁO GIÁ]', img: './assets/4f1f63a92d381b68272dee0c437c1ac8.jpg' }
+    ];
+    var now = new Date();
+    var evTabs = [['all', 'Tất cả'], ['live', 'Livestream'], ['class', 'Lớp học'], ['work', 'Workshop']].map(function (d) {
+      var on = s.evF === d[0];
+      return { label: d[1], on: on, count: evData.filter(function (e) { return d[0] === 'all' || e.kind === d[0]; }).length, bg: on ? '#0B0B0C' : '#FFFFFF', fg: on ? '#F4F0E8' : '#0B0B0C', bd: on ? '#0B0B0C' : '#E2DACB', pick: function () { set({ evF: d[0] }); } };
+    });
+    var toggleMap = function (key, id) { var o = Object.assign({}, self.state[key]); if (o[id]) delete o[id]; else o[id] = 1; var x = {}; x[key] = o; set(x); };
+    var events = evData.filter(function (e) { return s.evF === 'all' || e.kind === s.evF; }).map(function (e) {
+      var k = kinds[e.kind];
+      var dt = new Date(e.y, e.m - 1, e.d);
+      var rem = !!s.remind[e.id];
+      var isLive = e.kind === 'live';
+      var btnLabel = isLive ? (rem ? '✓ Sẽ nhắc bạn' : 'Nhắc tôi khi live') : (e.kind === 'class' ? (rem ? '✓ Đã giữ chỗ' : 'Giữ chỗ') : (rem ? '✓ Đã gửi yêu cầu' : 'Đặt lịch workshop'));
+      return { title: e.title, desc: e.desc, meta: e.meta, time: e.time, where: e.where, kindUpper: k[0].toUpperCase(), tagBg: k[1], tagFg: k[2],
+        dow: dows[dt.getDay()], day: '[' + pad(e.d) + ']', month: 'THÁNG ' + e.m, dateBg: isLive ? '#FCE9E7' : '#F4F0E8', dateFg: '#0B0B0C',
+        seats: e.seats || '', hasSeats: !!e.seats, price: e.price || '', hasPrice: !!e.price,
+        btnLabel: btnLabel, btnBg: rem ? '#E8F3EC' : '#0B0B0C', btnFg: rem ? '#1F6B3A' : '#F4F0E8', btnBd: rem ? '1px solid #2F9E5A' : 'none',
+        act: function () { toggleMap('remind', e.id); },
+        calLabel: s.cal[e.id] ? '✓ Đã thêm vào lịch' : 'Thêm vào Google Calendar',
+        cal: function () { toggleMap('cal', e.id); } };
+    });
+    var nx = evData[0];
+    var nxDate = new Date(nx.y, nx.m - 1, nx.d, 20, 0, 0);
+    var diff = Math.max(0, nxDate - now);
+    var dd = Math.floor(diff / 86400000), hh = Math.floor(diff / 3600000) % 24, mm = Math.floor(diff / 60000) % 60;
+    var nxRem = !!s.remind[nx.id];
+
+    /* ----- content feed ----- */
+    var types = { video: 'Video', short: 'Short', article: 'Bài viết', photo: 'Album ảnh', press: 'Báo chí' };
+    var topics = { skill: 'Kỹ năng dẫn', backstage: 'Hậu trường', bi: 'Song ngữ', style: 'Phong cách sân khấu', career: 'Nghề MC', agency: 'Dành cho agency & HR', press: 'Báo chí viết về Chấn Minh' };
+    var H = function (x) { return { h: x }; }, P = function (x) { return { p: x }; }, Q = function (x) { return { q: x }; };
+    var posts = [
+      { id: 'p1', type: 'article', topic: 'backstage', title: '12 tiếng trước giờ G của một đêm Year End Party', ex: 'Từ buổi tổng duyệt sáng sớm đến câu chào đầu tiên: những việc khán giả không nhìn thấy.', len: '7 phút đọc', img: './assets/e76d3ce16db895ebe80812414b6ff109.jpg',
+        body: [P('Nhiều người nghĩ công việc của MC bắt đầu khi đèn sân khấu bật sáng. Thật ra, với một đêm Year End Party, phần quan trọng nhất diễn ra trong 12 tiếng trước đó.'),
+          H('8:00 – Đọc lại kịch bản lần cuối'), P('Kịch bản do agency gửi, mình đã đọc từ nhiều ngày trước. Buổi sáng hôm diễn, mình đọc lại một lượt để đánh dấu những chỗ dễ trượt nhịp: tên khách mời, chức danh, tên giải thưởng, thứ tự các tiết mục.'),
+          H('10:00 – Tổng duyệt kỹ thuật'), P('Đứng thử đúng vị trí sẽ đứng tối nay, test micro chính và micro dự phòng, thống nhất cue với đạo diễn, âm thanh, ánh sáng. Mình luôn hỏi thêm một câu: nếu màn hình LED gặp sự cố, phương án B là gì?'),
+          H('14:00 – Gặp ban lãnh đạo'), P('Vài phút ngắn để xác nhận cách xưng hô, điều sếp muốn nhấn mạnh trong phát biểu, và những ai cần được nhắc tên đặc biệt. Chi tiết nhỏ này quyết định rất nhiều cảm xúc của buổi tối.'),
+          H('17:00 – Thay trang phục, nghỉ giọng'), P('Trang phục đã được chọn cùng khách từ trước, theo tone trang trí. Một tiếng trước giờ đón khách là thời gian mình giữ im lặng, uống nước ấm và nhẩm lại phần mở màn.'),
+          Q('Khán giả chỉ nhớ 3 giờ trên sân khấu, nhưng 3 giờ đó được xây từ 12 giờ chuẩn bị.'),
+          H('19:00 – Giờ G'), P('Khi mọi thứ đã khớp, việc còn lại là tận hưởng cùng khán phòng. Và nếu có gì đó lệch kịch bản, sự chuẩn bị ban ngày sẽ giúp xử lý trong vài giây.')] },
+      { id: 'p2', type: 'article', topic: 'skill', title: '5 câu mở màn giúp khán phòng 500 khách tập trung ngay', ex: 'Công thức mở đầu Chấn Minh dùng cho Gala, hội nghị và Company Trip, kèm ví dụ cụ thể.', len: '6 phút đọc', img: './assets/b4939c6acf9947829faed6fde3cd0780.jpg',
+        body: [P('30 giây đầu tiên quyết định khán phòng có đi cùng MC hay không. Dưới đây là 5 kiểu mở màn mình hay dùng, tuỳ tính chất chương trình.'),
+          H('1. Gọi tên khoảnh khắc chung'), P('“Đêm nay là lần đầu tiên sau 12 tháng, cả 500 người chúng ta ngồi chung một khán phòng.” Câu mở này kéo mọi người về cùng một trải nghiệm.'),
+          H('2. Một con số bất ngờ'), P('Con số thật của doanh nghiệp: số km cả đoàn đã đi, số dự án đã hoàn thành. Con số làm khán giả ngẩng đầu lên nghe.'),
+          H('3. Một câu hỏi cần trả lời bằng tay'), P('“Ai ở đây đã gắn bó với công ty trên 5 năm, xin giơ tay.” Tương tác vật lý nhỏ phá băng nhanh hơn bất kỳ câu đùa nào.'),
+          H('4. Im lặng có chủ đích'), P('Với hội nghị trang trọng, bước ra, dừng 2 giây trước khi nói. Khoảng lặng ngắn tạo sự chú ý tự nhiên.'),
+          H('5. Nối vào chủ đề chương trình'), P('Nếu chủ đề là “Together We Rise”, hãy mở bằng một câu chuyện nhỏ minh hoạ chữ “together”. Chủ đề không chỉ nằm trên backdrop.'),
+          Q('Mở màn hay không cần dài. Cần đúng người, đúng đêm, đúng thông điệp.')] },
+      { id: 'p3', type: 'short', topic: 'skill', title: 'Micro tắt giữa chương trình: xử lý trong 10 giây', ex: 'Tình huống ai làm MC cũng sẽ gặp, và cách giữ khán phòng không mất nhịp.', len: '0:45', img: './assets/db28bf821edfc9afd1074e49f5a73444.jpg',
+        body: [P('Micro tắt giữa lúc đang nói là tình huống sớm muộn gì cũng xảy ra. Điều quan trọng là khán giả không cảm thấy chương trình bị đứt.'),
+          { li: 'Không nhìn về phía kỹ thuật với vẻ hoảng hốt. Khán giả nhìn theo ánh mắt MC.', m: '01' },
+          { li: 'Nói to, rõ bằng giọng thật với hàng ghế đầu, giữ nụ cười.', m: '02' },
+          { li: 'Nhận micro dự phòng đã chuẩn bị sẵn từ buổi tổng duyệt.', m: '03' },
+          { li: 'Biến sự cố thành một câu đùa nhẹ nếu không khí cho phép, rồi quay lại đúng chỗ đang dở.', m: '04' },
+          Q('Sự cố không đáng sợ. Đáng sợ là không có phương án dự phòng.')] },
+      { id: 'p4', type: 'article', topic: 'bi', title: 'Dẫn song ngữ mà không làm chậm nhịp chương trình', ex: 'Khi nào dịch nối tiếp, khi nào tóm ý, và cách đọc kịch bản song ngữ từ agency.', len: '7 phút đọc', img: './assets/0c93cc5f1ad62e29edafa65a40ac8dea.jpg',
+        body: [P('Chương trình có khách quốc tế thường lo một điều: dẫn song ngữ sẽ làm mọi thứ dài gấp đôi. Thực tế không nhất thiết như vậy.'),
+          H('Không dịch từng câu'), P('Phần nghi thức, giới thiệu đại biểu cần đủ hai ngôn ngữ. Nhưng phần chuyển tiếp, dẫn dắt có thể tóm ý bằng ngôn ngữ thứ hai trong một câu ngắn.'),
+          H('Xen kẽ thay vì lặp lại'), P('Câu đầu tiếng Việt, câu sau tiếng Anh nối tiếp ý, không nhắc lại. Khán giả hai bên đều theo kịp mà nhịp không bị kéo dài.'),
+          H('Thống nhất với agency từ trước'), P('Khi nhận kịch bản, mình đánh dấu phần nào bắt buộc đủ hai ngôn ngữ, phần nào tóm ý, rồi gửi lại cho agency xác nhận. Đến ngày diễn, không ai bị bất ngờ.'),
+          Q('Song ngữ tốt là khi cả hai nhóm khán giả đều cảm thấy chương trình được làm cho mình.')] },
+      { id: 'p5', type: 'video', topic: 'style', title: 'Chọn vest theo ánh sáng sân khấu: đèn vàng hay đèn trắng?', ex: 'Thử 4 bộ trong tủ đồ dưới hai kiểu ánh sáng khác nhau và rút ra quy tắc chọn màu.', len: '[6:10]', img: './assets/10096cf99d6c7a73afb64556b3dfb85e.jpg',
+        body: [P('Trang phục MC không chỉ đẹp khi đứng ngoài đời. Nó phải đẹp dưới ánh đèn và trên màn hình LED phía sau.'),
+          H('Đèn vàng, sân khấu ấm'), P('Navy, đen và nhung hợp với ánh sáng ấm của Gala. Tránh vest nâu trùng tone với backdrop gỗ, dễ bị “chìm”.'),
+          H('Đèn trắng, hội nghị ban ngày'), P('Vest sáng màu, sọc chỉ mảnh và cà vạt pastel tạo cảm giác tươi, chuyên nghiệp. Tránh hoạ tiết quá dày vì dễ nhiễu hình khi quay.'),
+          H('Luôn hỏi màu backdrop'), P('Đây là câu mình hỏi agency trước khi chốt trang phục. Một câu hỏi, tránh được việc MC đứng lẫn vào phông nền.')] },
+      { id: 'p6', type: 'article', topic: 'agency', title: 'Agency nên brief MC những gì để chương trình trơn tru?', ex: 'Checklist 8 thông tin giúp MC và agency khớp nhau ngay từ lần đầu làm việc.', len: '5 phút đọc', img: './assets/68f73db116b37bffc559325b472a6794.jpg',
+        body: [P('Kịch bản là phần của agency. Nhưng để MC truyền tải trọn vẹn, có vài thông tin nên gửi kèm ngay từ đầu.'),
+          { li: 'Mục tiêu chương trình: tri ân, gắn kết, ra mắt hay vinh danh.', m: '01' },
+          { li: 'Chân dung khán giả: số khách, tỉ lệ khách quốc tế, độ tuổi.', m: '02' },
+          { li: 'Danh sách đại biểu, chức danh, cách phát âm tên nước ngoài.', m: '03' },
+          { li: 'Những chủ đề cần tránh hoặc cần nhấn mạnh.', m: '04' },
+          { li: 'Timeline chi tiết và phần nào có thể co giãn.', m: '05' },
+          { li: 'Màu backdrop, concept trang trí để chọn trang phục.', m: '06' },
+          { li: 'Người chốt quyết định tại sự kiện.', m: '07' },
+          { li: 'Lịch tổng duyệt và đầu mối kỹ thuật.', m: '08' },
+          Q('Brief càng rõ, MC càng có thời gian để làm phần khó nhất: kết nối với khán phòng.')] },
+      { id: 'p7', type: 'article', topic: 'career', title: '11 năm, 1.800 sân khấu: điều Chấn Minh học được về nghề MC', ex: 'Về sự chuẩn bị, về khách hàng quay lại và về việc giữ lửa sau hơn một thập kỷ.', len: '8 phút đọc', img: './assets/9db65a2e89d162910adcd1c789400a7f.jpg',
+        body: [P('Khi bắt đầu, mình nghĩ MC giỏi là người nói hay. Sau hơn 1.800 sân khấu, mình nghĩ MC giỏi là người khiến chương trình của người khác trở nên hay.'),
+          H('Khách quay lại vì sự yên tâm'), P('Có những thương hiệu mời lại mình 3 lần, 6 lần. Không phải vì một câu đùa nào đó, mà vì họ biết mọi thứ sẽ được chuẩn bị kỹ và không có bất ngờ khó chịu.'),
+          H('Mỗi ngành có một ngôn ngữ riêng'), P('Tài chính, logistics, y tế, giáo dục đều có cách nói và điều cần tránh khác nhau. Hiểu văn hoá doanh nghiệp là phần việc ít ai thấy nhưng quyết định chất lượng lời dẫn.'),
+          H('Giữ lửa bằng cách học tiếp'), P('Mình vẫn đọc, vẫn xem lại video từng show để sửa. Hub này cũng là cách mình chia sẻ lại những gì đã học.'),
+          Q('Sân khấu không phải của MC. MC chỉ là người giữ nhịp cho khoảnh khắc của người khác.')] },
+      { id: 'p8', type: 'short', topic: 'skill', title: 'Minigame 60 giây khuấy động Company Trip', ex: 'Không cần đạo cụ, dùng được cho 30 đến 300 người.', len: '0:58', img: './assets/137b92b5535255adfee31e090b837efe.jpg',
+        body: [P('Khi cả đoàn vừa xuống xe, mệt và chưa vào nhịp, một minigame ngắn giúp đánh thức năng lượng.'),
+          { li: 'Chia đoàn theo tháng sinh thành 4 nhóm.', m: '01' },
+          { li: 'Mỗi nhóm có 60 giây xếp hàng theo ngày sinh mà không được nói.', m: '02' },
+          { li: 'Nhóm xong trước và đúng thứ tự thắng.', m: '03' },
+          P('Trò chơi đơn giản nhưng buộc mọi người nhìn nhau, ra hiệu và cười. Sau 60 giây, không khí đã khác hẳn.')] },
+      { id: 'p9', type: 'photo', topic: 'backstage', title: 'Album: AgriS Olympic 2025', ex: 'Những khoảnh khắc từ lần đồng hành thứ sáu cùng AgriS.', len: '[24 ảnh]', img: './assets/5806fad53b6c64bca5997ba0f8c4f750.jpg',
+        body: [P('Lần thứ sáu đồng hành cùng AgriS, lần này tại sân chơi thể thao của cả tập đoàn.'), P('[Thêm bộ ảnh sự kiện tại đây]')] },
+      { id: 'p10', type: 'photo', topic: 'backstage', title: 'Album: Novonesis Academy Vietnam 2026', ex: 'Gala Dinner cùng khách quốc tế.', len: '[18 ảnh]', img: './assets/68f73db116b37bffc559325b472a6794.jpg',
+        body: [P('Gala Dinner với khách quốc tế, dẫn song ngữ Việt – Anh.'), P('[Thêm bộ ảnh sự kiện tại đây]')] },
+      { id: 'x1', type: 'press', topic: 'press', title: 'MC Chấn Minh: Định vị thương hiệu cá nhân bởi sự khác biệt', ex: 'Thế Giới Người Nổi Tiếng', len: 'Báo chí', img: './assets/10096cf99d6c7a73afb64556b3dfb85e.jpg', url: 'https://thegioinguoinoitieng.vn/thoi-trang/mc-chan-minh-dinh-vi-thuong-hieu-ca-nhan-boi-su-khac-biet.html/' },
+      { id: 'x2', type: 'press', topic: 'press', title: 'MC song ngữ Chấn Minh: 10 năm đồng hành, phát triển hiểu biết về quản trị văn hoá doanh nghiệp', ex: 'Kênh Người Nổi Tiếng', len: 'Báo chí', img: './assets/98910e547252b80820f08418a725e786.jpg', url: 'https://kenhnguoinoitieng.com/mc-song-ngu-chan-minh-10-nam-dong-hanh-phat-trien-hieu-biet-ve-quan-tri-van-hoa-doanh-nghiep/' },
+      { id: 'x3', type: 'press', topic: 'press', title: 'MC Chấn Minh – Hành trình khẳng định tên tuổi bản thân', ex: 'Văn Hoá Việt', len: 'Báo chí', img: './assets/9db65a2e89d162910adcd1c789400a7f.jpg', url: 'https://vanhoaviet.net/mc-chan-minh-hanh-trinh-khang-dinh-ten-tuoi-ban-than/' }
+    ];
+    var qn = norm(s.q).trim();
+    var byQ = posts.filter(function (p) { return !qn || norm(p.title + ' ' + p.ex + ' ' + topics[p.topic] + ' ' + types[p.type]).indexOf(qn) >= 0; });
+    var passT = function (p) { return !s.fType.length || s.fType.indexOf(p.type) >= 0; };
+    var passP = function (p) { return !s.fTopic.length || s.fTopic.indexOf(p.topic) >= 0; };
+    var tog = function (key, v) { var a = self.state[key].slice(); var i = a.indexOf(v); if (i >= 0) a.splice(i, 1); else a.push(v); var o = {}; o[key] = a; set(o); };
+    var chip = function (key, map, field, other) {
+      return Object.keys(map).map(function (k) { var on = s[key].indexOf(k) >= 0; return { label: map[k], on: on, count: byQ.filter(function (p) { return p[field] === k && other(p); }).length, bg: on ? '#0B0B0C' : '#FFFFFF', fg: on ? '#F4F0E8' : '#0B0B0C', bd: on ? '#0B0B0C' : '#E2DACB', pick: function () { tog(key, k); } }; });
+    };
+    var list = byQ.filter(function (p) { return passT(p) && passP(p); });
+    var openPost = function (id) { return function (e) { if (e && e.preventDefault) e.preventDefault(); set({ reader: id }); }; };
+    var feed = list.map(function (p) {
+      var sv = !!s.saved[p.id];
+      var press = p.type === 'press';
+      return { title: p.title, ex: p.ex, img: p.img, ratio: '16 / 10', len: p.len, typeUpper: types[p.type].toUpperCase(), topicUpper: topics[p.topic].toUpperCase(), href: press ? p.url : '#noi-dung', open: press ? undefined : openPost(p.id), cta: press ? 'ĐỌC TRÊN BÁO ↗' : (p.type === 'photo' ? 'XEM ALBUM →' : 'ĐỌC BÀI →'),
+        sBg: sv ? '#0B0B0C' : '#FFFFFF', sFg: sv ? '#D9B85F' : '#0B0B0C', sBd: sv ? '#0B0B0C' : '#E2DACB', sFill: sv ? 'currentColor' : 'none', saveAria: sv ? 'Bỏ lưu' : 'Lưu để xem sau', save: function () { toggleMap('saved', p.id); } };
+    });
+    var readable = posts.filter(function (p) { return p.body; });
+    var rp = readable.filter(function (p) { return p.id === s.reader; })[0];
+    var rView = rp ? { title: rp.title, img: rp.img, len: rp.len, typeUpper: types[rp.type].toUpperCase(), topicUpper: topics[rp.topic].toUpperCase(),
+      blocks: rp.body.map(function (b) { return { isH: !!b.h, isP: !!b.p, isLi: !!b.li, isQ: !!b.q, text: b.h || b.p || b.li || b.q, mark: b.m || '' }; }) } : { title: '', img: '', len: '', typeUpper: '', topicUpper: '', blocks: [] };
+    var f = posts[0];
+    var savedCount = Object.keys(s.saved).length;
+
+    /* ----- newsletter ----- */
+    var intDefs = [['tips', 'Mẹo dẫn chương trình'], ['live', 'Lịch livestream'], ['class', 'Mở lớp học'], ['biz', 'Tổ chức sự kiện doanh nghiệp']];
+    var interests = intDefs.map(function (d) { var on = !!s.ints[d[0]]; return { label: d[1], on: on, tick: on ? '✓ ' : '', bg: on ? '#0B0B0C' : '#FFFFFF', fg: on ? '#F4F0E8' : '#0B0B0C', bd: on ? '#0B0B0C' : '#D6CDBD', pick: function () { toggleMap('ints', d[0]); } }; });
+
+    return {
+      socials: [
+        { name: 'TikTok', short: 'TT', bg: '#0B0B0C', count: '[X] người theo dõi', href: '#top' },
+        { name: 'YouTube', short: 'YT', bg: '#E23B2E', count: '[X] người đăng ký', href: '#top' },
+        { name: 'Facebook', short: 'FB', bg: '#1877F2', count: '[X] người theo dõi', href: '#top' },
+        { name: 'Instagram', short: 'IG', bg: '#B1387E', count: '[X] người theo dõi', href: '#top' },
+        { name: 'Zalo OA', short: 'Zalo', bg: '#0068FF', count: 'Nhận lịch live', href: 'https://zalo.me/0937700121' }
+      ],
+      next: { title: nx.title, img: nx.img, kindUpper: 'LIVESTREAM · MIỄN PHÍ', when: dows[new Date(nx.y, nx.m - 1, nx.d).getDay()] + ', [' + pad(nx.d) + '/' + pad(nx.m) + '] ' + nx.time, where: nx.where,
+        btnLabel: nxRem ? '✓ Sẽ nhắc bạn trước 30 phút' : 'Nhắc tôi khi bắt đầu live', btnBg: nxRem ? '#7FD39E' : '#D9B85F', remind: function () { toggleMap('remind', nx.id); } },
+      countdown: [{ n: dd, l: 'ngày' }, { n: pad(hh), l: 'giờ' }, { n: pad(mm), l: 'phút' }],
+      evTabs: evTabs, events: events,
+      q: s.q, onQ: function (e) { set({ q: e.target.value }); },
+      feat: { title: f.title, ex: f.ex, img: f.img, len: f.len, typeUpper: types[f.type].toUpperCase(), topic: topics[f.topic], open: openPost(f.id) },
+      rOpen: !!rp, r: rView,
+      rClose: function () { set({ reader: '' }); },
+      rNext: function () { var i = readable.indexOf(rp); set({ reader: readable[(i + 1) % readable.length].id }); },
+      typeOpts: chip('fType', types, 'type', passP),
+      topicOpts: chip('fTopic', topics, 'topic', passT),
+      feed: feed, feedNone: list.length === 0,
+      feedCount: list.length + ' / ' + posts.length + ' nội dung',
+      filtered: (s.fType.length + s.fTopic.length) > 0 || !!s.q,
+      clearF: function () { set({ fType: [], fTopic: [], q: '' }); },
+      hasSaved: savedCount > 0, savedCount: savedCount,
+      series: [
+        { n: '30', title: '30 ngày tự tin cầm micro', desc: 'Mỗi ngày một bài tập 5 phút cho giọng nói, hơi thở và ánh mắt.', progress: '[12] / 30 tập đã đăng', pct: '40%', bg: '#0B0B0C', fg: '#F4F0E8', track: '#3A362F' },
+        { n: 'YE', title: 'Mùa Year End từ hậu trường', desc: 'Nhật ký từng show cuối năm: chuẩn bị, sự cố và khoảnh khắc đáng nhớ.', progress: 'Bắt đầu [tháng 12]', pct: '0%', bg: '#FFFFFF', fg: '#0B0B0C', track: '#EAE3D6' },
+        { n: 'EN', title: 'Song ngữ trên sân khấu', desc: 'Cụm từ, cách chuyển ý và lỗi thường gặp khi dẫn Việt – Anh.', progress: '[5] / 10 tập đã đăng', pct: '50%', bg: '#FFFFFF', fg: '#0B0B0C', track: '#EAE3D6' }
+      ],
+      email: s.email, onEmail: function (e) { set({ email: e.target.value, err: '' }); },
+      interests: interests,
+      err: s.err, hasErr: !!s.err, sub: s.sub, notSub: !s.sub,
+      subscribe: function () { var v = String(self.state.email).trim(); if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { set({ err: 'Email chưa đúng định dạng.' }); return; } if (!Object.keys(self.state.ints).length) { set({ err: 'Chọn ít nhất một chủ đề bạn quan tâm.' }); return; } set({ sub: true }); },
+      subTopics: intDefs.filter(function (d) { return s.ints[d[0]]; }).map(function (d) { return d[1].toLowerCase(); }).join(', '),
+      kitStats: [
+        { n: '[X]', l: 'Tổng người theo dõi', s: 'TikTok, YouTube, Facebook, Instagram' },
+        { n: '[X]%', l: 'Tỉ lệ tương tác', s: 'Trung bình 30 ngày gần nhất' },
+        { n: '1.800+', l: 'Sự kiện đã dẫn', s: 'Khán giả trực tiếp mỗi năm: [X]' },
+        { n: '200+', l: 'Thương hiệu đồng hành', s: 'Doanh nghiệp, agency, tập đoàn' }
+      ],
+      formats: [
+        { eyebrow: 'LIVESTREAM', t: 'Dẫn livestream ra mắt, bán hàng', s: 'Giọng dẫn có kịch bản, giữ người xem và chốt đơn tự nhiên.', bg: '#0B0B0C', fg: '#F4F0E8', eye: '#D9B85F' },
+        { eyebrow: 'NỘI DUNG', t: 'Video review, trải nghiệm sản phẩm', s: 'Lồng ghép vào hậu trường sự kiện và phong cách sân khấu.', bg: '#FFFFFF', fg: '#0B0B0C', eye: '#7A5A14' },
+        { eyebrow: 'SỰ KIỆN', t: 'Đại sứ sự kiện, khách mời', s: 'Xuất hiện, dẫn và chia sẻ tại sự kiện của thương hiệu.', bg: '#FFFFFF', fg: '#0B0B0C', eye: '#7A5A14' },
+        { eyebrow: 'ĐÀO TẠO', t: 'Workshop nội bộ', s: 'Nói trước đám đông, thuyết trình, dẫn họp cho đội ngũ.', bg: '#D9B85F', fg: '#0B0B0C', eye: '#0B0B0C' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

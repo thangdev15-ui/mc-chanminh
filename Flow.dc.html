@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>MC Chấn Minh – Luồng đặt MC</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F0E8;font-family:"Be Vietnam Pro",system-ui,sans-serif;color:#0B0B0C}
+a{color:#0B0B0C}a:hover{color:#7A5A14}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed}
+:focus-visible{outline:2px solid #D9B85F;outline-offset:3px}
+.pick{transition:border-color .2s,transform .2s,box-shadow .2s}
+.pick:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(21,19,15,.08)}
+@keyframes enter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.enter{animation:enter .45s cubic-bezier(.2,.7,.2,1) both}
+@media (prefers-reduced-motion: reduce){.enter{animation:none}.pick:hover{transform:none}}
+
+@media (max-width: 1100px){
+.g3{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g4{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g5,.g6{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+.g8{grid-template-columns:repeat(5,minmax(0,1fr)) !important}
+.h1{font-size:92px !important}
+.h2{font-size:42px !important}
+}
+@media (max-width: 900px){
+.wrap{padding-left:20px !important;padding-right:20px !important}
+.sec{padding-top:72px !important;padding-bottom:72px !important}
+.g2,.g12,.hero{grid-template-columns:minmax(0,1fr) !important}
+.g12>*{grid-column:auto !important}
+.stk{position:static !important}
+.bento{grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-auto-rows:auto !important}
+.bento>*{min-height:220px}
+.h1{font-size:76px !important}
+.h2{font-size:34px !important}
+.bignum{font-size:56px !important}
+.tallimg{height:440px !important}
+.heroimg{max-height:620px}
+.navrow{justify-content:flex-start !important}
+}
+@media (max-width: 560px){
+.g3,.g5{grid-template-columns:minmax(0,1fr) !important}
+.g6{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.g8{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+.bento{grid-template-columns:minmax(0,1fr) !important}
+.bento>*{grid-column:auto !important;grid-row:auto !important}
+.h1{font-size:58px !important}
+.h2{font-size:28px !important}
+.bignum{font-size:44px !important}
+.tallimg{height:360px !important}
+.tagline,.hide-sm{display:none !important}
+.vcardw{flex-basis:250px !important}
+.logobtn{min-width:118px !important;padding:0 12px !important;font-size:11px !important}
+.toprow{flex-direction:column !important;align-items:flex-start !important}
+.toprow>span{align-items:flex-start !important;text-align:left !important}
+.padcard{padding:22px !important}
+}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F0E8;">
+
+<!-- TOP BAR: minimal checkout header (distraction-free) -->
+<header style="position: sticky; top: 0; z-index: 20; background: rgba(243,238,229,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid #E2DACB;">
+<div class="wrap" style="max-width: 1320px; margin: 0 auto; padding: 12px 40px; display: flex; justify-content: space-between; align-items: center; gap: 24px;">
+<a href="V2.dc.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: #4A453C; min-height: 44px;">← Trang chủ</a>
+<span style="display: flex; align-items: center; gap: 10px;"><img src="./assets/d49f929b000e9d4fcf9d419954969f3c.png" alt="" style="height: 38px; width: auto; display: block;"><span style="font-size: 17px; font-weight: 800; letter-spacing: 2px; color: #D9B85F;">CHẤN MINH</span></span>
+<a href="https://zalo.me/0937700121" style="text-decoration: none; font-size: 14px; font-weight: 600; color: #4A453C; display: flex; align-items: center; gap: 8px; min-height: 44px;">Cần hỗ trợ? <span style="color: #0B0B0C; font-weight: 800;">Zalo 0937 700 121</span></a>
+</div>
+</header>
+
+<!-- FLOW MAP (Mobbin user-flow view) -->
+<section class="wrap" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 28px 40px 8px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;"><span style="font-size: 12px; letter-spacing: 2.5px; font-weight: 800; color: #7A5A14;">LUỒNG ĐẶT MC · {{stepText}}</span><span style="font-size: 13px; color: #5E5850;">{{timeLeft}}</span></div>
+<nav class="g6" aria-label="Các bước đặt MC" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px;">
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="6">
+<button type="button" onClick="{{n.go}}" disabled="{{n.locked}}" aria-current="{{n.current}}" style="text-align: left; display: flex; flex-direction: column; gap: 10px; padding: 0; border: none; background: none; color: #0B0B0C; opacity: {{n.op}};">
+<span style="height: 4px; width: 100%; border-radius: 999px; background: {{n.bar}}; display: block;"></span>
+<span style="display: flex; align-items: center; gap: 10px;"><span style="width: 28px; height: 28px; border-radius: 999px; background: {{n.dotBg}}; color: {{n.dotFg}}; border: 1.5px solid {{n.dotBd}}; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;">{{n.mark}}</span><span style="display: flex; flex-direction: column;"><span style="font-size: 14px; font-weight: 700;">{{n.label}}</span><span style="font-size: 12px; color: #5E5850;">{{n.sub}}</span></span></span>
+</button>
+</sc-for>
+</nav>
+</section>
+
+<main class="wrap" style="max-width: 1320px; width: 100%; margin: 0 auto; padding: 28px 40px 110px; box-sizing: border-box; flex-grow: 1;">
+
+<!-- ================= STEPS 1–5 with summary ================= -->
+<sc-if value="{{withSummary}}" hint-placeholder-val="{{ true }}">
+<div class="g2" style="display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 32px; align-items: start;">
+<div style="display: flex; flex-direction: column; gap: 24px; min-width: 0;">
+
+<!-- STEP 1: SEARCH -->
+<sc-if value="{{s0}}" hint-placeholder-val="{{ true }}">
+<div class="enter" style="display: flex; flex-direction: column; gap: 26px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><h1 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 44px; line-height: 1.12; text-transform: uppercase;">Sự kiện của anh chị <span style="font-style: italic; color: #7A5A14;">diễn ra khi nào?</span></h1><p style="margin: 0; font-size: 17px; color: #4A453C;">Chọn ngày để kiểm tra lịch trống ngay. Chưa cần để lại thông tin.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">LOẠI SỰ KIỆN</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;"><sc-for list="{{evBtns}}" as="b" hint-placeholder-count="5"><button type="button" onClick="{{b.pick}}" aria-pressed="{{b.on}}" style="min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid {{b.bd}}; background: {{b.bg}}; color: {{b.fg}}; font-size: 15px; font-weight: 600;">{{b.label}}</button></sc-for></div></div>
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><label for="q-guests" style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">SỐ KHÁCH *</label><input id="q-guests" type="number" min="1" inputmode="numeric" value="{{guests}}" onInput="{{onGuests}}" placeholder="Ví dụ: 350" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #D6CDBD; font-size: 16px; background: #FFFFFF;"></div>
+<div style="display: flex; flex-direction: column; gap: 10px;"><label for="q-prov" style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">TỈNH / THÀNH PHỐ *</label><select id="q-prov" value="{{prov}}" onChange="{{onProv}}" style="min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1px solid #D6CDBD; font-size: 16px; background: #FFFFFF; color: #0B0B0C;"><option value="">Chọn tỉnh / thành phố</option><optgroup label="Thành phố trực thuộc trung ương"><option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option><option value="Hà Nội">Hà Nội</option><option value="Đà Nẵng">Đà Nẵng</option><option value="Hải Phòng">Hải Phòng</option><option value="Cần Thơ">Cần Thơ</option><option value="Huế">Huế</option></optgroup><optgroup label="Tỉnh"><option value="An Giang">An Giang</option><option value="Bắc Ninh">Bắc Ninh</option><option value="Cà Mau">Cà Mau</option><option value="Cao Bằng">Cao Bằng</option><option value="Đắk Lắk">Đắk Lắk</option><option value="Điện Biên">Điện Biên</option><option value="Đồng Nai">Đồng Nai</option><option value="Đồng Tháp">Đồng Tháp</option><option value="Gia Lai">Gia Lai</option><option value="Hà Tĩnh">Hà Tĩnh</option><option value="Hưng Yên">Hưng Yên</option><option value="Khánh Hòa">Khánh Hòa</option><option value="Lai Châu">Lai Châu</option><option value="Lâm Đồng">Lâm Đồng</option><option value="Lạng Sơn">Lạng Sơn</option><option value="Lào Cai">Lào Cai</option><option value="Nghệ An">Nghệ An</option><option value="Ninh Bình">Ninh Bình</option><option value="Phú Thọ">Phú Thọ</option><option value="Quảng Ngãi">Quảng Ngãi</option><option value="Quảng Ninh">Quảng Ninh</option><option value="Quảng Trị">Quảng Trị</option><option value="Sơn La">Sơn La</option><option value="Tây Ninh">Tây Ninh</option><option value="Thái Nguyên">Thái Nguyên</option><option value="Thanh Hóa">Thanh Hóa</option><option value="Tuyên Quang">Tuyên Quang</option><option value="Vĩnh Long">Vĩnh Long</option></optgroup><option value="Nước ngoài">Nước ngoài</option></select></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">NGÔN NGỮ DẪN</span><div style="display: flex; background: #F4F0E8; border-radius: 999px; padding: 4px;"><sc-for list="{{langBtns}}" as="b" hint-placeholder-count="3"><button type="button" onClick="{{b.pick}}" aria-pressed="{{b.on}}" style="flex-grow: 1; min-height: 44px; border-radius: 999px; border: none; background: {{b.bg}}; color: {{b.fg}}; font-size: 14px; font-weight: 700;">{{b.label}}</button></sc-for></div></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-size: 18px; font-weight: 800;">Tháng 12 / 2026</span><span style="font-size: 14px; color: #4A453C;">Còn <strong style="color: #0B0B0C;">{{freeWeekend}} tối cuối tuần</strong> trống</span></div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; font-size: 13px; font-weight: 700; color: #5E5850; text-align: center;"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px;">
+<sc-for list="{{cells}}" as="d" hint-placeholder-count="35"><button type="button" onClick="{{d.pick}}" disabled="{{d.disabled}}" aria-label="{{d.aria}}" aria-hidden="{{d.hidden}}" style="height: 50px; border-radius: 10px; font-size: 15px; font-weight: 700; background: {{d.bg}}; color: {{d.fg}}; border: {{d.bd}}; box-sizing: border-box; text-decoration: {{d.deco}}; visibility: {{d.vis}};">{{d.n}}</button></sc-for>
+</div>
+<div style="display: flex; gap: 16px; font-size: 13px; color: #4A453C;"><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 4px; background: #E2DACB; display: block;"></span>Đã kín</span><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 4px; border: 2px solid #7A5A14; box-sizing: border-box; display: block;"></span>Cuối tuần còn trống</span><span>[Lịch minh hoạ — nối lịch thật]</span></div>
+<sc-if value="{{hasDate}}" hint-placeholder-val="{{ false }}"><div role="status" style="display: flex; align-items: center; gap: 12px; background: #E8F3EC; color: #1F6B3A; border-radius: 14px; padding: 14px 16px; font-size: 15px; font-weight: 600;"><span style="width: 28px; height: 28px; border-radius: 999px; background: #2F9E5A; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>{{dateLong}} còn trống. Ngày sẽ được giữ tạm 48 giờ khi bạn hoàn tất bước Đăng ký.</div></sc-if>
+</div>
+</div>
+</sc-if>
+
+<!-- STEP 2: QUOTE -->
+<sc-if value="{{s1}}" hint-placeholder-val="{{ false }}">
+<div class="enter" style="display: flex; flex-direction: column; gap: 26px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><h1 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 46px; line-height: 1.1; text-transform: uppercase;">Chọn cách <span style="font-style: italic; color: #7A5A14;">nhận báo giá</span></h1><p style="margin: 0; font-size: 17px; color: #4A453C;">Mỗi chương trình được báo giá riêng. Chấn Minh phản hồi trong 3 giờ.</p></div>
+<div class="g2" role="radiogroup" aria-label="Cách báo giá" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+<sc-for list="{{modeCards}}" as="p" hint-placeholder-count="2">
+<button type="button" role="radio" aria-checked="{{p.on}}" onClick="{{p.pick}}" class="pick" style="text-align: left; display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 20px; border: 2px solid {{p.bd}}; background: {{p.bg}}; color: #0B0B0C;">
+<span style="display: flex; justify-content: space-between; align-items: center;"><span style="font-family: Anton, Oswald, Impact, sans-serif; font-size: 34px; color: #7A5A14;">{{p.n}}</span><span style="width: 22px; height: 22px; border-radius: 999px; border: 2px solid #0B0B0C; display: flex; align-items: center; justify-content: center; box-sizing: border-box;"><span style="width: 10px; height: 10px; border-radius: 999px; background: {{p.dot}}; display: block;"></span></span></span>
+<span style="font-size: 17px; font-weight: 800; letter-spacing: 0.5px;">{{p.title}}</span>
+<span style="font-size: 14px; color: #4A453C; line-height: 1.55;">{{p.desc}}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{isFixed}}" hint-placeholder-val="{{ false }}"><div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 8px;"><label for="q-budget" style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">MỨC NGÂN SÁCH CHO HẠNG MỤC MC (VNĐ) *</label><input id="q-budget" type="text" inputmode="numeric" value="{{budget}}" onInput="{{onBudget}}" placeholder="Ví dụ: 15.000.000" style="min-height: 50px; padding: 0 14px; border-radius: 12px; border: 1px solid {{budgetBd}}; font-size: 16px; background: #FFFFFF;"><span style="font-size: 13px; color: #5E5850;">Chấn Minh sẽ xác nhận hoặc đề xuất phương án phù hợp nhất trong mức này.</span></div></sc-if>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850; padding-bottom: 6px;">HẠNG MỤC CẦN THÊM (NẾU CÓ)</span>
+<sc-for list="{{addonRows}}" as="a" hint-placeholder-count="4">
+<button type="button" role="checkbox" aria-checked="{{a.on}}" onClick="{{a.toggle}}" style="display: flex; align-items: center; gap: 14px; min-height: 60px; padding: 0 6px; border: none; border-top: 1px solid #EAE3D6; background: none; color: #0B0B0C; text-align: left;"><span style="width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid {{a.boxBd}}; background: {{a.boxBg}}; color: #F4F0E8; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">{{a.tick}}</span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">{{a.label}}</span><span style="font-size: 13px; color: #5E5850;">{{a.sub}}</span></span></button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<!-- STEP 3: PERSONALISE with multi-filter -->
+<sc-if value="{{s2}}" hint-placeholder-val="{{ false }}">
+<div class="enter" style="display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px;"><div style="display: flex; flex-direction: column; gap: 10px;"><h1 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 44px; line-height: 1.12; text-transform: uppercase;">Chọn trang phục <span style="font-style: italic; color: #7A5A14;">hợp tone sân khấu.</span></h1><p style="margin: 0; font-size: 17px; color: #4A453C;">Lọc theo màu, độ trang trọng và dịp. Có thể đổi đến 3 ngày trước sự kiện.</p></div><button type="button" onClick="{{skipOutfit}}" style="flex-shrink: 0; min-height: 44px; border: none; background: none; font-size: 14px; font-weight: 700; color: #7A5A14; text-decoration: underline;">Bỏ qua, để Chấn Minh gợi ý</button></div>
+<div style="display: flex; flex-direction: column; gap: 12px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 20px; padding: 18px 20px;">
+<sc-for list="{{oFacets}}" as="g" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;"><span style="width: 130px; font-size: 12px; letter-spacing: 1.5px; font-weight: 800; color: #5E5850;">{{g.label}}</span>
+<sc-for list="{{g.opts}}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.on}}" style="min-height: 40px; padding: 0 14px 0 10px; border-radius: 999px; border: 1px solid {{o.bd}}; background: {{o.bg}}; color: {{o.fg}}; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px;"><span style="width: 16px; height: 16px; border-radius: 999px; background: {{o.sw}}; border: 1px solid #CFC6B6; display: block;"></span>{{o.label}} <span style="opacity: 0.6; font-size: 12px;">{{o.count}}</span></button></sc-for>
+</div>
+</sc-for>
+<div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #EAE3D6; padding-top: 10px; font-size: 13px; color: #5E5850;"><span>{{oCount}}</span><sc-if value="{{oFiltered}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{clearOF}}" style="min-height: 36px; border: none; background: none; padding: 0; font-size: 13px; font-weight: 700; color: #7A5A14; text-decoration: underline;">Xoá bộ lọc</button></sc-if></div>
+</div>
+<div class="g4" role="radiogroup" aria-label="Trang phục" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{oCards}}" as="o" hint-placeholder-count="8">
+<button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="pick" style="text-align: left; padding: 6px; border-radius: 16px; border: 2px solid {{o.bd}}; background: #FFFFFF; color: #0B0B0C; display: flex; flex-direction: column; gap: 8px;">
+<span style="position: relative; display: block; border-radius: 11px; overflow: hidden; height: 210px; background: #E6DFD2;"><img src="{{o.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block;"><sc-if value="{{o.on}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border-radius: 999px; background: #D9B85F; color: #0B0B0C; font-weight: 800; display: flex; align-items: center; justify-content: center;">✓</span></sc-if></span>
+<span style="padding: 0 6px 6px; display: flex; flex-direction: column; gap: 3px;"><span style="font-size: 14px; font-weight: 700; line-height: 1.35;">{{o.label}}</span><span style="font-size: 12px; color: #5E5850;">{{o.meta}}</span></span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{oNone}}" hint-placeholder-val="{{ false }}"><div style="border: 1.5px dashed #CFC6B6; border-radius: 16px; padding: 28px; text-align: center; font-size: 15px; color: #4A453C;">Không có bộ nào khớp cả 3 điều kiện. <button type="button" onClick="{{clearOF}}" style="border: none; background: none; font-size: 15px; font-weight: 700; color: #7A5A14; text-decoration: underline; min-height: 36px;">Xoá bộ lọc</button></div></sc-if>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">MÙI HƯƠNG</span><sc-if value="{{hasSuggest}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #5E5850;">Gợi ý cho bộ đã chọn: <strong style="color: #0B0B0C;">{{suggestLabel}}</strong></span></sc-if></div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;"><sc-for list="{{scentBtns}}" as="sc" hint-placeholder-count="5"><button type="button" onClick="{{sc.pick}}" aria-pressed="{{sc.on}}" style="min-height: 44px; padding: 0 14px 0 10px; border-radius: 999px; border: 1.5px solid {{sc.bd}}; background: {{sc.bg}}; color: #0B0B0C; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px;"><span style="width: 18px; height: 18px; border-radius: 999px; background: {{sc.tone}}; display: block;"></span>{{sc.label}}</button></sc-for></div>
+</div>
+</div>
+</sc-if>
+
+<!-- STEP 4: SIGN-UP (hold date) -->
+<sc-if value="{{s3}}" hint-placeholder-val="{{ false }}">
+<div class="enter" style="display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><h1 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 44px; line-height: 1.12; text-transform: uppercase;">Giữ ngày <span style="font-style: italic; color: #7A5A14;">{{dateShort}}</span> cho bạn.</h1><p style="margin: 0; font-size: 17px; color: #4A453C;">Chỉ 3 thông tin bắt buộc. Tài khoản được tạo tự động để bạn theo dõi show.</p></div>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 16px;">
+<button type="button" onClick="{{zaloLogin}}" style="min-height: 54px; border-radius: 14px; border: none; background: #0068FF; color: #FFFFFF; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px;"><span style="background: #FFFFFF; color: #0068FF; font-size: 11px; font-weight: 800; border-radius: 6px; padding: 3px 6px;">Zalo</span>Điền nhanh bằng Zalo</button>
+<sc-if value="{{zaloNote}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #5E5850; text-align: center;">[Kết nối Zalo Login khi làm website thật — bản demo điền mẫu giúp bạn]</span></sc-if>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 13px; color: #5E5850;"><span style="flex-grow: 1; height: 1px; background: #EAE3D6; display: block;"></span>hoặc điền nhanh<span style="flex-grow: 1; height: 1px; background: #EAE3D6; display: block;"></span></div>
+<div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">QUÝ ANH/CHỊ LIÊN HỆ VỚI TƯ CÁCH *</span>
+<div class="g2" role="radiogroup" aria-label="Tư cách liên hệ" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{roleCards}}" as="r" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{r.on}}" onClick="{{r.pick}}" style="text-align: left; display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 16px; border: 2px solid {{r.bd}}; background: {{r.bg}}; color: #0B0B0C;"><span style="font-size: 14px; font-weight: 800; letter-spacing: 0.5px;">{{r.title}}</span><span style="font-size: 13px; color: #5E5850; line-height: 1.45;">{{r.desc}}</span></button></sc-for>
+</div></div>
+<div class="g2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+<sc-for list="{{orgFields}}" as="fl" hint-placeholder-count="2"><div style="display: flex; flex-direction: column; gap: 8px;"><label for="{{fl.id}}" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">{{fl.label}}</label><input id="{{fl.id}}" type="text" value="{{fl.value}}" onInput="{{fl.onInput}}" placeholder="{{fl.ph}}" style="min-height: 50px; padding: 0 14px; border-radius: 12px; font-size: 16px; background: #FFFFFF; border: 1px solid {{fl.bd}};"></div></sc-for>
+</div>
+<div class="g3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><label for="u-name" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">NGƯỜI LIÊN HỆ *</label><input id="u-name" type="text" autocomplete="name" value="{{u.name}}" onInput="{{u.onName}}" style="min-height: 50px; padding: 0 14px; border-radius: 12px; font-size: 16px; background: #FFFFFF; border: 1px solid {{u.nameBd}};"></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><label for="u-phone" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">ĐIỆN THOẠI / ZALO *</label><input id="u-phone" type="tel" autocomplete="tel" value="{{u.phone}}" onInput="{{u.onPhone}}" style="min-height: 50px; padding: 0 14px; border-radius: 12px; font-size: 16px; background: #FFFFFF; border: 1px solid {{u.phoneBd}};"></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><label for="u-email" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">EMAIL <span style="font-weight: 500; letter-spacing: 0; color: #5E5850;">(không bắt buộc)</span></label><input id="u-email" type="email" autocomplete="email" value="{{u.email}}" onInput="{{u.onEmail}}" style="min-height: 50px; padding: 0 14px; border-radius: 12px; font-size: 16px; background: #FFFFFF; border: 1px solid {{u.emailBd}};"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><label for="u-venue" style="font-size: 12px; font-weight: 800; letter-spacing: 1px;">ĐỊA ĐIỂM CỤ THỂ TẠI {{provUpper}} *</label><input id="u-venue" type="text" value="{{u.venue}}" onInput="{{u.onVenue}}" placeholder="Tên khách sạn, resort, trung tâm hội nghị hoặc địa chỉ" style="min-height: 50px; padding: 0 14px; border-radius: 12px; font-size: 16px; background: #FFFFFF; border: 1px solid {{u.venueBd}};"></div>
+<button type="button" role="checkbox" aria-checked="{{u.agree}}" onClick="{{u.toggleAgree}}" style="display: flex; align-items: flex-start; gap: 12px; border: none; background: none; padding: 4px 0; text-align: left; color: #4A453C; font-size: 14px; line-height: 1.5; min-height: 44px;"><span style="width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid {{u.agreeBd}}; background: {{u.agreeBg}}; color: #F4F0E8; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">{{u.agreeTick}}</span><span>Tôi đồng ý với <span style="text-decoration: underline;">chính sách giữ lịch, đặt cọc và đổi lịch</span> [liên kết chính sách].</span></button>
+<sc-if value="{{u.hasErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 14px; color: #A3361A; font-weight: 700;">{{u.err}}</span></sc-if>
+</div>
+</div>
+</sc-if>
+
+<!-- STEP 5: PAYMENT -->
+<sc-if value="{{s4}}" hint-placeholder-val="{{ false }}">
+<div class="enter" style="display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; flex-direction: column; gap: 10px;"><h1 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 44px; line-height: 1.12; text-transform: uppercase;">Xác nhận <span style="font-style: italic; color: #7A5A14;">theo cách bạn tiện nhất.</span></h1><p style="margin: 0; font-size: 17px; color: #4A453C;">Cần duyệt nội bộ trước? Chọn giữ lịch 48 giờ, chưa cần thanh toán.</p></div>
+<div role="radiogroup" aria-label="Cách xác nhận" style="display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{payOpts}}" as="p" hint-placeholder-count="4">
+<button type="button" role="radio" aria-checked="{{p.on}}" onClick="{{p.pick}}" class="pick" style="display: flex; align-items: center; gap: 16px; text-align: left; padding: 18px 20px; border-radius: 18px; border: 2px solid {{p.bd}}; background: #FFFFFF; color: #0B0B0C;">
+<span style="width: 22px; height: 22px; border-radius: 999px; border: 2px solid #0B0B0C; display: flex; align-items: center; justify-content: center; box-sizing: border-box; flex-shrink: 0;"><span style="width: 10px; height: 10px; border-radius: 999px; background: {{p.dot}}; display: block;"></span></span>
+<span style="display: flex; flex-direction: column; gap: 3px; flex-grow: 1;"><span style="font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 10px;">{{p.label}}<sc-if value="{{p.hasTag}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; font-weight: 800; background: #E8F3EC; color: #1F6B3A; border-radius: 999px; padding: 3px 8px;">{{p.tag}}</span></sc-if></span><span style="font-size: 14px; color: #5E5850;">{{p.sub}}</span></span>
+<span style="font-size: 14px; font-weight: 700; color: #4A453C; flex-shrink: 0;">{{p.amount}}</span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{payBank}}" hint-placeholder-val="{{ false }}">
+<div class="g2" style="display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 22px; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 20px; padding: 20px;">
+<div style="height: 180px; border-radius: 14px; background: #F4F0E8; border: 1.5px dashed #CFC6B6; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 13px; color: #5E5850; font-weight: 600; padding: 12px; box-sizing: border-box;">[Mã VietQR tự sinh theo số tiền cọc]</div>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #EAE3D6; padding-bottom: 8px;"><span style="color: #5E5850;">Ngân hàng</span><span style="font-weight: 700;">[TÊN NGÂN HÀNG]</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #EAE3D6; padding-bottom: 8px;"><span style="color: #5E5850;">Chủ tài khoản</span><span style="font-weight: 700;">[TÊN CHỦ TÀI KHOẢN]</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #EAE3D6; padding-bottom: 8px;"><span style="color: #5E5850;">Số tài khoản</span><span style="font-weight: 700;">[SỐ TÀI KHOẢN]</span></div>
+<div style="display: flex; justify-content: space-between;"><span style="color: #5E5850;">Nội dung</span><span style="font-weight: 800; color: #7A5A14;">{{payRef}}</span></div>
+</div>
+</div>
+</sc-if>
+<div style="display: flex; gap: 14px; align-items: center; background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 16px; padding: 14px 18px; font-size: 14px; color: #4A453C;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F6B3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Cọc được hoàn [100]% nếu Chấn Minh không thể tham gia vì lý do từ phía MC [xác nhận chính sách].</div>
+</div>
+</sc-if>
+
+<!-- STEP NAV -->
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; border-top: 1px solid #E2DACB; padding-top: 22px;">
+<sc-if value="{{canBack}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{back}}" style="min-height: 52px; padding: 0 22px; border-radius: 999px; border: 1.5px solid #0B0B0C; background: transparent; color: #0B0B0C; font-size: 15px; font-weight: 700;">← Quay lại</button></sc-if>
+<sc-if value="{{noBack}}" hint-placeholder-val="{{ true }}"><span style="font-size: 14px; color: #5E5850;">Không cần tài khoản để xem lịch.</span></sc-if>
+<div style="display: flex; align-items: center; gap: 14px;"><sc-if value="{{hasNextHint}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #5E5850;">{{nextHint}}</span></sc-if><button type="button" onClick="{{next}}" style="min-height: 56px; padding: 0 30px; border-radius: 999px; border: none; background: {{nextBg}}; color: {{nextFg}}; font-size: 16px; font-weight: 800;">{{nextLabel}}</button></div>
+</div>
+</div>
+
+<!-- SUMMARY (order summary + trust) -->
+<aside class="stk" aria-label="Tóm tắt show" style="position: sticky; top: 92px; display: flex; flex-direction: column; gap: 14px;">
+<div style="background: #0B0B0C; color: #F4F0E8; border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">TÓM TẮT SHOW</span>
+<sc-for list="{{sumRows}}" as="r" hint-placeholder-count="6"><div style="display: flex; justify-content: space-between; gap: 14px; font-size: 14px; border-bottom: 1px solid #2E2A24; padding-bottom: 10px;"><span style="color: #B9B1A3; flex-shrink: 0;">{{r.k}}</span><span style="font-weight: 700; text-align: right; color: {{r.c}};">{{r.v}}</span></div></sc-for>
+<sc-if value="{{sumHasOutfit}}" hint-placeholder-val="{{ false }}"><div style="display: flex; gap: 12px; align-items: center;"><img src="{{sumOutfitImg}}" alt="" style="width: 54px; height: 68px; border-radius: 10px; object-fit: cover; object-position: center 15%; display: block;"><span style="font-size: 13px; color: #CFC7B9; line-height: 1.4;">{{sumOutfit}}</span></div></sc-if>
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 4px;"><span style="font-size: 14px; color: #B9B1A3;">Tạm tính</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 600;">{{sumTotal}}</span></div>
+<span style="font-size: 12px; color: #8F887B;">Báo giá chi tiết gửi trong 3 giờ.</span>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+<span style="display: flex; gap: 10px; align-items: center;"><span style="color: #1F6B3A; font-weight: 800;">✓</span>Giữ lịch 48 giờ, chưa cần cọc</span>
+<span style="display: flex; gap: 10px; align-items: center;"><span style="color: #1F6B3A; font-weight: 800;">✓</span>Đổi trang phục đến 3 ngày trước show</span>
+<span style="display: flex; gap: 10px; align-items: center;"><span style="color: #1F6B3A; font-weight: 800;">✓</span>Phản hồi trong 3 giờ qua Zalo</span>
+</div>
+<div style="background: #EAE3D6; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 11px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">KHÁCH MỜI LẠI</span>
+<span style="font-size: 15px; font-weight: 700; line-height: 1.45;">GS25 mời lại 3 lần · AgriS 6 lần · PNJ "như người nhà"</span>
+<span style="font-size: 13px; color: #4A453C;">[Thêm 1 câu nhận xét thật của khách kèm tên, chức vụ]</span>
+</div>
+</aside>
+</div>
+</sc-if>
+
+<!-- ================= STEP 6: MY SHOW + SETTINGS ================= -->
+<sc-if value="{{s5}}" hint-placeholder-val="{{ false }}">
+<div class="enter" style="display: flex; flex-direction: column; gap: 26px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;"><div style="display: flex; flex-direction: column; gap: 10px;"><span style="font-size: 13px; letter-spacing: 2px; font-weight: 800; color: #1F6B3A;">{{doneBadge}}</span><h1 class="h2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 44px; line-height: 1.12; text-transform: uppercase;">Xin chào {{firstName}}, <span style="font-style: italic; color: #7A5A14;">đây là show của bạn.</span></h1></div><button type="button" onClick="{{restart}}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid #CFC6B6; background: #FFFFFF; color: #0B0B0C; font-size: 14px; font-weight: 700;">Xem lại luồng từ đầu</button></div>
+<div class="g2" style="display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px; align-items: start;">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<div style="background: #0B0B0C; color: #F4F0E8; border-radius: 24px; padding: 28px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #D9B85F;">{{evLabelUpper}} · {{modeUpper}}</span><span style="font-family: 'Playfair Display', Georgia, serif; font-size: 34px; line-height: 1.15;">{{dateLong}}</span><span style="font-size: 14px; color: #CFC7B9;">{{sizeLabel}} · {{langLabel}} · {{coLine}}</span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 2px; background: #D9B85F; color: #0B0B0C; border-radius: 20px; padding: 16px 22px;"><span style="font-family: Anton, Oswald, Impact, sans-serif; font-size: 56px; line-height: 1;">{{daysLeft}}</span><span style="font-size: 13px; font-weight: 800;">ngày nữa</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850; padding-bottom: 10px;">TIẾN ĐỘ CHUẨN BỊ</span>
+<sc-for list="{{milestones}}" as="m" hint-placeholder-count="6">
+<div style="display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 14px; align-items: start; padding: 10px 0; border-top: 1px solid #F0EAE0;">
+<span style="width: 28px; height: 28px; border-radius: 999px; background: {{m.dotBg}}; color: {{m.dotFg}}; border: 1.5px solid {{m.dotBd}}; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800;">{{m.mark}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">{{m.label}}</span><span style="font-size: 13px; color: #5E5850;">{{m.sub}}</span></span>
+<sc-if value="{{m.hasAction}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{m.act}}" style="min-height: 40px; padding: 0 16px; border-radius: 999px; border: none; background: #0B0B0C; color: #F4F0E8; font-size: 13px; font-weight: 700;">{{m.actLabel}}</button></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850; padding-bottom: 6px;">CÀI ĐẶT THÔNG BÁO</span>
+<sc-for list="{{switches}}" as="t" hint-placeholder-count="3">
+<button type="button" role="switch" aria-checked="{{t.on}}" onClick="{{t.toggle}}" style="display: flex; justify-content: space-between; align-items: center; gap: 14px; width: 100%; min-height: 60px; background: none; border: none; border-bottom: 1px solid #F0EAE0; padding: 0; color: #0B0B0C; text-align: left;"><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">{{t.label}}</span><span style="font-size: 13px; color: #5E5850;">{{t.sub}}</span></span><span style="width: 48px; height: 28px; border-radius: 999px; background: {{t.track}}; position: relative; display: block; flex-shrink: 0; transition: background .2s;"><span style="position: absolute; top: 3px; left: {{t.knob}}; width: 22px; height: 22px; border-radius: 999px; background: #FFFFFF; display: block; transition: left .2s; box-shadow: 0 1px 3px rgba(0,0,0,0.25);"></span></span></button>
+</sc-for>
+<div style="display: flex; justify-content: space-between; align-items: center; min-height: 60px;"><span style="font-size: 15px; font-weight: 700;">Ngôn ngữ giao diện</span><div style="display: flex; background: #F4F0E8; border-radius: 999px; padding: 3px;"><sc-for list="{{uiLangBtns}}" as="b" hint-placeholder-count="2"><button type="button" onClick="{{b.pick}}" aria-pressed="{{b.on}}" style="min-height: 38px; padding: 0 14px; border-radius: 999px; border: none; background: {{b.bg}}; color: {{b.fg}}; font-size: 13px; font-weight: 800;">{{b.label}}</button></sc-for></div></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-size: 12px; letter-spacing: 2px; font-weight: 800; color: #5E5850;">NGƯỜI LIÊN HỆ THỨ HAI</span>
+<label for="c2" style="font-size: 13px; color: #4A453C;">Ví dụ: đạo diễn chương trình hoặc đồng nghiệp phòng HR</label>
+<input id="c2" type="text" value="{{contact2}}" onInput="{{onContact2}}" placeholder="Tên · SĐT" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #D6CDBD; font-size: 15px; background: #FFFFFF;">
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E2DACB; border-radius: 22px; padding: 10px 24px; display: flex; flex-direction: column;">
+<button type="button" onClick="{{goOutfit}}" style="display: flex; justify-content: space-between; align-items: center; min-height: 60px; border: none; border-bottom: 1px solid #F0EAE0; background: none; padding: 0; color: #0B0B0C; font-size: 15px; font-weight: 700; text-align: left;"><span style="display: flex; flex-direction: column; gap: 2px;">Đổi trang phục &amp; mùi hương<span style="font-size: 13px; color: #5E5850; font-weight: 500;">Được đổi đến {{lockDate}}</span></span><span>→</span></button>
+<button type="button" onClick="{{goDate}}" style="display: flex; justify-content: space-between; align-items: center; min-height: 60px; border: none; border-bottom: 1px solid #F0EAE0; background: none; padding: 0; color: #0B0B0C; font-size: 15px; font-weight: 700; text-align: left;"><span style="display: flex; flex-direction: column; gap: 2px;">Đổi ngày sự kiện<span style="font-size: 13px; color: #5E5850; font-weight: 500;">Đổi 1 lần miễn phí nếu ngày mới Chấn Minh chưa có lịch show khác</span></span><span>→</span></button>
+<a href="https://zalo.me/0937700121" style="text-decoration: none; display: flex; justify-content: space-between; align-items: center; min-height: 60px; color: #0B0B0C; font-size: 15px; font-weight: 700;"><span>Nhắn trực tiếp Chấn Minh</span><span>→</span></a>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      step: 0, maxStep: 0,
+      ev: 'yep', guests: '', prov: '', lang: 'vi', day: 0,
+      mode: 'quote', budget: '', addons: {},
+      outfit: '', scent: '', ofColor: [], ofFormal: [], ofOcc: [],
+      role: 'client', co: '', dept: '', agency: '', brand: '', name: '', phone: '', email: '', venue: '', agree: false, err: '', tried: false, zaloNote: false,
+      pay: 'hold', paid: false,
+      notiZalo: true, notiEmail: true, notiRemind: true, uiLang: 'vi', contact2: '', briefSent: false
+    };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var set = function (o) { self.setState(o); };
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+
+    var evs = [['yep', 'Year End Party'], ['gala', 'Gala Dinner'], ['trip', 'Company Trip & Team Building'], ['sport', 'Sport Day'], ['conf', 'Hội nghị & Hội thảo'], ['cere', 'Khai trương & Kỷ niệm']];
+    var langs = [['vi', 'Tiếng Việt'], ['en', 'Tiếng Anh'], ['bi', 'Song ngữ Việt – Anh']];
+    var lbl = function (arr, k) { var r = arr.filter(function (x) { return x[0] === k; })[0]; return r ? r[1] : ''; };
+    var seg = function (arr, key) { return arr.map(function (d) { var on = s[key] === d[0]; return { label: d[1], on: on, bg: on ? '#0B0B0C' : 'transparent', fg: on ? '#D9B85F' : '#0B0B0C', bd: on ? '#0B0B0C' : '#E2DACB', pick: function () { var o = {}; o[key] = d[0]; set(o); } }; }); };
+
+    /* calendar: October 2026 (Oct 1 = Thursday) */
+    var booked = { 2: 1, 3: 1, 9: 1, 10: 1, 16: 1, 17: 1, 21: 1, 24: 1, 25: 1, 31: 1 };
+    var wd = ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy', 'Chủ Nhật'];
+    var lead = 3;
+    var blank = function () { return { n: '', disabled: true, hidden: true, aria: '', bg: 'transparent', fg: 'transparent', bd: 'none', deco: 'none', vis: 'hidden' }; };
+    var cells = []; for (var b0 = 0; b0 < lead; b0++) cells.push(blank());
+    var freeWeekend = 0;
+    for (var d = 1; d <= 31; d++) {
+      (function (d) {
+        var col = (d - 1 + lead) % 7;
+        var weekend = col >= 4;
+        var isB = !!booked[d];
+        if (weekend && !isB) freeWeekend++;
+        var sel = s.day === d;
+        cells.push({ n: String(d), disabled: isB, hidden: false, aria: wd[col] + ' ' + d + '/10' + (isB ? ', đã kín' : ', còn trống'), bg: isB ? '#E2DACB' : (sel ? '#0B0B0C' : '#FFFFFF'), fg: isB ? '#8F887B' : (sel ? '#D9B85F' : '#0B0B0C'), bd: isB ? '1px solid #E2DACB' : (sel ? '2px solid #0B0B0C' : (weekend ? '2px solid #7A5A14' : '1px solid #E2DACB')), deco: isB ? 'line-through' : 'none', vis: 'visible', pick: isB ? undefined : function () { set({ day: d }); } });
+      })(d);
+    }
+    while (cells.length % 7 !== 0) cells.push(blank());
+    var dayCol = s.day ? (s.day - 1 + lead) % 7 : 0;
+    var dateLong = s.day ? wd[dayCol] + ', ' + pad(s.day) + '/10/2026' : '';
+    var dateShort = s.day ? pad(s.day) + '/10' : '';
+
+    /* quote mode + add-ons (no script writing: agency provides the script) */
+    var modeCards = [
+      { id: 'quote', n: '01', title: 'BÁO GIÁ THEO THÔNG TIN SỰ KIỆN', desc: 'Dựa trên loại chương trình, ngày, số khách, địa điểm và ngôn ngữ anh chị đã chọn.' },
+      { id: 'fixed', n: '02', title: 'ĐỀ XUẤT THEO NGÂN SÁCH ẤN ĐỊNH', desc: 'Anh chị đã có mức ngân sách cho MC. Chấn Minh xác nhận hoặc đề xuất phương án phù hợp.' }
+    ].map(function (m) { var on = s.mode === m.id; return { n: m.n, title: m.title, desc: m.desc, on: on, bd: on ? '#0B0B0C' : '#E2DACB', bg: on ? '#FFFFFF' : '#FBF8F3', dot: on ? '#0B0B0C' : 'transparent', pick: function () { set({ mode: m.id }); } }; });
+    var addonDefs = [['rehearsal', 'Tổng duyệt thêm 1 buổi', 'Khi chương trình có nhiều tiết mục, nhiều bên'], ['meeting', 'Họp online thêm với agency', 'Trao đổi kịch bản, khớp cue trước ngày diễn'], ['after', 'Dẫn thêm After-party', 'Giữ nhịp phần tiệc sau chương trình chính'], ['multi', 'Chương trình nhiều ngày', 'Company Trip, hội nghị 2–3 ngày']];
+    var addonRows = addonDefs.map(function (a) { var on = !!s.addons[a[0]]; return { label: a[1], sub: a[2], on: on, tick: on ? '✓' : '', boxBg: on ? '#0B0B0C' : '#FFFFFF', boxBd: on ? '#0B0B0C' : '#CFC6B6', toggle: function () { var x = Object.assign({}, self.state.addons); if (x[a[0]]) delete x[a[0]]; else x[a[0]] = 1; set({ addons: x }); } }; });
+    var addonNames = addonDefs.filter(function (a) { return s.addons[a[0]]; }).map(function (a) { return a[1]; });
+    var modeLabel = s.mode === 'fixed' ? ('Theo ngân sách' + (String(s.budget).trim() ? ': ' + s.budget + ' ₫' : '')) : 'Theo thông tin sự kiện';
+
+    /* outfits with multi-filter */
+    var outfits = [
+      { id: 'v1', label: 'Vest trắng sọc chỉ, cà vạt lavender', img: './assets/6acf1668f358df1d008e583971f7a5f4.jpg', color: 'light', formal: 'high', occ: 'conf', scent: 'citrus' },
+      { id: 'v2', label: 'Vest navy hai hàng khuy, quần trắng', img: './assets/10096cf99d6c7a73afb64556b3dfb85e.jpg', color: 'dark', formal: 'high', occ: 'gala', scent: 'amber' },
+      { id: 'v3', label: 'Vest navy ba mảnh, gi-lê xanh', img: './assets/9db65a2e89d162910adcd1c789400a7f.jpg', color: 'dark', formal: 'high', occ: 'conf', scent: 'wood' },
+      { id: 'v4', label: 'Blazer cam đất, cà vạt vàng', img: './assets/1cd9adf59b441df5d49df9909968789c.jpg', color: 'warm', formal: 'mid', occ: 'conf', scent: 'citrus' },
+      { id: 'v5', label: 'Tuxedo đen, nơ và sơ mi xếp ly', img: './assets/58e8744f6d4a9e9a282e2e3ac3f2548e.jpg', color: 'dark', formal: 'high', occ: 'gala', scent: 'amber' },
+      { id: 'v6', label: 'Vest trắng, sơ mi xanh, cà vạt sọc', img: './assets/0e34d24b9502226a7e1215771f94c4fb.jpg', color: 'light', formal: 'high', occ: 'conf', scent: 'citrus' },
+      { id: 'g1', label: 'Velvet xanh navy, ve satin & ghim rồng', img: './assets/52fd100d82484d3e8dc57509029410d5.jpg', color: 'dark', formal: 'high', occ: 'gala', scent: 'amber' },
+      { id: 'g2', label: 'Áo dài đỏ thêu rồng', img: './assets/492176fc5e34230652c4fdeaeca5ed95.jpg', color: 'warm', formal: 'mid', occ: 'gala', scent: 'floral' },
+      { id: 't1', label: 'Áo khoác đỏ & kính thể thao', img: './assets/93800d05b99d219789595e26ebe59d44.jpg', color: 'warm', formal: 'low', occ: 'out', scent: 'citrus' },
+      { id: 't2', label: 'Áo khoác nâu sọc tay, áo Teamwork', img: './assets/5448e08343f3953f8f1756c5fbc1ab73.jpg', color: 'warm', formal: 'low', occ: 'out', scent: 'citrus' },
+      { id: 't3', label: 'Outdoor – áo gió trắng', img: './assets/000c0aa60dacdbaadf3ea1e7298d1ede.jpg', color: 'light', formal: 'low', occ: 'out', scent: 'citrus' },
+      { id: 't4', label: 'Beach – sơ mi hoạ tiết nhiệt đới', img: './assets/933d33b175520f340192de8a9138754b.jpg', color: 'warm', formal: 'low', occ: 'out', scent: 'citrus' },
+      { id: 't5', label: 'Trekking – balo & gậy leo núi', img: './assets/3de7eaa44ee54e28edfa63a08202e628.jpg', color: 'dark', formal: 'low', occ: 'out', scent: 'none' }
+    ];
+    var colorL = { dark: 'Tông tối', light: 'Tông sáng', warm: 'Ấm & nổi bật' };
+    var colorSw = { dark: '#1F2A44', light: '#EFEBE3', warm: '#C0562A' };
+    var formalL = { high: 'Rất trang trọng', mid: 'Lịch sự, trẻ trung', low: 'Thoải mái, năng động' };
+    var occL = { conf: 'Hội nghị & ban ngày', gala: 'Gala & Year End', out: 'Company Trip & outdoor' };
+    var pass = function (o, skip) {
+      return (skip === 'ofColor' || !s.ofColor.length || s.ofColor.indexOf(o.color) >= 0) && (skip === 'ofFormal' || !s.ofFormal.length || s.ofFormal.indexOf(o.formal) >= 0) && (skip === 'ofOcc' || !s.ofOcc.length || s.ofOcc.indexOf(o.occ) >= 0);
+    };
+    var tog = function (key, v) { var a = self.state[key].slice(); var i = a.indexOf(v); if (i >= 0) a.splice(i, 1); else a.push(v); var o = {}; o[key] = a; set(o); };
+    var facet = function (label, key, field, map, sw) {
+      return { label: label, opts: Object.keys(map).map(function (k) {
+        var on = s[key].indexOf(k) >= 0;
+        var n = outfits.filter(function (o) { return o[field] === k && pass(o, key); }).length;
+        return { label: map[k], count: n, on: on, sw: sw[k], bg: on ? '#0B0B0C' : '#FFFFFF', fg: on ? '#D9B85F' : '#0B0B0C', bd: on ? '#0B0B0C' : '#E2DACB', pick: function () { tog(key, k); } };
+      }) };
+    };
+    var oFacets = [facet('MÀU SẮC', 'ofColor', 'color', colorL, colorSw), facet('ĐỘ TRANG TRỌNG', 'ofFormal', 'formal', formalL, { high: '#0B0B0C', mid: '#8F887B', low: '#E2DACB' }), facet('DỊP', 'ofOcc', 'occ', occL, { conf: '#EFEBE3', gala: '#D9B85F', out: '#3A8FB7' })];
+    var oList = outfits.filter(function (o) { return pass(o, ''); });
+    var oCards = oList.map(function (o) { var on = s.outfit === o.id; return { label: o.label, img: o.img, meta: colorL[o.color] + ' · ' + formalL[o.formal], on: on, bd: on ? '#D9B85F' : '#E2DACB', pick: function () { set({ outfit: on ? '' : o.id, scent: on ? s.scent : (s.scent || o.scent) }); } }; });
+    var oCur = outfits.filter(function (o) { return o.id === s.outfit; })[0];
+    var scents = [['wood', 'Gỗ ấm', '#7A5230'], ['citrus', 'Cam chanh tươi mát', '#D9A441'], ['floral', 'Hương hoa thanh lịch', '#C98A9B'], ['amber', 'Hổ phách sang trọng', '#8C3B1E'], ['none', 'Không dùng nước hoa', '#8F887B']];
+    var scentBtns = scents.map(function (x) { var on = s.scent === x[0]; return { label: x[1], tone: x[2], on: on, bg: on ? '#F4F0E8' : '#FFFFFF', bd: on ? '#0B0B0C' : '#E2DACB', pick: function () { set({ scent: x[0] }); } }; });
+    var scentLabel = s.scent ? lbl(scents, s.scent) : '';
+
+    /* sign-up: client / agency; email optional, everything else required */
+    var digits = String(s.phone).replace(/\D/g, '').length;
+    var emailTxt = String(s.email).trim();
+    var emailBad = !!emailTxt && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTxt);
+    var need4 = [['name', 'người liên hệ', String(s.name).trim().length < 2], ['phone', 'số điện thoại', digits < 9], ['venue', 'địa điểm cụ thể', !String(s.venue).trim()]];
+    if (s.role === 'client') need4.unshift(['co', 'tên doanh nghiệp', !String(s.co).trim()]);
+    else { need4.unshift(['brand', 'khách hàng của agency', !String(s.brand).trim()]); need4.unshift(['agency', 'tên agency', !String(s.agency).trim()]); }
+    var bad = {}; need4.forEach(function (n) { if (n[2]) bad[n[0]] = 1; });
+    var bdOf = function (k) { return s.tried && bad[k] ? '#A3361A' : '#D6CDBD'; };
+    var fld = function (k) { return function (e) { var o = { err: '' }; o[k] = e.target.value; set(o); }; };
+    var roleCards = [
+      { id: 'client', title: 'KHÁCH HÀNG DOANH NGHIỆP (CLIENT)', desc: 'Quý doanh nghiệp trực tiếp tổ chức sự kiện cho nội bộ, khách hàng hoặc đối tác.' },
+      { id: 'agency', title: 'ĐƠN VỊ TỔ CHỨC SỰ KIỆN (AGENCY)', desc: 'Quý agency thay mặt khách hàng tìm MC và phụ trách kịch bản chương trình.' }
+    ].map(function (r) { var on = s.role === r.id; return { title: r.title, desc: r.desc, on: on, bd: on ? '#0B0B0C' : '#E2DACB', bg: on ? '#F4F0E8' : '#FFFFFF', pick: function () { set({ role: r.id, err: '' }); } }; });
+    var orgFields = s.role === 'client'
+      ? [{ id: 'u-co', label: 'TÊN DOANH NGHIỆP *', value: s.co, onInput: fld('co'), ph: 'Công ty tổ chức sự kiện', bd: bdOf('co') }, { id: 'u-dept', label: 'BỘ PHẬN PHỤ TRÁCH', value: s.dept, onInput: fld('dept'), ph: 'Ví dụ: Nhân sự, Marketing', bd: '#D6CDBD' }]
+      : [{ id: 'u-agency', label: 'TÊN AGENCY *', value: s.agency, onInput: fld('agency'), ph: 'Đơn vị tổ chức sự kiện', bd: bdOf('agency') }, { id: 'u-brand', label: 'KHÁCH HÀNG CỦA AGENCY *', value: s.brand, onInput: fld('brand'), ph: 'Thương hiệu tổ chức chương trình', bd: bdOf('brand') }];
+    var u = {
+      name: s.name, phone: s.phone, email: s.email, venue: s.venue,
+      onName: fld('name'), onPhone: fld('phone'), onEmail: fld('email'), onVenue: fld('venue'),
+      nameBd: bdOf('name'), phoneBd: bdOf('phone'), venueBd: bdOf('venue'), emailBd: s.tried && emailBad ? '#A3361A' : '#D6CDBD',
+      agree: s.agree, agreeTick: s.agree ? '✓' : '', agreeBg: s.agree ? '#0B0B0C' : '#FFFFFF', agreeBd: s.agree ? '#0B0B0C' : (s.tried ? '#A3361A' : '#CFC6B6'),
+      toggleAgree: function () { set({ agree: !self.state.agree, err: '' }); },
+      err: s.err, hasErr: !!s.err
+    };
+
+    /* payment */
+    var payDefs = [
+      { id: 'hold', label: 'Giữ lịch 48 giờ, cọc sau', sub: 'Phù hợp khi cần duyệt ngân sách nội bộ', tag: 'Chưa cần thanh toán', amount: '0 ₫' },
+      { id: 'bank', label: 'Chuyển khoản / VietQR', sub: 'Xác nhận khi nhận được cọc [xác nhận]', tag: '', amount: 'Cọc [30]%' },
+      { id: 'card', label: 'Thẻ nội địa / quốc tế', sub: '[Cổng thanh toán: VNPay / OnePay…]', tag: '', amount: 'Cọc [30]%' },
+      { id: 'wallet', label: 'Ví MoMo / ZaloPay', sub: '[Xác nhận ví hỗ trợ]', tag: '', amount: 'Cọc [30]%' }
+    ];
+    var payOpts = payDefs.map(function (p) { var on = s.pay === p.id; return { label: p.label, sub: p.sub, tag: p.tag, hasTag: !!p.tag, amount: p.amount, on: on, bd: on ? '#0B0B0C' : '#E2DACB', dot: on ? '#0B0B0C' : 'transparent', pick: function () { set({ pay: p.id }); } }; });
+    var payRef = 'MC ' + (s.day ? pad(s.day) + '10' : '') + ' ' + (String(s.phone).replace(/\D/g, '').slice(-4) || '[SĐT]');
+
+    /* steps */
+    var labels = ['Tìm kiếm', 'Báo giá', 'Trang phục', 'Đăng ký', 'Đặt cọc', 'Show của tôi'];
+    var subs = ['Ngày & sự kiện', 'Theo thông tin / ngân sách', 'Trang phục & mùi hương', 'Giữ lịch 48 giờ', 'Thanh toán', 'Theo dõi & cài đặt'];
+    var goStep = function (n) { self.setState({ step: n, maxStep: Math.max(self.state.maxStep, n), err: '' }); if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo({ top: 0, behavior: 'smooth' }); };
+    var nodes = labels.map(function (l, i) {
+      var cur = i === s.step, done = i < s.step || (i <= s.maxStep && i !== s.step), locked = i > s.maxStep;
+      return { label: l.toUpperCase(), sub: subs[i], current: cur ? 'step' : 'false', locked: locked, op: locked ? 0.45 : 1, mark: (done && !cur) ? '✓' : String(i + 1), bar: cur ? '#D9B85F' : (done ? '#0B0B0C' : '#E2DACB'), dotBg: cur ? '#D9B85F' : (done ? '#0B0B0C' : '#FFFFFF'), dotFg: cur ? '#0B0B0C' : (done ? '#D9B85F' : '#5E5850'), dotBd: cur ? '#D9B85F' : (done ? '#0B0B0C' : '#CFC6B6'), go: function () { if (!locked) goStep(i); } };
+    });
+    var step0Ok = !!s.day && Number(s.guests) > 0 && !!s.prov;
+    var step1Ok = s.mode === 'quote' || !!String(s.budget).trim();
+    var ready = [step0Ok, step1Ok, true, true, true, true][s.step];
+    var hints = ['Chọn ngày trống, nhập số khách và tỉnh/thành để tiếp tục', 'Nhập mức ngân sách để tiếp tục', '', '', '', ''];
+    var nextLabels = ['TIẾP TỤC: BÁO GIÁ →', 'TIẾP TỤC: TRANG PHỤC →', s.outfit ? 'TIẾP TỤC: GIỮ LỊCH →' : 'TIẾP TỤC (CHỌN SAU) →', 'GIỮ NGÀY ' + dateShort + ' →', s.pay === 'hold' ? 'GIỮ LỊCH 48 GIỜ' : (s.pay === 'bank' ? 'TÔI ĐÃ CHUYỂN KHOẢN' : 'THANH TOÁN CỌC')];
+    var next = function () {
+      var st = self.state;
+      if (st.step === 0 && !step0Ok) return;
+      if (st.step === 1 && !step1Ok) return;
+      if (st.step === 3) {
+        var miss = need4.filter(function (n) { return n[2]; }).map(function (n) { return n[1]; });
+        if (miss.length) { set({ tried: true, err: 'Vui lòng bổ sung: ' + miss.join(', ') + '.' }); return; }
+        if (emailBad) { set({ tried: true, err: 'Email chưa đúng định dạng (có thể để trống).' }); return; }
+        if (!st.agree) { set({ tried: true, err: 'Vui lòng đồng ý chính sách giữ lịch để tiếp tục.' }); return; }
+      }
+      if (st.step === 4) { self.setState({ paid: st.pay !== 'hold' }); }
+      goStep(st.step + 1);
+    };
+
+    var sumRows = [
+      { k: 'Chương trình', v: lbl(evs, s.ev), c: '#F4F0E8' },
+      { k: 'Ngày', v: s.day ? dateLong : 'Chưa chọn', c: s.day ? '#F4F0E8' : '#8F887B' },
+      { k: 'Số khách', v: Number(s.guests) > 0 ? s.guests + ' khách' : 'Chưa nhập', c: Number(s.guests) > 0 ? '#F4F0E8' : '#8F887B' },
+      { k: 'Tỉnh/thành', v: s.prov || 'Chưa chọn', c: s.prov ? '#F4F0E8' : '#8F887B' },
+      { k: 'Ngôn ngữ', v: lbl(langs, s.lang), c: '#F4F0E8' },
+      { k: 'Báo giá', v: modeLabel, c: '#D9B85F' },
+      { k: 'Hạng mục thêm', v: addonNames.length ? addonNames.length + ' mục' : 'Không', c: '#F4F0E8' },
+      { k: 'Mùi hương', v: scentLabel || 'Chưa chọn', c: scentLabel ? '#F4F0E8' : '#8F887B' }
+    ];
+
+    var daysLeft = 0;
+    if (s.day) { var t0 = new Date(); t0.setHours(0, 0, 0, 0); daysLeft = Math.max(0, Math.round((new Date(2026, 9, s.day) - t0) / 86400000)); }
+    var lockDate = s.day ? pad(Math.max(1, s.day - 3)) + '/10/2026' : '';
+    var ms = [
+      { label: 'Đã giữ lịch', sub: 'Tạm giữ ' + dateShort + ' trong 48 giờ', st: 'done' },
+      { label: 'Báo giá', sub: s.mode === 'fixed' ? 'Chấn Minh phản hồi đề xuất theo ngân sách trong 3 giờ' : 'Báo giá chi tiết gửi trong 3 giờ', st: 'done' },
+      { label: s.paid ? 'Đã đặt cọc' : 'Đặt cọc', sub: s.paid ? 'Đang xác nhận giao dịch' : 'Hoàn tất trong 48 giờ để giữ ngày chính thức', st: s.paid ? 'done' : 'todo', action: s.paid ? null : ['Đặt cọc ngay', function () { set({ pay: 'bank' }); goStep(4); }] },
+      { label: 'Gửi kịch bản & brief', sub: s.briefSent ? 'Đã gửi · Chấn Minh sẽ góp ý lời dẫn trong 3 giờ' : 'Agency/ban tổ chức gửi kịch bản, agenda, danh sách khách mời quan trọng', st: s.briefSent ? 'done' : 'todo', action: s.briefSent ? null : ['Gửi kịch bản', function () { set({ briefSent: true }); }] },
+      { label: 'Chốt trang phục & mùi hương', sub: (oCur ? oCur.label : 'Chưa chọn') + ' · đổi được đến ' + lockDate, st: oCur ? 'done' : 'next' },
+      { label: 'Tổng duyệt & ngày diễn', sub: dateLong + (s.venue ? ' · ' + s.venue : '') + (s.prov ? ', ' + s.prov : ''), st: 'next' }
+    ];
+    var milestones = ms.map(function (m, i) {
+      var done = m.st === 'done', todo = m.st === 'todo';
+      return { label: m.label, sub: m.sub, mark: done ? '✓' : String(i + 1), dotBg: done ? '#2F9E5A' : (todo ? '#D9B85F' : '#FFFFFF'), dotFg: done ? '#FFFFFF' : (todo ? '#0B0B0C' : '#5E5850'), dotBd: done ? '#2F9E5A' : (todo ? '#D9B85F' : '#CFC6B6'), hasAction: !!m.action, actLabel: m.action ? m.action[0] : '', act: m.action ? m.action[1] : undefined };
+    });
+    var sw = function (key, label, sub) { var on = !!s[key]; return { label: label, sub: sub, on: on, track: on ? '#2F9E5A' : '#CFC6B6', knob: on ? '23px' : '3px', toggle: function () { var o = {}; o[key] = !self.state[key]; set(o); } }; };
+
+    return {
+      stepText: 'BƯỚC ' + (s.step + 1) + ' / 6',
+      timeLeft: s.step < 5 ? 'Còn khoảng ' + Math.max(1, 3 - Math.floor(s.step / 2)) + ' phút' : 'Hoàn tất',
+      nodes: nodes,
+      withSummary: s.step < 5,
+      s0: s.step === 0, s1: s.step === 1, s2: s.step === 2, s3: s.step === 3, s4: s.step === 4, s5: s.step === 5,
+      evBtns: seg(evs, 'ev'), langBtns: seg(langs, 'lang'),
+      guests: s.guests, onGuests: function (e) { set({ guests: e.target.value }); },
+      prov: s.prov, onProv: function (e) { set({ prov: e.target.value }); }, provUpper: (s.prov || 'tỉnh/thành đã chọn').toUpperCase(),
+      cells: cells, freeWeekend: freeWeekend, hasDate: !!s.day, dateLong: dateLong, dateShort: dateShort,
+      modeCards: modeCards, isFixed: s.mode === 'fixed', budget: s.budget, onBudget: function (e) { set({ budget: e.target.value }); }, budgetBd: String(s.budget).trim() ? '#D6CDBD' : '#7A5A14',
+      addonRows: addonRows,
+      oFacets: oFacets, oCards: oCards, oNone: oList.length === 0,
+      oCount: oList.length + ' / ' + outfits.length + ' bộ phù hợp',
+      oFiltered: (s.ofColor.length + s.ofFormal.length + s.ofOcc.length) > 0,
+      clearOF: function () { set({ ofColor: [], ofFormal: [], ofOcc: [] }); },
+      skipOutfit: function () { set({ outfit: '' }); goStep(3); },
+      scentBtns: scentBtns, hasSuggest: !!oCur, suggestLabel: oCur ? lbl(scents, oCur.scent) : '',
+      roleCards: roleCards, orgFields: orgFields, u: u,
+      zaloNote: s.zaloNote,
+      zaloLogin: function () { set({ zaloNote: true, name: self.state.name || '[Tên từ Zalo]', phone: self.state.phone || '0900 000 000', err: '' }); },
+      payOpts: payOpts, payBank: s.pay === 'bank', payRef: payRef,
+      canBack: s.step > 0, noBack: s.step === 0,
+      back: function () { goStep(Math.max(0, s.step - 1)); },
+      next: next, nextLabel: nextLabels[s.step] || '',
+      nextBg: ready ? '#0B0B0C' : '#E2DACB', nextFg: ready ? '#D9B85F' : '#5E5850',
+      hasNextHint: !ready, nextHint: hints[s.step],
+      sumRows: sumRows, sumHasOutfit: !!oCur, sumOutfit: oCur ? oCur.label : '', sumOutfitImg: oCur ? oCur.img : '',
+      sumTotal: s.mode === 'fixed' ? (String(s.budget).trim() ? s.budget + ' ₫' : '[Ngân sách]') : 'Báo giá trong 3 giờ',
+
+      doneBadge: s.paid ? '✓ ĐÃ GIỮ LỊCH · ĐANG XÁC NHẬN CỌC' : '✓ ĐÃ GIỮ LỊCH 48 GIỜ',
+      firstName: String(s.name).trim().split(/\s+/).slice(-1)[0] || 'anh chị',
+      evLabelUpper: lbl(evs, s.ev).toUpperCase(), modeUpper: modeLabel.toUpperCase(),
+      sizeLabel: (Number(s.guests) > 0 ? s.guests : '[số]') + ' khách', langLabel: lbl(langs, s.lang), coLine: (s.role === 'agency' ? (s.agency || 'Agency') + (s.brand ? ' × ' + s.brand : '') : (s.co || 'Doanh nghiệp')),
+      daysLeft: daysLeft, lockDate: lockDate, milestones: milestones,
+      switches: [sw('notiZalo', 'Nhắn qua Zalo', 'Lịch họp, cue sân khấu, lịch tổng duyệt'), sw('notiEmail', 'Email', 'Xác nhận, báo giá, hoá đơn'), sw('notiRemind', 'Nhắc trước 3 ngày', 'Hạn chốt trang phục và thông tin khách mời')],
+      uiLangBtns: [['vi', 'VI'], ['en', 'EN']].map(function (d) { var on = s.uiLang === d[0]; return { label: d[1], on: on, bg: on ? '#0B0B0C' : 'transparent', fg: on ? '#D9B85F' : '#0B0B0C', pick: function () { set({ uiLang: d[0] }); } }; }),
+      contact2: s.contact2, onContact2: function (e) { set({ contact2: e.target.value }); },
+      goOutfit: function () { goStep(2); }, goDate: function () { goStep(0); },
+      restart: function () { self.setState({ step: 0 }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

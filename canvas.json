@@ -1,0 +1,88 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 276,
+      "y": 5,
+      "w": 1522,
+      "h": 8000,
+      "title": "Trang chủ – Desktop",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    {
+      "file": "V2.dc.html",
+      "x": 1878,
+      "y": 5,
+      "w": 1440,
+      "h": 8000,
+      "title": "V2 – Trang chủ tối ưu",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    {
+      "file": "Flow.dc.html",
+      "x": 3398,
+      "y": 5,
+      "w": 1440,
+      "h": 1600,
+      "title": "Luồng đặt MC – Tìm kiếm → Cài đặt",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    {
+      "file": "Hub.dc.html",
+      "x": 4918,
+      "y": 5,
+      "w": 1440,
+      "h": 6400,
+      "title": "Hub – Kiến thức, livestream, lớp học",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    {
+      "file": "V3.dc.html",
+      "x": 6438,
+      "y": 5,
+      "w": 1440,
+      "h": 8000,
+      "title": "V3 – Kết hợp V1 + V2",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    {
+      "file": "V4.dc.html",
+      "x": 7958,
+      "y": 5,
+      "w": 1440,
+      "h": 8000,
+      "title": "V4 – Bản hoàn chỉnh",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    {
+      "file": "V5.dc.html",
+      "x": 9478,
+      "y": 5,
+      "w": 1440,
+      "h": 8000,
+      "title": "V5 – V2 chỉnh sửa (font V4, trang phục 3 concept)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    {
+      "file": "V6.dc.html",
+      "x": 11000,
+      "y": 5,
+      "w": 1440,
+      "h": 8000,
+      "title": "V6 – Trắng đen Montserrat (bản triển khai)",
+      "expand": "fill",
+      "is_interactive": true
+    }
+  ],
+  "launch": {
+    "view": "focused",
+    "file": "V6.dc.html"
+  }
+}

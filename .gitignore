@@ -1,0 +1,5 @@
+.DS_Store
+.playwright-cli/
+_v6_ref/
+assets/drive-*.mp4
+!assets/drive-betrimex-rung-chuong-dua.mp4
