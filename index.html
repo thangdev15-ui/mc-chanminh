@@ -12,6 +12,7 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="./assets/d49f929b000e9d4fcf9d419954969f3c.png"><link rel="apple-touch-icon" href="./assets/d49f929b000e9d4fcf9d419954969f3c.png">
 <style>
 body{margin:0;background:#0A0A0A;font-family:"Montserrat",system-ui,sans-serif;color:#FFFFFF}
 a{color:#FFFFFF}a:hover{color:#FFFFFF}
@@ -1004,12 +1005,8 @@ class Component extends DCLogic {
   verifiedReviews(target) {
     var self = this, s = this.state;
     var set = function (o) { self.setState(o); };
-    /* Đánh giá đã duyệt (mẫu): thay bằng đánh giá thật của khách sau khi Chấn Minh duyệt */
-    var approved = (s.reviews[target + ':ok'] || []).concat([
-      { stars: 5, date: '2026-10-20', text: '[Đánh giá mẫu: nội dung thật của khách sẽ hiển thị tại đây sau khi được duyệt.]', name: '[Tên khách]', co: '[Công ty]' },
-      { stars: 5, date: '2026-09-02', text: '[Đánh giá mẫu 2]', name: '[Tên khách]', co: '[Công ty]' },
-      { stars: 4, date: '2026-07-15', text: '[Đánh giá mẫu 3]', name: '[Tên khách]', co: '[Công ty]' }
-    ]);
+    /* Chỉ hiển thị đánh giá thật đã được duyệt; không dùng dữ liệu mẫu trên website. */
+    var approved = (s.reviews[target + ':ok'] || []).slice();
     approved = approved.slice().sort(function (a, b) { return String(b.date || '').localeCompare(String(a.date || '')); });
     var showAll = !!(s.rvAll || {})[target];
     var sum = 0; approved.forEach(function (r) { sum += r.stars; });
@@ -1025,9 +1022,9 @@ class Component extends DCLogic {
     var lost = !!got && PZ.some(function (z) { return z.lose && z.full === got; });
     var wheelBg = 'conic-gradient(' + PZ.map(function (z, i) { return (i % 2 ? '#0A0A0A' : '#FFFFFF') + ' ' + (i * segA) + 'deg ' + ((i + 1) * segA) + 'deg'; }).join(', ') + ')';
     return {
-      summary: (sum / approved.length).toFixed(1) + ' / 5 ★ · ' + approved.length + ' đánh giá',
-      list: (showAll ? approved : approved.slice(0, 2)).map(function (r) { var nm = r.name || 'Khách hàng'; var cols = ['#0A0A0A', '#5E5E5E', '#0A0A0A', '#5E5E5E']; return { stars: '★★★★★'.slice(0, r.stars) + '☆☆☆☆☆'.slice(0, 5 - r.stars), text: r.text, name: nm, date: r.date ? r.date.split('-').reverse().join('/') : '', co: r.co ? 'Đến từ ' + r.co : '', init: nm.replace(/[\[\]]/g, '').trim().charAt(0).toUpperCase() || 'K', avBg: cols[nm.length % 4] }; }),
-      more: approved.length > 2, moreLabel: showAll ? 'Thu gọn ↑' : 'Xem tất cả ' + approved.length + ' đánh giá ↓',
+      summary: approved.length ? ((sum / approved.length).toFixed(1) + ' / 5 ★ · ' + approved.length + ' đánh giá') : 'Chưa có đánh giá',
+      list: (showAll ? approved : []).map(function (r) { var nm = r.name || 'Khách hàng'; var cols = ['#0A0A0A', '#5E5E5E', '#0A0A0A', '#5E5E5E']; return { stars: '★★★★★'.slice(0, r.stars) + '☆☆☆☆☆'.slice(0, 5 - r.stars), text: r.text, name: nm, date: r.date ? r.date.split('-').reverse().join('/') : '', co: r.co ? 'Đến từ ' + r.co : '', init: nm.replace(/[\[\]]/g, '').trim().charAt(0).toUpperCase() || 'K', avBg: cols[nm.length % 4] }; }),
+      more: approved.length > 0, moreLabel: showAll ? 'Thu gọn ↑' : 'Xem các đánh giá ↓',
       toggleAll: function () { var A = Object.assign({}, self.state.rvAll); A[target] = !A[target]; set({ rvAll: A }); },
       guest: !user, canWrite: !!user && !done, done: done,
       name: user || '',
