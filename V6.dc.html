@@ -7,6 +7,7 @@
 <script src="./_runtime/v6-react.js"></script>
 <script src="./_runtime/v6-react-dom.js"></script>
 <script src="./_runtime/v6-support.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 <x-dc>
@@ -1036,7 +1037,19 @@ class Component extends DCLogic {
       toggleAll: function () { var A = Object.assign({}, self.state.rvAll); A[target] = !A[target]; set({ rvAll: A }); },
       guest: !user, canWrite: !!user && !done, done: done,
       name: user || '',
-      loginGoogle: function () { set({ rvUser: 'google', rvP: '', rvN: '', rvE: '' }); },
+      loginGoogle: function () {
+        var finish = function (response) {
+          try {
+            var token = String(response.credential || '').split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+            var json = decodeURIComponent(atob(token).split('').map(function (c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join(''));
+            var profile = JSON.parse(json);
+            set({ rvUser: 'google', rvP: profile.email || '', rvN: profile.name || 'Khách Google', rvE: '', rvAvatar: profile.picture || '' });
+          } catch (err) { set({ rvE: 'Không đọc được tài khoản Google. Vui lòng thử lại.' }); }
+        };
+        if (!window.google || !window.google.accounts || !window.google.accounts.id) { set({ rvE: 'Google chưa sẵn sàng. Vui lòng thử lại sau vài giây.' }); return; }
+        window.google.accounts.id.initialize({ client_id: '623858802555-n9li7p6n8tdeta070gk21eu8bf76ammf.apps.googleusercontent.com', callback: finish, ux_mode: 'popup' });
+        window.google.accounts.id.prompt();
+      },
       dname: s.rvN || '', onName: function (e) { set({ rvN: e.target.value, rvE: '' }); },
       phoneMask: (function (d) { return d.length >= 3 ? '•••• ••• ' + d.slice(-3) : ''; })(String(s.rvP || '').replace(/\D/g, '')),
       phone: s.rvP || '', onPhone: function (e) { set({ rvP: e.target.value, rvE: '' }); },
@@ -1045,7 +1058,7 @@ class Component extends DCLogic {
       starBtns: [1, 2, 3, 4, 5].map(function (n) { return { aria: n + ' sao', color: n <= stars ? '#FFFFFF' : '#5E5E5E', pick: function () { set({ rvS: n, rvE: '' }); } }; }),
       text: s.rvX || '', onText: function (e) { set({ rvX: e.target.value, rvE: '' }); },
       err: s.rvE || '', hasErr: !!s.rvE,
-      submit: function () { var txt = String(self.state.rvX || '').trim(), st = self.state.rvS || 0; if (!/^0\d{9}$/.test(String(self.state.rvP || '').replace(/\D/g, ''))) { set({ rvE: 'Nhập số điện thoại Zalo gồm 10 số để xác thực nhé.' }); return; } if (!String(self.state.rvN || '').trim() || !String(self.state.rvC || '').trim()) { set({ rvE: 'Nhập tên và công ty nhé.' }); return; } if (!st || !txt) { set({ rvE: 'Chọn số sao và viết vài dòng cảm nhận nhé.' }); return; } var d = Object.assign({}, self.state.rvDone); d[target] = true; set({ rvDone: d, rvS: 0, rvX: '' }); },
+      submit: function () { var txt = String(self.state.rvX || '').trim(), st = self.state.rvS || 0; if (self.state.rvUser !== 'google' && !/^0\d{9}$/.test(String(self.state.rvP || '').replace(/\D/g, ''))) { set({ rvE: 'Đăng nhập Google để xác thực trước khi gửi đánh giá nhé.' }); return; } if (!String(self.state.rvN || '').trim() || !String(self.state.rvC || '').trim()) { set({ rvE: 'Nhập tên và công ty nhé.' }); return; } if (!st || !txt) { set({ rvE: 'Chọn số sao và viết vài dòng cảm nhận nhé.' }); return; } var d = Object.assign({}, self.state.rvDone); d[target] = true; set({ rvDone: d, rvS: 0, rvX: '' }); },
       canSpin: done && !got && !spinning && left > 0,
       noLeft: done && !got && !spinning && left === 0,
       noLeftText: used.length ? 'Đã hết lượt quay · mở lại từ ' + dmy(Math.min.apply(null, used) + SPIN_DAYS * DAY) + '. Đánh giá vẫn được ghi nhận.' : '',
